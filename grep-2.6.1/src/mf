@@ -1,0 +1,15 @@
+CC = icc
+#CFLAGS =-DSTREAM_ARRAY_SIZE=4000000 -O3 -mcmodel=medium
+#CFLAGS =-DSTREAM_ARRAY_SIZE=400000000 -O3 -mcmodel=medium
+PARSE=cparse
+INSTRUMENT=tau_instrumentor
+
+all: dfa.exe
+
+dfa.exe: dfa.c
+	$(PARSE) dfa.c
+	$(INSTRUMENT) dfa.pdb dfa.c -l -o dfa.tau.c -c -spec ./TAUINST.SPEC
+	$(CC) $(CFLAGS) dfa.tau.c -o dfa
+
+clean:
+	rm -f dfa *.o dfa.pdb dfa.tau.c
