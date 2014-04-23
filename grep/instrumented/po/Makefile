@@ -14,7 +14,7 @@
 GETTEXT_MACRO_VERSION = 0.17
 
 PACKAGE = grep
-VERSION = 2.6.1
+VERSION = 2.6.1-dirty
 PACKAGE_BUGREPORT = bug-grep@gnu.org
 
 SHELL = /bin/sh
@@ -24,7 +24,7 @@ srcdir = .
 top_srcdir = ..
 
 
-prefix = /usr/local
+prefix = /home/test/Builds/apps1/prof_apps/grep/instrumented/bin
 exec_prefix = ${prefix}
 datarootdir = ${prefix}/share
 datadir = ${datarootdir}
@@ -37,12 +37,12 @@ INSTALL_DATA = ${INSTALL} -m 644
 # We use $(mkdir_p).
 # In automake <= 1.9.x, $(mkdir_p) is defined either as "mkdir -p --" or as
 # "$(mkinstalldirs)" or as "$(install_sh) -d". For these automake versions,
-# ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/install-sh does not start with $(SHELL), so we add it.
+# ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/install-sh does not start with $(SHELL), so we add it.
 # In automake >= 1.10, /bin/mkdir -p is derived from ${MKDIR_P}, which is defined
 # either as "/path/to/mkdir -p" or ".../install-sh -c -d". For these automake
 # versions, $(mkinstalldirs) and $(install_sh) are unused.
-mkinstalldirs = $(SHELL) ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/install-sh -d
-install_sh = $(SHELL) ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/install-sh
+mkinstalldirs = $(SHELL) ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/install-sh -d
+install_sh = $(SHELL) ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/install-sh
 MKDIR_P = /bin/mkdir -p
 mkdir_p = /bin/mkdir -p
 
@@ -234,7 +234,7 @@ $(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
 	      --files-from=$(srcdir)/POTFILES.in \
 	      --copyright-holder='$(COPYRIGHT_HOLDER)' \
 	      --package-name="$${package_gnu}grep" \
-	      --package-version='2.6.1' \
+	      --package-version='2.6.1-dirty' \
 	      --msgid-bugs-address="$$msgid_bugs_address" \
 	    ;; \
 	esac

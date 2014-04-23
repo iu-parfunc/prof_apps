@@ -16,6 +16,7 @@
    Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA
    02110-1301, USA.  */
 
+/*
    This file includes the setup for the file access block for VMS.
    Written by Phillip C. Brisco 8/98.
  */

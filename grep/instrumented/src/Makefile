@@ -152,7 +152,7 @@ fgrep_DEPENDENCIES = libgrep.a ../lib/libgreputils.a \
 	$(am__DEPENDENCIES_1) ../lib/libgreputils.a
 am_grep_OBJECTS = grep.$(OBJEXT)
 grep_OBJECTS = $(am_grep_OBJECTS)
-am__DEPENDENCIES_2 = ../lib/libzcatoggle.a ../libdynprof.a libgrep.a ../lib/libgreputils.a \
+am__DEPENDENCIES_2 = libgrep.a ../lib/libgreputils.a \
 	$(am__DEPENDENCIES_1) ../lib/libgreputils.a
 grep_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
@@ -160,7 +160,7 @@ depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -lelf -lpthread
+	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) 
 AM_V_CC = $(am__v_CC_$(V))
 am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
 am__v_CC_0 = @echo "  CC      " $@;
@@ -180,26 +180,26 @@ HEADERS = $(noinst_HEADERS)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/missing --run aclocal-1.11a
+ACLOCAL = ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/missing --run aclocal-1.11a
 ALLOCA = 
 ALLOCA_H = alloca.h
-AMTAR = ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/missing --run tar
+AMTAR = ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/missing --run tar
 AM_DEFAULT_VERBOSITY = 0
 APPLE_UNIVERSAL_BUILD = 0
-AUTOCONF = ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/missing --run automake-1.11a
+AUTOCONF = ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/missing --run automake-1.11a
 AWK = mawk
 BITSIZEOF_PTRDIFF_T = 
 BITSIZEOF_SIG_ATOMIC_T = 
 BITSIZEOF_SIZE_T = 
 BITSIZEOF_WCHAR_T = 
 BITSIZEOF_WINT_T = 
-CC = icpc
+CC = icc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2
+CFLAGS = -g -O2 -L../lib/ #-lzca-toggle -ldynprof
 CONFIG_INCLUDE = config.h
-CPP = gcc -E
+CPP = icc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
@@ -506,7 +506,7 @@ LIBGREPUTILS_LTLIBDEPS =
 LIBICONV = -liconv
 LIBINTL = 
 LIBOBJS = 
-LIBS = 
+LIBS = -lelf -lpthread -lzca-toggle -ldynprof 
 LIBTESTS_LIBDEPS = 
 LOCALCHARSET_TESTS_ENVIRONMENT = CHARSETALIASDIR="$(top_builddir)/lib"
 LOCALE_FR = none
@@ -517,7 +517,7 @@ LOCALE_ZH_CN = none
 LTLIBICONV = -liconv
 LTLIBINTL = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 MSGFMT = :
 MSGFMT_015 = :
@@ -558,10 +558,10 @@ OBJEXT = o
 PACKAGE = grep
 PACKAGE_BUGREPORT = bug-grep@gnu.org
 PACKAGE_NAME = GNU grep
-PACKAGE_STRING = GNU grep 2.6.1
+PACKAGE_STRING = GNU grep 2.6.1-dirty
 PACKAGE_TARNAME = grep
 PACKAGE_URL = http://www.gnu.org/software/grep/
-PACKAGE_VERSION = 2.6.1
+PACKAGE_VERSION = 2.6.1-dirty
 PATH_SEPARATOR = :
 PCRE_CFLAGS = 
 PCRE_LIBS = 
@@ -662,7 +662,7 @@ UNDEFINE_STRTOK_R = 0
 UNISTD_H_HAVE_WINSOCK2_H = 0
 UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS = 0
 USE_NLS = yes
-VERSION = 2.6.1
+VERSION = 2.6.1-dirty
 WARN_CFLAGS = 
 WCHAR_T_SUFFIX = 
 WERROR_CFLAGS = 
@@ -670,12 +670,12 @@ WINT_T_SUFFIX =
 XGETTEXT = :
 XGETTEXT_015 = :
 XGETTEXT_EXTRA_OPTIONS =  --flag=error:3:c-format --flag=error_at_line:5:c-format
-abs_aux_dir = /home/test/Downloads/grep-2.6.1/build-aux
-abs_builddir = /home/test/Downloads/grep-2.6.1/src
-abs_srcdir = /home/test/Downloads/grep-2.6.1/src
-abs_top_builddir = /home/test/Downloads/grep-2.6.1
-abs_top_srcdir = /home/test/Downloads/grep-2.6.1
-ac_ct_CC = gcc
+abs_aux_dir = /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux
+abs_builddir = /home/test/Builds/apps1/prof_apps/grep/instrumented/src
+abs_srcdir = /home/test/Builds/apps1/prof_apps/grep/instrumented/src
+abs_top_builddir = /home/test/Builds/apps1/prof_apps/grep/instrumented
+abs_top_srcdir = /home/test/Builds/apps1/prof_apps/grep/instrumented
+ac_ct_CC = icc
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -705,7 +705,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/test/Downloads/grep-2.6.1/build-aux/install-sh
+install_sh = ${SHELL} /home/test/Builds/apps1/prof_apps/grep/instrumented/build-aux/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = $(datadir)/locale
@@ -714,7 +714,7 @@ mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
 pdfdir = ${docdir}
-prefix = /usr/local
+prefix = /home/test/Builds/apps1/prof_apps/grep/instrumented/bin
 program_transform_name = s,x,x,
 psdir = ${docdir}
 sbindir = ${exec_prefix}/sbin
@@ -811,7 +811,7 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 	    test -z "$$files" || { \
 	      echo " $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(bindir)$$dir'"; \
 	      $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(bindir)$$dir" || exit $$?; \
-	    } e
+	    } \
 	; done
 
 uninstall-binPROGRAMS:

@@ -25,7 +25,7 @@ grep
 
 `grep' prints lines that match a pattern.
 
-   This manual is for version 2.6.1 of GNU Grep.
+   This manual is for version 2.6.1-dirty of GNU Grep.
 
    This manual is for `grep', a pattern matching engine.
 
@@ -2150,30 +2150,30 @@ Index
 
 Tag Table:
 Node: Top764
-Node: Introduction1866
-Node: Invoking2598
-Node: Command-line Options3343
-Node: Generic Program Information4220
-Node: Matching Control4679
-Node: General Output Control6128
-Node: Output Line Prefix Control10009
-Node: Context Line Control12944
-Node: File and Directory Selection14697
-Node: Other Options17639
-Node: Environment Variables19128
-Node: Exit Status27964
-Node: grep Programs28605
-Node: Regular Expressions29886
-Node: Fundamental Structure31017
-Node: Character Classes and Bracket Expressions32656
-Node: The Backslash Character and Special Expressions36451
-Node: Anchoring37327
-Node: Back-references and Subexpressions37654
-Node: Basic vs Extended38364
-Node: Usage39361
-Node: Reporting Bugs45207
-Node: Copying45869
-Node: GNU Free Documentation License46952
-Node: Index72074
+Node: Introduction1872
+Node: Invoking2604
+Node: Command-line Options3349
+Node: Generic Program Information4226
+Node: Matching Control4685
+Node: General Output Control6134
+Node: Output Line Prefix Control10015
+Node: Context Line Control12950
+Node: File and Directory Selection14703
+Node: Other Options17645
+Node: Environment Variables19134
+Node: Exit Status27970
+Node: grep Programs28611
+Node: Regular Expressions29892
+Node: Fundamental Structure31023
+Node: Character Classes and Bracket Expressions32662
+Node: The Backslash Character and Special Expressions36457
+Node: Anchoring37333
+Node: Back-references and Subexpressions37660
+Node: Basic vs Extended38370
+Node: Usage39367
+Node: Reporting Bugs45213
+Node: Copying45875
+Node: GNU Free Documentation License46958
+Node: Index72080
 
 End Tag Table

@@ -65,7 +65,7 @@ enum { EXIT_TROUBLE = 2 };
 
 #define TOLOWER(C) (ISUPPER(C) ? tolower(C) : (C))
 
-#include <gettext.h>
+#include "gettext.h"
 #define N_(String) gettext_noop(String)
 #define _(String) gettext(String)
 

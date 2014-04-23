@@ -19,7 +19,7 @@
 #ifndef GREP_SEARCH_H
 #define GREP_SEARCH_H 1
 
-#include <config.h>
+#include "config.h"
 
 #include <sys/types.h>
 

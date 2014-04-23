@@ -147,6 +147,7 @@
 /* Define to 1 when using the gnulib module strtoll. */
 #define GNULIB_STRTOLL 1
 
+
 /* Define to 1 when using the gnulib module strtoull. */
 #define GNULIB_STRTOULL 1
 
@@ -1261,3 +1262,4 @@
    is a misnomer outside of parameter lists.  */
 #define _UNUSED_PARAMETER_ _GL_UNUSED
 
+int global_x;

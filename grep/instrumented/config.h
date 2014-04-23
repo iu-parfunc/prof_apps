@@ -998,7 +998,7 @@
 #define PACKAGE_NAME "GNU grep"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "GNU grep 2.6.1"
+#define PACKAGE_STRING "GNU grep 2.6.1-dirty"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "grep"
@@ -1007,7 +1007,7 @@
 #define PACKAGE_URL "http://www.gnu.org/software/grep/"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "2.6.1"
+#define PACKAGE_VERSION "2.6.1-dirty"
 
 /* the number of pending output bytes on stream `fp' */
 /* #undef PENDING_OUTPUT_N_BYTES */
@@ -1068,7 +1068,7 @@
 #define USE_UNLOCKED_IO 1
 
 /* Version number of package */
-#define VERSION "2.6.1"
+#define VERSION "2.6.1-dirty"
 
 /* Define to 1 if unsetenv returns void instead of int. */
 /* #undef VOID_UNSETENV */
@@ -1080,6 +1080,11 @@
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'wint_t'. */
 /* #undef WINT_T_SUFFIX */
+
+/* Enable large inode numbers on Mac OS X 10.5.  */
+#ifndef _DARWIN_USE_64_BIT_INODE
+# define _DARWIN_USE_64_BIT_INODE 1
+#endif
 
 /* Number of bits in a file offset, on hosts where this is settable. */
 /* #undef _FILE_OFFSET_BITS */

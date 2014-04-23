@@ -1,4 +1,4 @@
-#include <config.h>
+#include "config.h"
 #include "search.h"
 
 struct matcher const matchers[] = {

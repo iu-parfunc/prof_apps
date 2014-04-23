@@ -29,7 +29,7 @@
    String Matching:  An Aid to Bibliographic Search," CACM June 1975,
    Vol. 18, No. 6, which describes the failure function used below. */
 
-#include <config.h>
+#include "config.h"
 #include <sys/types.h>
 #include "system.h"
 #include "kwset.h"
