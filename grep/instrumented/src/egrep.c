@@ -1,0 +1,34 @@
+
+#line 1 "./instrumented/./src/egrep.c"
+#include "config.h"
+#include "search.h"
+
+static void
+Ecompile (char const *pattern, size_t size)
+{
+
+#line 6
+
+__notify_intrinsic((void*)"void Ecompile(const char *, size_t) C_start", (void *)&global_x);
+
+#line 6
+{
+  GEAcompile (pattern, size, RE_SYNTAX_POSIX_EGREP | RE_NO_EMPTY_RANGES);
+
+#line 8
+
+}
+	
+
+#line 8
+}
+
+struct matcher const matchers[] = {
+  { "egrep", Ecompile, EGexecute },
+  { NULL, NULL, NULL },
+};
+
+const char before_options[] =
+N_("PATTERN is an extended regular expression (ERE).\n");
+const char after_options[] =
+N_("Invocation as `egrep' is deprecated; use `grep -E' instead.\n");
