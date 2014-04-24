@@ -506,7 +506,7 @@ LIBGREPUTILS_LTLIBDEPS =
 LIBICONV = -liconv
 LIBINTL = 
 LIBOBJS = 
-LIBS = -lelf -lpthread -lzca-toggle -ldynprof 
+LIBS = -lelf -lpthread ../lib/libdynprof.a ../lib/libzca-toggle.a
 LIBTESTS_LIBDEPS = 
 LOCALCHARSET_TESTS_ENVIRONMENT = CHARSETALIASDIR="$(top_builddir)/lib"
 LOCALE_FR = none

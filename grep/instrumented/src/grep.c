@@ -7,63 +7,63 @@ static void
 Gcompile (char const *pattern, size_t size)
 {
 
-#line 8
+#line 6
 
 __notify_intrinsic((void*)"void Gcompile(const char *, size_t) C_start", (void *)&global_x);
 
-#line 8
+#line 6
 {
   GEAcompile (pattern, size,
 	      RE_SYNTAX_GREP
 	      | RE_HAT_LISTS_NOT_NEWLINE
 	      | RE_NO_EMPTY_RANGES);
 
-#line 13
+#line 11
 
 }
 	
 
-#line 13
+#line 11
 }
 
 static void
 Ecompile (char const *pattern, size_t size)
 {
 
-#line 17
+#line 15
 
 __notify_intrinsic((void*)"void Ecompile(const char *, size_t) C_start", (void *)&global_x);
 
-#line 17
+#line 15
 {
   GEAcompile (pattern, size, RE_SYNTAX_POSIX_EGREP | RE_NO_EMPTY_RANGES);
 
-#line 19
+#line 17
 
 }
 	
 
-#line 19
+#line 17
 }
 
 static void
 Acompile (char const *pattern, size_t size)
 {
 
-#line 23
+#line 21
 
 __notify_intrinsic((void*)"void Acompile(const char *, size_t) C_start", (void *)&global_x);
 
-#line 23
+#line 21
 {
   GEAcompile (pattern, size, RE_SYNTAX_AWK);
 
-#line 25
+#line 23
 
 }
 	
 
-#line 25
+#line 23
 }
 
 struct matcher const matchers[] = {
