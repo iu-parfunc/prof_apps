@@ -24,6 +24,8 @@ static char rcsid[] = "$Id: zip.c,v 0.17 1993/06/10 13:29:25 jloup Exp $";
 #  include <fcntl.h>
 #endif
 
+int global_x;
+
 local ulg crc;       /* crc on uncompressed file data */
 long header_bytes;   /* number of bytes in gzip header */
 
@@ -36,11 +38,11 @@ int zip(in, out)
     int in, out;            /* input and output file descriptors */
 {
 
-#line 35
+#line 37
 
 __notify_intrinsic((void*)"int zip() C_start", (void *)&global_x);
 
-#line 35
+#line 37
 {
     uch  flags = 0;         /* general purpose bit flags */
     ush  attr = 0;          /* ascii/binary flag */
@@ -101,18 +103,18 @@ __notify_intrinsic((void*)"int zip() C_start", (void *)&global_x);
 
     flush_outbuf();
     
-#line 94
+#line 96
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"int zip() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 94
+#line 96
 
 
-#line 95
+#line 97
 
 }
 	
 
-#line 95
+#line 97
 }
 
 
@@ -126,11 +128,11 @@ int file_read(buf, size)
     unsigned size;
 {
 
-#line 106
+#line 108
 
 __notify_intrinsic((void*)"int file_read() C_start", (void *)&global_x);
 
-#line 106
+#line 108
 {
     unsigned len;
 
@@ -138,25 +140,25 @@ __notify_intrinsic((void*)"int file_read() C_start", (void *)&global_x);
 
     len = read(ifd, buf, size);
     if (len == (unsigned)(-1) || len == 0) 
-#line 112
+#line 114
 { int tau_ret_val =  (int)len; __notify_intrinsic((void*)"int file_read() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 112
+#line 114
 
 
     crc = updcrc((uch*)buf, len);
     isize += (ulg)len;
     
-#line 116
+#line 118
 { int tau_ret_val =  (int)len; __notify_intrinsic((void*)"int file_read() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 116
+#line 118
 
 
-#line 117
+#line 119
 
 }
 	
 
-#line 117
+#line 119
 }

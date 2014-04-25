@@ -67,6 +67,8 @@ static char rcsid[] = "$Id: bits.c,v 0.9 1993/06/11 10:16:58 jloup Exp $";
  * Local data used by the "bit string" routines.
  */
 
+int global_x;
+
 local file_t zfile; /* output gzip file */
 
 local unsigned short bi_buf;

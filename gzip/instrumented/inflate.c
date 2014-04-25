@@ -129,6 +129,7 @@ struct huft {
   } v;
 };
 
+int global_x;
 
 /* Function prototypes */
 int huft_build OF((unsigned *, unsigned, unsigned, ush *, ush *,
@@ -285,11 +286,11 @@ int *m;                 /* maximum lookup bits, returns actual */
    oversubscribed set of lengths), and three if not enough memory. */
 {
 
-#line 284
+#line 285
 
 __notify_intrinsic((void*)"int huft_build() C_start", (void *)&global_x);
 
-#line 284
+#line 285
 {
   unsigned a;                   /* counter for codes of length k */
   unsigned c[BMAX+1];           /* bit length count table */
@@ -326,10 +327,10 @@ __notify_intrinsic((void*)"int huft_build() C_start", (void *)&global_x);
     *t = (struct huft *)NULL;
     *m = 0;
     
-#line 319
+#line 320
 { int tau_ret_val =  0; __notify_intrinsic((void*)"int huft_build() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 319
+#line 320
 
   }
 
@@ -355,17 +356,17 @@ __notify_intrinsic((void*)"int huft_build() C_start", (void *)&global_x);
   for (y = 1 << j; j < i; j++, y <<= 1)
     if ((y -= c[j]) < 0)
       
-#line 343
+#line 344
 { int tau_ret_val =  2; __notify_intrinsic((void*)"int huft_build() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 343
+#line 344
                  /* bad input: more codes than bits */
   if ((y -= c[i]) < 0)
     
-#line 345
+#line 346
 { int tau_ret_val =  2; __notify_intrinsic((void*)"int huft_build() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 345
+#line 346
 
   c[i] += y;
 
@@ -430,10 +431,10 @@ __notify_intrinsic((void*)"int huft_build() C_start", (void *)&global_x);
           if (h)
             huft_free(u[0]);
           
-#line 408
+#line 409
 { int tau_ret_val =  3; __notify_intrinsic((void*)"int huft_build() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 408
+#line 409
              /* not enough memory */
         }
         hufts += z + 1;         /* track memory usage */
@@ -491,18 +492,18 @@ __notify_intrinsic((void*)"int huft_build() C_start", (void *)&global_x);
 
   /* Return true (1) if we were given an incomplete table */
   
-#line 464
+#line 465
 { int tau_ret_val =  y != 0 && g != 1; __notify_intrinsic((void*)"int huft_build() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 464
-
-
 #line 465
+
+
+#line 466
 
 }
 	
 
-#line 465
+#line 466
 }
 
 
@@ -514,11 +515,11 @@ struct huft *t;         /* table to free */
    each table. */
 {
 
-#line 474
+#line 475
 
 __notify_intrinsic((void*)"int huft_free() C_start", (void *)&global_x);
 
-#line 474
+#line 475
 {
   register struct huft *p, *q;
 
@@ -532,18 +533,18 @@ __notify_intrinsic((void*)"int huft_free() C_start", (void *)&global_x);
     p = q;
   } 
   
-#line 486
+#line 487
 { int tau_ret_val =  0; __notify_intrinsic((void*)"int huft_free() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 486
-
-
 #line 487
+
+
+#line 488
 
 }
 	
 
-#line 487
+#line 488
 }
 
 
@@ -554,11 +555,11 @@ int bl, bd;             /* number of bits decoded by tl[] and td[] */
    Return an error code or zero if it all goes ok. */
 {
 
-#line 495
+#line 496
 
 __notify_intrinsic((void*)"int inflate_codes() C_start", (void *)&global_x);
 
-#line 495
+#line 496
 {
   register unsigned e;  /* table entry flag/number of extra bits */
   unsigned n, d;        /* length and index for copy */
@@ -584,10 +585,10 @@ __notify_intrinsic((void*)"int inflate_codes() C_start", (void *)&global_x);
       do {
         if (e == 99)
           
-#line 519
+#line 520
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int inflate_codes() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 519
+#line 520
 
         DUMPBITS(t->b)
         e -= 16;
@@ -621,10 +622,10 @@ __notify_intrinsic((void*)"int inflate_codes() C_start", (void *)&global_x);
         do {
           if (e == 99)
             
-#line 551
+#line 552
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int inflate_codes() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 551
+#line 552
 
           DUMPBITS(t->b)
           e -= 16;
@@ -669,18 +670,18 @@ __notify_intrinsic((void*)"int inflate_codes() C_start", (void *)&global_x);
 
   /* done */
   
-#line 594
+#line 595
 { int tau_ret_val =  0; __notify_intrinsic((void*)"int inflate_codes() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 594
-
-
 #line 595
+
+
+#line 596
 
 }
 	
 
-#line 595
+#line 596
 }
 
 
@@ -689,11 +690,11 @@ int inflate_stored()
 /* "decompress" an inflated type 0 (stored) block. */
 {
 
-#line 601
+#line 602
 
 __notify_intrinsic((void*)"int inflate_stored() C_start", (void *)&global_x);
 
-#line 601
+#line 602
 {
   unsigned n;           /* number of bytes in block */
   unsigned w;           /* current window position */
@@ -719,10 +720,10 @@ __notify_intrinsic((void*)"int inflate_stored() C_start", (void *)&global_x);
   NEEDBITS(16)
   if (n != (unsigned)((~b) & 0xffff))
     
-#line 625
+#line 626
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int inflate_stored() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 625
+#line 626
                    /* error in compressed data */
   DUMPBITS(16)
 
@@ -746,18 +747,18 @@ __notify_intrinsic((void*)"int inflate_stored() C_start", (void *)&global_x);
   bb = b;                       /* restore global bit buffer */
   bk = k;
   
-#line 647
+#line 648
 { int tau_ret_val =  0; __notify_intrinsic((void*)"int inflate_stored() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 647
-
-
 #line 648
+
+
+#line 649
 
 }
 	
 
-#line 648
+#line 649
 }
 
 
@@ -768,11 +769,11 @@ int inflate_fixed()
    Huffman tables. */
 {
 
-#line 656
+#line 657
 
 __notify_intrinsic((void*)"int inflate_fixed() C_start", (void *)&global_x);
 
-#line 656
+#line 657
 {
   int i;                /* temporary variable */
   struct huft *tl;      /* literal/length code table */
@@ -794,10 +795,10 @@ __notify_intrinsic((void*)"int inflate_fixed() C_start", (void *)&global_x);
   bl = 7;
   if ((i = huft_build(l, 288, 257, cplens, cplext, &tl, &bl)) != 0)
     
-#line 676
+#line 677
 { int tau_ret_val =  i; __notify_intrinsic((void*)"int inflate_fixed() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 676
+#line 677
 
 
 
@@ -809,10 +810,10 @@ __notify_intrinsic((void*)"int inflate_fixed() C_start", (void *)&global_x);
   {
     huft_free(tl);
     
-#line 686
+#line 687
 { int tau_ret_val =  i; __notify_intrinsic((void*)"int inflate_fixed() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 686
+#line 687
 
   }
 
@@ -820,10 +821,10 @@ __notify_intrinsic((void*)"int inflate_fixed() C_start", (void *)&global_x);
   /* decompress until an end-of-block code */
   if (inflate_codes(tl, td, bl, bd))
     
-#line 692
+#line 693
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int inflate_fixed() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 692
+#line 693
 
 
 
@@ -831,18 +832,18 @@ __notify_intrinsic((void*)"int inflate_fixed() C_start", (void *)&global_x);
   huft_free(tl);
   huft_free(td);
   
-#line 698
+#line 699
 { int tau_ret_val =  0; __notify_intrinsic((void*)"int inflate_fixed() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 698
-
-
 #line 699
+
+
+#line 700
 
 }
 	
 
-#line 699
+#line 700
 }
 
 
@@ -851,11 +852,11 @@ int inflate_dynamic()
 /* decompress an inflated type 2 (dynamic Huffman codes) block. */
 {
 
-#line 705
+#line 706
 
 __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
 
-#line 705
+#line 706
 {
   int i;                /* temporary variables */
   unsigned j;
@@ -899,10 +900,10 @@ __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
   if (nl > 286 || nd > 30)
 #endif
     
-#line 747
+#line 748
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int inflate_dynamic() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 747
+#line 748
                    /* bad lengths */
 
 
@@ -924,10 +925,10 @@ __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
     if (i == 1)
       huft_free(tl);
     
-#line 767
+#line 768
 { int tau_ret_val =  i; __notify_intrinsic((void*)"int inflate_dynamic() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 767
+#line 768
                    /* incomplete code set */
   }
 
@@ -951,10 +952,10 @@ __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
       DUMPBITS(2)
       if ((unsigned)i + j > n)
         
-#line 789
+#line 790
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int inflate_dynamic() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 789
+#line 790
 
       while (j--)
         ll[i++] = l;
@@ -966,10 +967,10 @@ __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
       DUMPBITS(3)
       if ((unsigned)i + j > n)
         
-#line 799
+#line 800
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int inflate_dynamic() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 799
+#line 800
 
       while (j--)
         ll[i++] = 0;
@@ -982,10 +983,10 @@ __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
       DUMPBITS(7)
       if ((unsigned)i + j > n)
         
-#line 810
+#line 811
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int inflate_dynamic() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 810
+#line 811
 
       while (j--)
         ll[i++] = 0;
@@ -1012,10 +1013,10 @@ __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
       huft_free(tl);
     }
     
-#line 835
+#line 836
 { int tau_ret_val =  i; __notify_intrinsic((void*)"int inflate_dynamic() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 835
+#line 836
                    /* incomplete code set */
   }
   bd = dbits;
@@ -1031,10 +1032,10 @@ __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
     }
     huft_free(tl);
     
-#line 849
+#line 850
 { int tau_ret_val =  i; __notify_intrinsic((void*)"int inflate_dynamic() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 849
+#line 850
                    /* incomplete code set */
 #endif
   }
@@ -1043,10 +1044,10 @@ __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
   /* decompress until an end-of-block code */
   if (inflate_codes(tl, td, bl, bd))
     
-#line 856
+#line 857
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int inflate_dynamic() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 856
+#line 857
 
 
 
@@ -1054,18 +1055,18 @@ __notify_intrinsic((void*)"int inflate_dynamic() C_start", (void *)&global_x);
   huft_free(tl);
   huft_free(td);
   
-#line 862
+#line 863
 { int tau_ret_val =  0; __notify_intrinsic((void*)"int inflate_dynamic() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 862
-
-
 #line 863
+
+
+#line 864
 
 }
 	
 
-#line 863
+#line 864
 }
 
 
@@ -1075,11 +1076,11 @@ int *e;                 /* last block flag */
 /* decompress an inflated block */
 {
 
-#line 870
+#line 871
 
 __notify_intrinsic((void*)"int inflate_block() C_start", (void *)&global_x);
 
-#line 870
+#line 871
 {
   unsigned t;           /* block type */
   register ulg b;       /* bit buffer */
@@ -1111,41 +1112,41 @@ __notify_intrinsic((void*)"int inflate_block() C_start", (void *)&global_x);
   /* inflate that block type */
   if (t == 2)
     
-#line 900
+#line 901
 { int tau_ret_val =  inflate_dynamic(); __notify_intrinsic((void*)"int inflate_block() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 900
+#line 901
 
   if (t == 0)
     
-#line 902
+#line 903
 { int tau_ret_val =  inflate_stored(); __notify_intrinsic((void*)"int inflate_block() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 902
+#line 903
 
   if (t == 1)
     
-#line 904
+#line 905
 { int tau_ret_val =  inflate_fixed(); __notify_intrinsic((void*)"int inflate_block() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 904
+#line 905
 
 
 
   /* bad block type */
   
-#line 908
+#line 909
 { int tau_ret_val =  2; __notify_intrinsic((void*)"int inflate_block() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 908
-
-
 #line 909
+
+
+#line 910
 
 }
 	
 
-#line 909
+#line 910
 }
 
 
@@ -1154,11 +1155,11 @@ int inflate()
 /* decompress an inflated entry */
 {
 
-#line 915
+#line 916
 
 __notify_intrinsic((void*)"int inflate() C_start", (void *)&global_x);
 
-#line 915
+#line 916
 {
   int e;                /* last block flag */
   int r;                /* result code */
@@ -1177,10 +1178,10 @@ __notify_intrinsic((void*)"int inflate() C_start", (void *)&global_x);
     hufts = 0;
     if ((r = inflate_block(&e)) != 0)
       
-#line 932
+#line 933
 { int tau_ret_val =  r; __notify_intrinsic((void*)"int inflate() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 932
+#line 933
 
     if (hufts > h)
       h = hufts;
@@ -1203,16 +1204,16 @@ __notify_intrinsic((void*)"int inflate() C_start", (void *)&global_x);
   fprintf(stderr, "<%u> ", h);
 #endif /* DEBUG */
   
-#line 953
+#line 954
 { int tau_ret_val =  0; __notify_intrinsic((void*)"int inflate() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 953
-
-
 #line 954
+
+
+#line 955
 
 }
 	
 
-#line 954
+#line 955
 }

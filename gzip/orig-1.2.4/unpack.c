@@ -4,6 +4,8 @@
  * terms of the GNU General Public License, see the file COPYING.
  */
 
+int global_x;
+
 #ifdef RCSID
 static char rcsid[] = "$Id: unpack.c,v 1.4 1993/06/11 19:25:36 jloup Exp $";
 #endif

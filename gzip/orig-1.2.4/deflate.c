@@ -71,6 +71,8 @@
 static char rcsid[] = "$Id: deflate.c,v 0.15 1993/06/24 10:53:53 jloup Exp $";
 #endif
 
+int global_x;
+
 /* ===========================================================================
  * Configuration parameters
  */

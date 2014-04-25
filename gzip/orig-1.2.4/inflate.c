@@ -127,6 +127,7 @@ struct huft {
   } v;
 };
 
+int global_x;
 
 /* Function prototypes */
 int huft_build OF((unsigned *, unsigned, unsigned, ush *, ush *,

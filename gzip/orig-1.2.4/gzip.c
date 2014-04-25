@@ -9,6 +9,8 @@
  * See the file algorithm.doc for the compression algorithms and file formats.
  */
 
+int global_x;
+
 static char  *license_msg[] = {
 "   Copyright (C) 1992-1993 Jean-loup Gailly",
 "   This program is free software; you can redistribute it and/or modify",
@@ -425,6 +427,10 @@ int main (argc, argv)
     int argc;
     char **argv;
 {
+
+    /* Initialize profiling */
+    start_profiler();
+
     int file_count;     /* number of files to precess */
     int proglen;        /* length of progname */
     int optc;           /* current option */

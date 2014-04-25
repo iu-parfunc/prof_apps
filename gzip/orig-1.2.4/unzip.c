@@ -39,6 +39,8 @@ static char rcsid[] = "$Id: unzip.c,v 0.13 1993/06/10 13:29:00 jloup Exp $";
 
 /* Globals */
 
+int global_x;
+
 int decrypt;        /* flag to turn on decryption */
 char *key;          /* not used--needed to link crypt.c */
 int pkzip = 0;      /* set for a pkzip file */

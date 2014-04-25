@@ -41,6 +41,8 @@ static char rcsid[] = "$Id: unzip.c,v 0.13 1993/06/10 13:29:00 jloup Exp $";
 
 /* Globals */
 
+int global_x;
+
 int decrypt;        /* flag to turn on decryption */
 char *key;          /* not used--needed to link crypt.c */
 int pkzip = 0;      /* set for a pkzip file */
@@ -54,11 +56,11 @@ int check_zipfile(in)
     int in;   /* input file descriptors */
 {
 
-#line 53
+#line 55
 
 __notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
 
-#line 53
+#line 55
 {
     uch *h = inbuf + inptr; /* first local header */
 
@@ -72,10 +74,10 @@ __notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
 		progname, ifname);
 	exit_code = ERROR;
 	
-#line 65
+#line 67
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int check_zipfile() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 65
+#line 67
 
     }
     method = h[LOCHOW];
@@ -85,10 +87,10 @@ __notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
 		progname, ifname);
 	exit_code = ERROR;
 	
-#line 73
+#line 75
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int check_zipfile() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 73
+#line 75
 
     }
 
@@ -98,10 +100,10 @@ __notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
 		progname, ifname);
 	exit_code = ERROR;
 	
-#line 81
+#line 83
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int check_zipfile() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 81
+#line 83
 
     }
 
@@ -111,18 +113,18 @@ __notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
 
     /* Get ofname and time stamp from local header (to be done) */
     
-#line 89
+#line 91
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"int check_zipfile() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 89
+#line 91
 
 
-#line 90
+#line 92
 
 }
 	
 
-#line 90
+#line 92
 }
 
 /* ===========================================================================
@@ -136,11 +138,11 @@ int unzip(in, out)
     int in, out;   /* input and output file descriptors */
 {
 
-#line 101
+#line 103
 
 __notify_intrinsic((void*)"int unzip() C_start", (void *)&global_x);
 
-#line 101
+#line 103
 {
     ulg orig_crc = 0;       /* original crc */
     ulg orig_len = 0;       /* original uncompressed length */
@@ -235,25 +237,25 @@ __notify_intrinsic((void*)"int unzip() C_start", (void *)&global_x);
 	    exit_code = ERROR;
 	    ext_header = pkzip = 0;
 	    
-#line 194
+#line 196
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int unzip() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 194
+#line 196
 
 	}
     }
     ext_header = pkzip = 0; /* for next file */
     
-#line 198
+#line 200
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"int unzip() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 198
+#line 200
 
 
-#line 199
+#line 201
 
 }
 	
 
-#line 199
+#line 201
 }

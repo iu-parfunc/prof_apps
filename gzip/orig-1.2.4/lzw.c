@@ -10,6 +10,8 @@ static char rcsid[] = "$Id: lzw.c,v 0.9 1993/06/10 13:27:31 jloup Exp $";
 #include "gzip.h"
 #include "lzw.h"
 
+int global_x;
+
 static int msg_done = 0;
 
 /* Compress in to out with lzw method. */

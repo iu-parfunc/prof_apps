@@ -6,6 +6,8 @@
  * terms of the GNU General Public License, see the file COPYING.
  */
 
+int global_x;
+
 #ifdef RCSID
 static char rcsid[] = "$Id: unpack.c,v 1.4 1993/06/11 19:25:36 jloup Exp $";
 #endif
@@ -96,11 +98,11 @@ local void build_tree OF((void));
 local void read_tree()
 {
 
-#line 95
+#line 97
 
 __notify_intrinsic((void*)"void read_tree() C_start", (void *)&global_x);
 
-#line 95
+#line 97
 {
     int len;  /* bit length */
     int base; /* base offset for a sequence of leaves */
@@ -147,12 +149,12 @@ __notify_intrinsic((void*)"void read_tree() C_start", (void *)&global_x);
     }
     leaves[max_len]++; /* Now include the EOB code in the Huffman tree */
 
-#line 140
+#line 142
 
 }
 	
 
-#line 140
+#line 142
 }
 
 /* ===========================================================================
@@ -161,11 +163,11 @@ __notify_intrinsic((void*)"void read_tree() C_start", (void *)&global_x);
 local void build_tree()
 {
 
-#line 146
+#line 148
 
 __notify_intrinsic((void*)"void build_tree() C_start", (void *)&global_x);
 
-#line 146
+#line 148
 {
     int nodes = 0; /* number of nodes (parents+leaves) at current bit length */
     int len;       /* current bit length */
@@ -196,12 +198,12 @@ __notify_intrinsic((void*)"void build_tree() C_start", (void *)&global_x);
     /* The length of all other codes is unknown: */
     while (prefixp > prefix_len) *--prefixp = 0;
 
-#line 175
+#line 177
 
 }
 	
 
-#line 175
+#line 177
 }
 
 /* ===========================================================================
@@ -216,11 +218,11 @@ int unpack(in, out)
     int in, out;            /* input and output file descriptors */
 {
 
-#line 187
+#line 189
 
 __notify_intrinsic((void*)"int unpack() C_start", (void *)&global_x);
 
-#line 187
+#line 189
 {
     int len;                /* Bit length of current code */
     unsigned eob;           /* End Of Block code */
@@ -273,16 +275,16 @@ __notify_intrinsic((void*)"int unpack() C_start", (void *)&global_x);
 	error("invalid compressed data--length error");
     }
     
-#line 238
+#line 240
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"int unpack() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 238
+#line 240
 
 
-#line 239
+#line 241
 
 }
 	
 
-#line 239
+#line 241
 }

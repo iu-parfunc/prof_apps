@@ -30,6 +30,8 @@ static char rcsid[] = "$Id: util.c,v 0.15 1993/06/15 09:04:13 jloup Exp $";
 #include "gzip.h"
 #include "crypt.h"
 
+int global_x;
+
 extern ulg crc_32_tab[];   /* crc table, defined below */
 
 /* ===========================================================================

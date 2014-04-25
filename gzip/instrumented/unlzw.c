@@ -27,6 +27,8 @@ static char rcsid[] = "$Id: unlzw.c,v 0.15 1993/06/10 13:28:35 jloup Exp $";
 #include "gzip.h"
 #include "lzw.h"
 
+int global_x;
+
 typedef	unsigned char	char_type;
 typedef          long   code_int;
 typedef unsigned long 	count_int;
@@ -195,11 +197,11 @@ int unlzw(in, out)
     int in, out;    /* input and output file descriptors */
 {
 
-#line 194
+#line 196
 
 __notify_intrinsic((void*)"int unlzw() C_start", (void *)&global_x);
 
-#line 194
+#line 196
 {
     REG2   char_type  *stackp;
     REG3   code_int   code;
@@ -236,10 +238,10 @@ __notify_intrinsic((void*)"int unlzw() C_start", (void *)&global_x);
 		progname, ifname, maxbits, BITS);
 	exit_code = ERROR;
 	
-#line 229
+#line 231
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int unlzw() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 229
+#line 231
 
     }
     rsize = insize;
@@ -388,16 +390,16 @@ __notify_intrinsic((void*)"int unlzw() C_start", (void *)&global_x);
 	bytes_out += (ulg)outpos;
     }
     
-#line 376
+#line 378
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"int unlzw() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 376
+#line 378
 
 
-#line 377
+#line 379
 
 }
 	
 
-#line 377
+#line 379
 }

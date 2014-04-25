@@ -69,6 +69,8 @@ static char rcsid[] = "$Id: bits.c,v 0.9 1993/06/11 10:16:58 jloup Exp $";
  * Local data used by the "bit string" routines.
  */
 
+int global_x;
+
 local file_t zfile; /* output gzip file */
 
 local unsigned short bi_buf;
@@ -100,11 +102,11 @@ void bi_init (zipfile)
     file_t zipfile; /* output zip file, NO_FILE for in-memory compression */
 {
 
-#line 99
+#line 101
 
 __notify_intrinsic((void*)"void bi_init() C_start", (void *)&global_x);
 
-#line 99
+#line 101
 {
     zfile  = zipfile;
     bi_buf = 0;
@@ -120,12 +122,12 @@ __notify_intrinsic((void*)"void bi_init() C_start", (void *)&global_x);
 	read_buf  = file_read;
     }
 
-#line 113
+#line 115
 
 }
 	
 
-#line 113
+#line 115
 }
 
 /* ===========================================================================
@@ -137,11 +139,11 @@ void send_bits(value, length)
     int length; /* number of bits */
 {
 
-#line 122
+#line 124
 
 __notify_intrinsic((void*)"void send_bits() C_start", (void *)&global_x);
 
-#line 122
+#line 124
 {
 #ifdef DEBUG
     Tracev((stderr," l %2d v %4x ", length, value));
@@ -162,12 +164,12 @@ __notify_intrinsic((void*)"void send_bits() C_start", (void *)&global_x);
         bi_valid += length;
     }
 
-#line 141
+#line 143
 
 }
 	
 
-#line 141
+#line 143
 }
 
 /* ===========================================================================
@@ -180,11 +182,11 @@ unsigned bi_reverse(code, len)
     int len;       /* its bit length */
 {
 
-#line 151
+#line 153
 
 __notify_intrinsic((void*)"unsigned int bi_reverse() C_start", (void *)&global_x);
 
-#line 151
+#line 153
 {
     register unsigned res = 0;
     do {
@@ -192,18 +194,18 @@ __notify_intrinsic((void*)"unsigned int bi_reverse() C_start", (void *)&global_x
         code >>= 1, res <<= 1;
     } while (--len > 0);
     
-#line 157
+#line 159
 { unsigned int tau_ret_val =  res >> 1; __notify_intrinsic((void*)"unsigned int bi_reverse() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 157
+#line 159
 
 
-#line 158
+#line 160
 
 }
 	
 
-#line 158
+#line 160
 }
 
 /* ===========================================================================
@@ -212,11 +214,11 @@ __notify_intrinsic((void*)"unsigned int bi_reverse() C_start", (void *)&global_x
 void bi_windup()
 {
 
-#line 164
+#line 166
 
 __notify_intrinsic((void*)"void bi_windup() C_start", (void *)&global_x);
 
-#line 164
+#line 166
 {
     if (bi_valid > 8) {
         put_short(bi_buf);
@@ -229,12 +231,12 @@ __notify_intrinsic((void*)"void bi_windup() C_start", (void *)&global_x);
     bits_sent = (bits_sent+7) & ~7;
 #endif
 
-#line 175
+#line 177
 
 }
 	
 
-#line 175
+#line 177
 }
 
 /* ===========================================================================
@@ -247,11 +249,11 @@ void copy_block(buf, len, header)
     int      header;  /* true if block header must be written */
 {
 
-#line 185
+#line 187
 
 __notify_intrinsic((void*)"void copy_block() C_start", (void *)&global_x);
 
-#line 185
+#line 187
 {
     bi_windup();              /* align on byte boundary */
 
@@ -273,10 +275,10 @@ __notify_intrinsic((void*)"void copy_block() C_start", (void *)&global_x);
 	put_byte(*buf++);
     }
 
-#line 205
+#line 207
 
 }
 	
 
-#line 205
+#line 207
 }

@@ -22,6 +22,8 @@ static char rcsid[] = "$Id: zip.c,v 0.17 1993/06/10 13:29:25 jloup Exp $";
 #  include <fcntl.h>
 #endif
 
+int global_x;
+
 local ulg crc;       /* crc on uncompressed file data */
 long header_bytes;   /* number of bytes in gzip header */
 

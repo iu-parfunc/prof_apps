@@ -25,6 +25,8 @@ static char rcsid[] = "$Id: unlzw.c,v 0.15 1993/06/10 13:28:35 jloup Exp $";
 #include "gzip.h"
 #include "lzw.h"
 
+int global_x;
+
 typedef	unsigned char	char_type;
 typedef          long   code_int;
 typedef unsigned long 	count_int;

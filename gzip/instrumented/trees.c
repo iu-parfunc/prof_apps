@@ -92,6 +92,7 @@ static char rcsid[] = "$Id: trees.c,v 0.12 1993/06/10 13:27:54 jloup Exp $";
 #define BL_CODES  19
 /* number of codes used to transfer the bit lengths */
 
+int global_x;
 
 local int near extra_lbits[LENGTH_CODES] /* extra bits for each length code */
    = {0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0};
@@ -336,11 +337,11 @@ void ct_init(attr, methodp)
     int  *methodp; /* pointer to compression method */
 {
 
-#line 335
+#line 336
 
 __notify_intrinsic((void*)"void ct_init() C_start", (void *)&global_x);
 
-#line 335
+#line 336
 {
     int n;        /* iterates over tree elements */
     int bits;     /* bit counter */
@@ -353,10 +354,10 @@ __notify_intrinsic((void*)"void ct_init() C_start", (void *)&global_x);
     compressed_len = input_len = 0L;
         
     if (static_dtree[0].Len != 0) 
-#line 346
+#line 347
 { __notify_intrinsic((void*)"void ct_init() C_end", (void *)&global_x); return; }
 
-#line 346
+#line 347
  /* ct_init already called */
 
     /* Initialize the mapping length (0..255) -> length code (0..28) */
@@ -414,12 +415,12 @@ __notify_intrinsic((void*)"void ct_init() C_start", (void *)&global_x);
     /* Initialize the first block of the first file: */
     init_block();
 
-#line 402
+#line 403
 
 }
 	
 
-#line 402
+#line 403
 }
 
 /* ===========================================================================
@@ -428,11 +429,11 @@ __notify_intrinsic((void*)"void ct_init() C_start", (void *)&global_x);
 local void init_block()
 {
 
-#line 408
+#line 409
 
 __notify_intrinsic((void*)"void init_block() C_start", (void *)&global_x);
 
-#line 408
+#line 409
 {
     int n; /* iterates over tree elements */
 
@@ -446,12 +447,12 @@ __notify_intrinsic((void*)"void init_block() C_start", (void *)&global_x);
     last_lit = last_dist = last_flags = 0;
     flags = 0; flag_bit = 1;
 
-#line 420
+#line 421
 
 }
 	
 
-#line 420
+#line 421
 }
 
 #define SMALLEST 1
@@ -488,11 +489,11 @@ local void pqdownheap(tree, k)
     int k;               /* node to move down */
 {
 
-#line 454
+#line 455
 
 __notify_intrinsic((void*)"void pqdownheap() C_start", (void *)&global_x);
 
-#line 454
+#line 455
 {
     int v = heap[k];
     int j = k << 1;  /* left son of k */
@@ -511,12 +512,12 @@ __notify_intrinsic((void*)"void pqdownheap() C_start", (void *)&global_x);
     }
     heap[k] = v;
 
-#line 471
+#line 472
 
 }
 	
 
-#line 471
+#line 472
 }
 
 /* ===========================================================================
@@ -533,11 +534,11 @@ local void gen_bitlen(desc)
     tree_desc near *desc; /* the tree descriptor */
 {
 
-#line 485
+#line 486
 
 __notify_intrinsic((void*)"void gen_bitlen() C_start", (void *)&global_x);
 
-#line 485
+#line 486
 {
     ct_data near *tree  = desc->dyn_tree;
     int near *extra     = desc->extra_bits;
@@ -576,10 +577,10 @@ __notify_intrinsic((void*)"void gen_bitlen() C_start", (void *)&global_x);
         if (stree) static_len += (ulg)f * (stree[n].Len + xbits);
     }
     if (overflow == 0) 
-#line 522
+#line 523
 { __notify_intrinsic((void*)"void gen_bitlen() C_end", (void *)&global_x); return; }
 
-#line 522
+#line 523
 
 
     Trace((stderr,"\nbit length overflow\n"));
@@ -617,12 +618,12 @@ __notify_intrinsic((void*)"void gen_bitlen() C_start", (void *)&global_x);
         }
     }
 
-#line 558
+#line 559
 
 }
 	
 
-#line 558
+#line 559
 }
 
 /* ===========================================================================
@@ -638,11 +639,11 @@ local void gen_codes (tree, max_code)
     int max_code;              /* largest code with non zero frequency */
 {
 
-#line 571
+#line 572
 
 __notify_intrinsic((void*)"void gen_codes() C_start", (void *)&global_x);
 
-#line 571
+#line 572
 {
     ush next_code[MAX_BITS+1]; /* next code value for each bit length */
     ush code = 0;              /* running code value */
@@ -672,12 +673,12 @@ __notify_intrinsic((void*)"void gen_codes() C_start", (void *)&global_x);
              n, (isgraph(n) ? n : ' '), len, tree[n].Code, next_code[len]-1));
     }
 
-#line 599
+#line 600
 
 }
 	
 
-#line 599
+#line 600
 }
 
 /* ===========================================================================
@@ -692,11 +693,11 @@ local void build_tree(desc)
     tree_desc near *desc; /* the tree descriptor */
 {
 
-#line 611
+#line 612
 
 __notify_intrinsic((void*)"void build_tree() C_start", (void *)&global_x);
 
-#line 611
+#line 612
 {
     ct_data near *tree   = desc->dyn_tree;
     ct_data near *stree  = desc->static_tree;
@@ -775,12 +776,12 @@ __notify_intrinsic((void*)"void build_tree() C_start", (void *)&global_x);
     /* The field len is now set, we can generate the bit codes */
     gen_codes ((ct_data near *)tree, max_code);
 
-#line 688
+#line 689
 
 }
 	
 
-#line 688
+#line 689
 }
 
 /* ===========================================================================
@@ -794,11 +795,11 @@ local void scan_tree (tree, max_code)
     int max_code;       /* and its largest code of non zero frequency */
 {
 
-#line 699
+#line 700
 
 __notify_intrinsic((void*)"void scan_tree() C_start", (void *)&global_x);
 
-#line 699
+#line 700
 {
     int n;                     /* iterates over all tree elements */
     int prevlen = -1;          /* last emitted length */
@@ -835,12 +836,12 @@ __notify_intrinsic((void*)"void scan_tree() C_start", (void *)&global_x);
         }
     }
 
-#line 734
+#line 735
 
 }
 	
 
-#line 734
+#line 735
 }
 
 /* ===========================================================================
@@ -852,11 +853,11 @@ local void send_tree (tree, max_code)
     int max_code;       /* and its largest code of non zero frequency */
 {
 
-#line 743
+#line 744
 
 __notify_intrinsic((void*)"void send_tree() C_start", (void *)&global_x);
 
-#line 743
+#line 744
 {
     int n;                     /* iterates over all tree elements */
     int prevlen = -1;          /* last emitted length */
@@ -899,12 +900,12 @@ __notify_intrinsic((void*)"void send_tree() C_start", (void *)&global_x);
         }
     }
 
-#line 784
+#line 785
 
 }
 	
 
-#line 784
+#line 785
 }
 
 /* ===========================================================================
@@ -914,11 +915,11 @@ __notify_intrinsic((void*)"void send_tree() C_start", (void *)&global_x);
 local int build_bl_tree()
 {
 
-#line 791
+#line 792
 
 __notify_intrinsic((void*)"int build_bl_tree() C_start", (void *)&global_x);
 
-#line 791
+#line 792
 {
     int max_blindex;  /* index of last bit length code of non zero freq */
 
@@ -944,18 +945,18 @@ __notify_intrinsic((void*)"int build_bl_tree() C_start", (void *)&global_x);
     Tracev((stderr, "\ndyn trees: dyn %ld, stat %ld", opt_len, static_len));
 
     
-#line 815
+#line 816
 { int tau_ret_val =  max_blindex; __notify_intrinsic((void*)"int build_bl_tree() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 815
-
-
 #line 816
+
+
+#line 817
 
 }
 	
 
-#line 816
+#line 817
 }
 
 /* ===========================================================================
@@ -967,11 +968,11 @@ local void send_all_trees(lcodes, dcodes, blcodes)
     int lcodes, dcodes, blcodes; /* number of codes for each tree */
 {
 
-#line 825
+#line 826
 
 __notify_intrinsic((void*)"void send_all_trees() C_start", (void *)&global_x);
 
-#line 825
+#line 826
 {
     int rank;                    /* index in bl_order */
 
@@ -994,12 +995,12 @@ __notify_intrinsic((void*)"void send_all_trees() C_start", (void *)&global_x);
     send_tree((ct_data near *)dyn_dtree, dcodes-1); /* send the distance tree */
     Tracev((stderr, "\ndist tree: sent %ld", bits_sent));
 
-#line 846
+#line 847
 
 }
 	
 
-#line 846
+#line 847
 }
 
 /* ===========================================================================
@@ -1013,11 +1014,11 @@ ulg flush_block(buf, stored_len, eof)
     int eof;          /* true if this is the last block for a file */
 {
 
-#line 857
+#line 858
 
 __notify_intrinsic((void*)"ulg flush_block() C_start", (void *)&global_x);
 
-#line 857
+#line 858
 {
     ulg opt_lenb, static_lenb; /* opt_len and static_len in bytes */
     int max_blindex;  /* index of last bit length code of non zero freq */
@@ -1113,18 +1114,18 @@ __notify_intrinsic((void*)"ulg flush_block() C_start", (void *)&global_x);
            compressed_len-7*eof));
 
     
-#line 951
+#line 952
 { ulg tau_ret_val =  compressed_len >> 3; __notify_intrinsic((void*)"ulg flush_block() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 951
-
-
 #line 952
+
+
+#line 953
 
 }
 	
 
-#line 952
+#line 953
 }
 
 /* ===========================================================================
@@ -1136,11 +1137,11 @@ int ct_tally (dist, lc)
     int lc;    /* match length-MIN_MATCH or unmatched char (if dist==0) */
 {
 
-#line 961
+#line 962
 
 __notify_intrinsic((void*)"int ct_tally() C_start", (void *)&global_x);
 
-#line 961
+#line 962
 {
     l_buf[last_lit++] = (uch)lc;
     if (dist == 0) {
@@ -1180,29 +1181,29 @@ __notify_intrinsic((void*)"int ct_tally() C_start", (void *)&global_x);
                last_lit, last_dist, in_length, out_length,
                100L - out_length*100L/in_length));
         if (last_dist < last_lit/2 && out_length < in_length/2) 
-#line 999
+#line 1000
 { int tau_ret_val =  1; __notify_intrinsic((void*)"int ct_tally() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 999
+#line 1000
 
     }
     
-#line 1001
+#line 1002
 { int tau_ret_val =  (last_lit == LIT_BUFSIZE-1 || last_dist == DIST_BUFSIZE); __notify_intrinsic((void*)"int ct_tally() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1001
+#line 1002
 
     /* We avoid equality with LIT_BUFSIZE because of wraparound at 64K
      * on 16 bit machines and because stored blocks are restricted to
      * 64K-1 bytes.
      */
 
-#line 1006
+#line 1007
 
 }
 	
 
-#line 1006
+#line 1007
 }
 
 /* ===========================================================================
@@ -1213,11 +1214,11 @@ local void compress_block(ltree, dtree)
     ct_data near *dtree; /* distance tree */
 {
 
-#line 1014
+#line 1015
 
 __notify_intrinsic((void*)"void compress_block() C_start", (void *)&global_x);
 
-#line 1014
+#line 1015
 {
     unsigned dist;      /* distance of matched string */
     int lc;             /* match length or unmatched char (if dist == 0) */
@@ -1260,12 +1261,12 @@ __notify_intrinsic((void*)"void compress_block() C_start", (void *)&global_x);
 
     send_code(END_BLOCK, ltree);
 
-#line 1055
+#line 1056
 
 }
 	
 
-#line 1055
+#line 1056
 }
 
 /* ===========================================================================
@@ -1277,11 +1278,11 @@ __notify_intrinsic((void*)"void compress_block() C_start", (void *)&global_x);
 local void set_file_type()
 {
 
-#line 1064
+#line 1065
 
 __notify_intrinsic((void*)"void set_file_type() C_start", (void *)&global_x);
 
-#line 1064
+#line 1065
 {
     int n = 0;
     unsigned ascii_freq = 0;
@@ -1294,10 +1295,10 @@ __notify_intrinsic((void*)"void set_file_type() C_start", (void *)&global_x);
         warn("-l used on binary file", "");
     }
 
-#line 1075
+#line 1076
 
 }
 	
 
-#line 1075
+#line 1076
 }

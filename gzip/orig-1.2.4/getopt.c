@@ -84,6 +84,8 @@
    Also, when `ordering' is RETURN_IN_ORDER,
    each non-option ARGV-element is returned here.  */
 
+int global_x;
+
 char *optarg = 0;
 
 /* Index in ARGV of the next element to be scanned.

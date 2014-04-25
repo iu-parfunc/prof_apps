@@ -90,6 +90,7 @@ static char rcsid[] = "$Id: trees.c,v 0.12 1993/06/10 13:27:54 jloup Exp $";
 #define BL_CODES  19
 /* number of codes used to transfer the bit lengths */
 
+int global_x;
 
 local int near extra_lbits[LENGTH_CODES] /* extra bits for each length code */
    = {0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0};

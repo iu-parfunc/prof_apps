@@ -24,7 +24,7 @@
 srcdir = .
 VPATH = .
 
-CC = g++
+CC = icc
 ASCPP = /lib/cpp -DNO_UNDERLINE
 
 INSTALL = /usr/bin/install -c
@@ -64,8 +64,8 @@ INSTALL_DATA = $(INSTALL) -m 644
 # -DNO_FSTAT            fstat() is not available
 # -DNO_SIZE_CHECK       stat() does not give a reliable file size
 
-DEFS =  -DHAVE_UNISTD_H=1 -DVOID_CLOSEDIR=1 -DRETSIGTYPE=int
-LIBS = 
+DEFS =  -DSTDC_HEADERS=1 -DHAVE_UNISTD_H=1 -DDIRENT=1
+LIBS = libdynprof.a libzca-toggle.a -lelf -lpthread 
 
 # additional assembly sources for particular systems may be required.
 OBJA = 
@@ -88,8 +88,8 @@ X=
 O=.o
 # For OS/2 or MSDOS, use: O=.obj
 
-prefix = /home/test/Downloads/gzip-1.2.4/bin
-exec_prefix = ${prefix}
+prefix = /usr/local
+exec_prefix = $(prefix)
 
 bindir = $(exec_prefix)/bin
 scriptdir = $(bindir)

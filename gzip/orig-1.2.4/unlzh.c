@@ -15,6 +15,8 @@ static char rcsid[] = "$Id: unlzh.c,v 1.2 1993/06/24 10:59:01 jloup Exp $";
 
 /* decode.c */
 
+int global_x;
+
 local unsigned  decode  OF((unsigned count, uch buffer[]));
 local void decode_start OF((void));
 

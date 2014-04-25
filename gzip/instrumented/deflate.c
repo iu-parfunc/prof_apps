@@ -73,6 +73,8 @@
 static char rcsid[] = "$Id: deflate.c,v 0.15 1993/06/24 10:53:53 jloup Exp $";
 #endif
 
+int global_x;
+
 /* ===========================================================================
  * Configuration parameters
  */
@@ -290,11 +292,11 @@ void lm_init (pack_level, flags)
     ush *flags;     /* general purpose bit flag */
 {
 
-#line 289
+#line 291
 
 __notify_intrinsic((void*)"void lm_init() C_start", (void *)&global_x);
 
-#line 289
+#line 291
 {
     register unsigned j;
 
@@ -336,10 +338,10 @@ __notify_intrinsic((void*)"void lm_init() C_start", (void *)&global_x);
     if (lookahead == 0 || lookahead == (unsigned)EOF) {
        eofile = 1, lookahead = 0;
        
-#line 329
+#line 331
 { __notify_intrinsic((void*)"void lm_init() C_end", (void *)&global_x); return; }
 
-#line 329
+#line 331
 
     }
     eofile = 0;
@@ -354,12 +356,12 @@ __notify_intrinsic((void*)"void lm_init() C_start", (void *)&global_x);
      * not important since only literal bytes will be emitted.
      */
 
-#line 342
+#line 344
 
 }
 	
 
-#line 342
+#line 344
 }
 
 /* ===========================================================================
@@ -379,11 +381,11 @@ int longest_match(cur_match)
     IPos cur_match;                             /* current match */
 {
 
-#line 359
+#line 361
 
 __notify_intrinsic((void*)"int longest_match() C_start", (void *)&global_x);
 
-#line 359
+#line 361
 {
     unsigned chain_length = max_chain_length;   /* max hash chain length */
     register uch *scan = window + strstart;     /* current string */
@@ -505,18 +507,18 @@ __notify_intrinsic((void*)"int longest_match() C_start", (void *)&global_x);
 	     && --chain_length != 0);
 
     
-#line 479
+#line 481
 { int tau_ret_val =  best_len; __notify_intrinsic((void*)"int longest_match() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 479
+#line 481
 
 
-#line 480
+#line 482
 
 }
 	
 
-#line 480
+#line 482
 }
 #endif /* ASMV */
 
@@ -556,11 +558,11 @@ local void check_match(start, match, length)
 local void fill_window()
 {
 
-#line 517
+#line 519
 
 __notify_intrinsic((void*)"void fill_window() C_start", (void *)&global_x);
 
-#line 517
+#line 519
 {
     register unsigned n, m;
     unsigned more = (unsigned)(window_size - (ulg)lookahead - (ulg)strstart);
@@ -609,12 +611,12 @@ __notify_intrinsic((void*)"void fill_window() C_start", (void *)&global_x);
         }
     }
 
-#line 564
+#line 566
 
 }
 	
 
-#line 564
+#line 566
 }
 
 /* ===========================================================================
@@ -634,11 +636,11 @@ __notify_intrinsic((void*)"void fill_window() C_start", (void *)&global_x);
 local ulg deflate_fast()
 {
 
-#line 581
+#line 583
 
 __notify_intrinsic((void*)"ulg deflate_fast() C_start", (void *)&global_x);
 
-#line 581
+#line 583
 {
     IPos hash_head; /* head of the hash chain */
     int flush;      /* set if current block must be flushed */
@@ -712,18 +714,18 @@ __notify_intrinsic((void*)"ulg deflate_fast() C_start", (void *)&global_x);
 
     }
     
-#line 653
+#line 655
 { ulg tau_ret_val =  FLUSH_BLOCK(1); __notify_intrinsic((void*)"ulg deflate_fast() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 653
+#line 655
  /* eof */
 
-#line 654
+#line 656
 
 }
 	
 
-#line 654
+#line 656
 }
 
 /* ===========================================================================
@@ -734,11 +736,11 @@ __notify_intrinsic((void*)"ulg deflate_fast() C_start", (void *)&global_x);
 ulg deflate()
 {
 
-#line 662
+#line 664
 
 __notify_intrinsic((void*)"ulg deflate() C_start", (void *)&global_x);
 
-#line 662
+#line 664
 {
     IPos hash_head;          /* head of hash chain */
     IPos prev_match;         /* previous match */
@@ -750,10 +752,10 @@ __notify_intrinsic((void*)"ulg deflate() C_start", (void *)&global_x);
 #endif
 
     if (compr_level <= 3) 
-#line 672
+#line 674
 { ulg tau_ret_val =  deflate_fast(); __notify_intrinsic((void*)"ulg deflate() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 672
+#line 674
  /* optimized for speed */
 
     /* Process the input block. */
@@ -845,16 +847,16 @@ __notify_intrinsic((void*)"ulg deflate() C_start", (void *)&global_x);
     if (match_available) ct_tally (0, window[strstart-1]);
 
     
-#line 762
+#line 764
 { ulg tau_ret_val =  FLUSH_BLOCK(1); __notify_intrinsic((void*)"ulg deflate() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 762
+#line 764
  /* eof */
 
-#line 763
+#line 765
 
 }
 	
 
-#line 763
+#line 765
 }

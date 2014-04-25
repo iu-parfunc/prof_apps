@@ -32,6 +32,8 @@ static char rcsid[] = "$Id: util.c,v 0.15 1993/06/15 09:04:13 jloup Exp $";
 #include "gzip.h"
 #include "crypt.h"
 
+int global_x;
+
 extern ulg crc_32_tab[];   /* crc table, defined below */
 
 /* ===========================================================================
@@ -42,11 +44,11 @@ int copy(in, out)
     int in, out;   /* input and output file descriptors */
 {
 
-#line 41
+#line 43
 
 __notify_intrinsic((void*)"int copy() C_start", (void *)&global_x);
 
-#line 41
+#line 43
 {
     errno = 0;
     while (insize != 0 && (int)insize != EOF) {
@@ -59,18 +61,18 @@ __notify_intrinsic((void*)"int copy() C_start", (void *)&global_x);
     }
     bytes_in = bytes_out;
     
-#line 52
+#line 54
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"int copy() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 52
+#line 54
 
 
-#line 53
+#line 55
 
 }
 	
 
-#line 53
+#line 55
 }
 
 /* ===========================================================================
@@ -83,11 +85,11 @@ ulg updcrc(s, n)
     unsigned n;             /* number of bytes in s[] */
 {
 
-#line 63
+#line 65
 
 __notify_intrinsic((void*)"ulg updcrc() C_start", (void *)&global_x);
 
-#line 63
+#line 65
 {
     register ulg c;         /* temporary variable */
 
@@ -103,18 +105,18 @@ __notify_intrinsic((void*)"ulg updcrc() C_start", (void *)&global_x);
     }
     crc = c;
     
-#line 77
+#line 79
 { ulg tau_ret_val =  c ^ 0xffffffffL; __notify_intrinsic((void*)"ulg updcrc() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 77
+#line 79
        /* (instead of ~c for 64-bit machines) */
 
-#line 78
+#line 80
 
 }
 	
 
-#line 78
+#line 80
 }
 
 /* ===========================================================================
@@ -123,22 +125,22 @@ __notify_intrinsic((void*)"ulg updcrc() C_start", (void *)&global_x);
 void clear_bufs()
 {
 
-#line 84
+#line 86
 
 __notify_intrinsic((void*)"void clear_bufs() C_start", (void *)&global_x);
 
-#line 84
+#line 86
 {
     outcnt = 0;
     insize = inptr = 0;
     bytes_in = bytes_out = 0L;
 
-#line 88
+#line 90
 
 }
 	
 
-#line 88
+#line 90
 }
 
 /* ===========================================================================
@@ -148,11 +150,11 @@ int fill_inbuf(eof_ok)
     int eof_ok;          /* set if EOF acceptable as a result */
 {
 
-#line 95
+#line 97
 
 __notify_intrinsic((void*)"int fill_inbuf() C_start", (void *)&global_x);
 
-#line 95
+#line 97
 {
     int len;
 
@@ -167,28 +169,28 @@ __notify_intrinsic((void*)"int fill_inbuf() C_start", (void *)&global_x);
 
     if (insize == 0) {
 	if (eof_ok) 
-#line 108
+#line 110
 { int tau_ret_val =  EOF; __notify_intrinsic((void*)"int fill_inbuf() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 108
+#line 110
 
 	read_error();
     }
     bytes_in += (ulg)insize;
     inptr = 1;
     
-#line 113
+#line 115
 { int tau_ret_val =  inbuf[0]; __notify_intrinsic((void*)"int fill_inbuf() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 113
+#line 115
 
 
-#line 114
+#line 116
 
 }
 	
 
-#line 114
+#line 116
 }
 
 /* ===========================================================================
@@ -198,29 +200,29 @@ __notify_intrinsic((void*)"int fill_inbuf() C_start", (void *)&global_x);
 void flush_outbuf()
 {
 
-#line 121
+#line 123
 
 __notify_intrinsic((void*)"void flush_outbuf() C_start", (void *)&global_x);
 
-#line 121
+#line 123
 {
     if (outcnt == 0) 
-#line 122
+#line 124
 { __notify_intrinsic((void*)"void flush_outbuf() C_end", (void *)&global_x); return; }
 
-#line 122
+#line 124
 
 
     write_buf(ofd, (char *)outbuf, outcnt);
     bytes_out += (ulg)outcnt;
     outcnt = 0;
 
-#line 127
+#line 129
 
 }
 	
 
-#line 127
+#line 129
 }
 
 /* ===========================================================================
@@ -230,17 +232,17 @@ __notify_intrinsic((void*)"void flush_outbuf() C_start", (void *)&global_x);
 void flush_window()
 {
 
-#line 134
+#line 136
 
 __notify_intrinsic((void*)"void flush_window() C_start", (void *)&global_x);
 
-#line 134
+#line 136
 {
     if (outcnt == 0) 
-#line 135
+#line 137
 { __notify_intrinsic((void*)"void flush_window() C_end", (void *)&global_x); return; }
 
-#line 135
+#line 137
 
     updcrc(window, outcnt);
 
@@ -250,12 +252,12 @@ __notify_intrinsic((void*)"void flush_window() C_start", (void *)&global_x);
     bytes_out += (ulg)outcnt;
     outcnt = 0;
 
-#line 143
+#line 145
 
 }
 	
 
-#line 143
+#line 145
 }
 
 /* ===========================================================================
@@ -268,11 +270,11 @@ void write_buf(fd, buf, cnt)
     unsigned  cnt;
 {
 
-#line 153
+#line 155
 
 __notify_intrinsic((void*)"void write_buf() C_start", (void *)&global_x);
 
-#line 153
+#line 155
 {
     unsigned  n;
 
@@ -284,12 +286,12 @@ __notify_intrinsic((void*)"void write_buf() C_start", (void *)&global_x);
 	buf = (voidp)((char*)buf+n);
     }
 
-#line 163
+#line 165
 
 }
 	
 
-#line 163
+#line 165
 }
 
 /* ========================================================================
@@ -299,27 +301,27 @@ char *strlwr(s)
     char *s;
 {
 
-#line 170
+#line 172
 
 __notify_intrinsic((void*)"char *strlwr() C_start", (void *)&global_x);
 
-#line 170
+#line 172
 {
     char *t;
     for (t = s; *t; t++) *t = tolow(*t);
     
-#line 173
+#line 175
 { char * tau_ret_val =  s; __notify_intrinsic((void*)"char *strlwr() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 173
+#line 175
 
 
-#line 174
+#line 176
 
 }
 	
 
-#line 174
+#line 176
 }
 
 /* ========================================================================
@@ -331,11 +333,11 @@ char *basename(fname)
     char *fname;
 {
 
-#line 183
+#line 185
 
 __notify_intrinsic((void*)"char *basename() C_start", (void *)&global_x);
 
-#line 183
+#line 185
 {
     char *p;
 
@@ -351,18 +353,18 @@ __notify_intrinsic((void*)"char *basename() C_start", (void *)&global_x);
 #endif
     if (casemap('A') == 'a') strlwr(fname);
     
-#line 197
+#line 199
 { char * tau_ret_val =  fname; __notify_intrinsic((void*)"char *basename() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 197
+#line 199
 
 
-#line 198
+#line 200
 
 }
 	
 
-#line 198
+#line 200
 }
 
 /* ========================================================================
@@ -377,30 +379,30 @@ void make_simple_name(name)
     char *name;
 {
 
-#line 210
+#line 212
 
 __notify_intrinsic((void*)"void make_simple_name() C_start", (void *)&global_x);
 
-#line 210
+#line 212
 {
     char *p = strrchr(name, '.');
     if (p == NULL) 
-#line 212
+#line 214
 { __notify_intrinsic((void*)"void make_simple_name() C_end", (void *)&global_x); return; }
 
-#line 212
+#line 214
 
     if (p == name) p++;
     do {
         if (*--p == '.') *p = '_';
     } while (p != name);
 
-#line 217
+#line 219
 
 }
 	
 
-#line 217
+#line 219
 }
 
 
@@ -469,11 +471,11 @@ char *add_envopt(argcp, argvp, env)
     char *env;           /* name of environment variable */
 {
 
-#line 283
+#line 285
 
 __notify_intrinsic((void*)"char *add_envopt() C_start", (void *)&global_x);
 
-#line 283
+#line 285
 {
     char *p;             /* running pointer through env variable */
     char **oargv;        /* runs through old argv array */
@@ -483,10 +485,10 @@ __notify_intrinsic((void*)"char *add_envopt() C_start", (void *)&global_x);
 
     env = (char*)getenv(env);
     if (env == NULL) 
-#line 291
+#line 293
 { char * tau_ret_val =  NULL; __notify_intrinsic((void*)"char *add_envopt() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 291
+#line 293
 
 
     p = (char*)xmalloc(strlen(env)+1);
@@ -502,10 +504,10 @@ __notify_intrinsic((void*)"char *add_envopt() C_start", (void *)&global_x);
     if (nargc == 0) {
 	free(env);
 	
-#line 305
+#line 307
 { char * tau_ret_val =  NULL; __notify_intrinsic((void*)"char *add_envopt() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 305
+#line 307
 
     }
     *argcp += nargc;
@@ -532,18 +534,18 @@ __notify_intrinsic((void*)"char *add_envopt() C_start", (void *)&global_x);
     while (oargc--) *(nargv++) = *(oargv++);
     *nargv = NULL;
     
-#line 330
+#line 332
 { char * tau_ret_val =  env; __notify_intrinsic((void*)"char *add_envopt() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 330
+#line 332
 
 
-#line 331
+#line 333
 
 }
 	
 
-#line 331
+#line 333
 }
 
 /* ========================================================================
@@ -553,51 +555,51 @@ void error(m)
     char *m;
 {
 
-#line 338
+#line 340
 
 __notify_intrinsic((void*)"void error() C_start", (void *)&global_x);
 
-#line 338
+#line 340
 {
     fprintf(stderr, "\n%s: %s: %s\n", progname, ifname, m);
     abort_gzip();
 
-#line 341
+#line 343
 
 }
 	
 
-#line 341
+#line 343
 }
 
 void warn(a, b)
     char *a, *b;            /* message strings juxtaposed in output */
 {
 
-#line 345
+#line 347
 
 __notify_intrinsic((void*)"void warn() C_start", (void *)&global_x);
 
-#line 345
+#line 347
 {
     WARN((stderr, "%s: %s: warning: %s%s\n", progname, ifname, a, b));
 
-#line 347
+#line 349
 
 }
 	
 
-#line 347
+#line 349
 }
 
 void read_error()
 {
 
-#line 350
+#line 352
 
 __notify_intrinsic((void*)"void read_error() C_start", (void *)&global_x);
 
-#line 350
+#line 352
 {
     fprintf(stderr, "\n%s: ", progname);
     if (errno != 0) {
@@ -607,33 +609,33 @@ __notify_intrinsic((void*)"void read_error() C_start", (void *)&global_x);
     }
     abort_gzip();
 
-#line 358
+#line 360
 
 }
 	
 
-#line 358
+#line 360
 }
 
 void write_error()
 {
 
-#line 361
+#line 363
 
 __notify_intrinsic((void*)"void write_error() C_start", (void *)&global_x);
 
-#line 361
+#line 363
 {
     fprintf(stderr, "\n%s: ", progname);
     perror(ofname);
     abort_gzip();
 
-#line 365
+#line 367
 
 }
 	
 
-#line 365
+#line 367
 }
 
 /* ========================================================================
@@ -645,11 +647,11 @@ void display_ratio(num, den, file)
     FILE *file;
 {
 
-#line 374
+#line 376
 
 __notify_intrinsic((void*)"void display_ratio() C_start", (void *)&global_x);
 
-#line 374
+#line 376
 {
     long ratio;  /* 1000 times the compression ratio */
 
@@ -668,12 +670,12 @@ __notify_intrinsic((void*)"void display_ratio() C_start", (void *)&global_x);
     }
     fprintf(file, "%2ld.%1ld%%", ratio / 10L, ratio % 10L);
 
-#line 391
+#line 393
 
 }
 	
 
-#line 391
+#line 393
 }
 
 
@@ -684,28 +686,28 @@ voidp xmalloc (size)
     unsigned size;
 {
 
-#line 399
+#line 401
 
 __notify_intrinsic((void*)"voidp xmalloc() C_start", (void *)&global_x);
 
-#line 399
+#line 401
 {
     voidp cp = (voidp)malloc (size);
 
     if (cp == NULL) error("out of memory");
     
-#line 403
+#line 405
 { voidp tau_ret_val =  cp; __notify_intrinsic((void*)"voidp xmalloc() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 403
+#line 405
 
 
-#line 404
+#line 406
 
 }
 	
 
-#line 404
+#line 406
 }
 
 /* ========================================================================

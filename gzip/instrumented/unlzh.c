@@ -17,6 +17,8 @@ static char rcsid[] = "$Id: unlzh.c,v 1.2 1993/06/24 10:59:01 jloup Exp $";
 
 /* decode.c */
 
+int global_x;
+
 local unsigned  decode  OF((unsigned count, uch buffer[]));
 local void decode_start OF((void));
 
@@ -112,11 +114,11 @@ local void fillbuf(n)  /* Shift bitbuf n bits left, read n bits */
     int n;
 {
 
-#line 111
+#line 113
 
 __notify_intrinsic((void*)"void fillbuf() C_start", (void *)&global_x);
 
-#line 111
+#line 113
 {
     bitbuf <<= n;
     while (n > bitcount) {
@@ -127,60 +129,60 @@ __notify_intrinsic((void*)"void fillbuf() C_start", (void *)&global_x);
     }
     bitbuf |= subbitbuf >> (bitcount -= n);
 
-#line 120
+#line 122
 
 }
 	
 
-#line 120
+#line 122
 }
 
 local unsigned getbits(n)
     int n;
 {
 
-#line 124
+#line 126
 
 __notify_intrinsic((void*)"unsigned int getbits() C_start", (void *)&global_x);
 
-#line 124
+#line 126
 {
     unsigned x;
 
     x = bitbuf >> (BITBUFSIZ - n);  fillbuf(n);
     
-#line 128
+#line 130
 { unsigned int tau_ret_val =  x; __notify_intrinsic((void*)"unsigned int getbits() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 128
+#line 130
 
 
-#line 129
+#line 131
 
 }
 	
 
-#line 129
+#line 131
 }
 
 local void init_getbits()
 {
 
-#line 132
+#line 134
 
 __notify_intrinsic((void*)"void init_getbits() C_start", (void *)&global_x);
 
-#line 132
+#line 134
 {
     bitbuf = 0;  subbitbuf = 0;  bitcount = 0;
     fillbuf(BITBUFSIZ);
 
-#line 135
+#line 137
 
 }
 	
 
-#line 135
+#line 137
 }
 
 /***********************************************************
@@ -194,11 +196,11 @@ local void make_table(nchar, bitlen, tablebits, table)
     ush table[];
 {
 
-#line 146
+#line 148
 
 __notify_intrinsic((void*)"void make_table() C_start", (void *)&global_x);
 
-#line 146
+#line 148
 {
     ush count[17], weight[17], start[18], *p;
     unsigned i, k, len, ch, jutbits, avail, nextcode, mask;
@@ -253,12 +255,12 @@ __notify_intrinsic((void*)"void make_table() C_start", (void *)&global_x);
 	start[len] = nextcode;
     }
 
-#line 199
+#line 201
 
 }
 	
 
-#line 199
+#line 201
 }
 
 /***********************************************************
@@ -271,11 +273,11 @@ local void read_pt_len(nn, nbit, i_special)
     int i_special;
 {
 
-#line 209
+#line 211
 
 __notify_intrinsic((void*)"void read_pt_len() C_start", (void *)&global_x);
 
-#line 209
+#line 211
 {
     int i, c, n;
     unsigned mask;
@@ -304,22 +306,22 @@ __notify_intrinsic((void*)"void read_pt_len() C_start", (void *)&global_x);
 	make_table(nn, pt_len, 8, pt_table);
     }
 
-#line 236
+#line 238
 
 }
 	
 
-#line 236
+#line 238
 }
 
 local void read_c_len()
 {
 
-#line 239
+#line 241
 
 __notify_intrinsic((void*)"void read_c_len() C_start", (void *)&global_x);
 
-#line 239
+#line 241
 {
     int i, c, n;
     unsigned mask;
@@ -353,22 +355,22 @@ __notify_intrinsic((void*)"void read_c_len() C_start", (void *)&global_x);
 	make_table(NC, c_len, 12, c_table);
     }
 
-#line 271
+#line 273
 
 }
 	
 
-#line 271
+#line 273
 }
 
 local unsigned decode_c()
 {
 
-#line 274
+#line 276
 
 __notify_intrinsic((void*)"unsigned int decode_c() C_start", (void *)&global_x);
 
-#line 274
+#line 276
 {
     unsigned j, mask;
 
@@ -376,10 +378,10 @@ __notify_intrinsic((void*)"unsigned int decode_c() C_start", (void *)&global_x);
 	blocksize = getbits(16);
 	if (blocksize == 0) {
 	    
-#line 280
+#line 282
 { unsigned int tau_ret_val =  NC; __notify_intrinsic((void*)"unsigned int decode_c() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 280
+#line 282
  /* end of file */
 	}
 	read_pt_len(NT, TBIT, 3);
@@ -398,28 +400,28 @@ __notify_intrinsic((void*)"unsigned int decode_c() C_start", (void *)&global_x);
     }
     fillbuf((int) c_len[j]);
     
-#line 297
+#line 299
 { unsigned int tau_ret_val =  j; __notify_intrinsic((void*)"unsigned int decode_c() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 297
+#line 299
 
 
-#line 298
+#line 300
 
 }
 	
 
-#line 298
+#line 300
 }
 
 local unsigned decode_p()
 {
 
-#line 301
+#line 303
 
 __notify_intrinsic((void*)"unsigned int decode_p() C_start", (void *)&global_x);
 
-#line 301
+#line 303
 {
     unsigned j, mask;
 
@@ -435,37 +437,37 @@ __notify_intrinsic((void*)"unsigned int decode_p() C_start", (void *)&global_x);
     fillbuf((int) pt_len[j]);
     if (j != 0) j = ((unsigned) 1 << (j - 1)) + getbits((int) (j - 1));
     
-#line 315
+#line 317
 { unsigned int tau_ret_val =  j; __notify_intrinsic((void*)"unsigned int decode_p() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 315
+#line 317
 
 
-#line 316
+#line 318
 
 }
 	
 
-#line 316
+#line 318
 }
 
 local void huf_decode_start()
 {
 
-#line 319
+#line 321
 
 __notify_intrinsic((void*)"void huf_decode_start() C_start", (void *)&global_x);
 
-#line 319
+#line 321
 {
     init_getbits();  blocksize = 0;
 
-#line 321
+#line 323
 
 }
 	
 
-#line 321
+#line 323
 }
 
 /***********************************************************
@@ -478,22 +480,22 @@ local int done; /* set at end of input */
 local void decode_start()
 {
 
-#line 331
+#line 333
 
 __notify_intrinsic((void*)"void decode_start() C_start", (void *)&global_x);
 
-#line 331
+#line 333
 {
     huf_decode_start();
     j = 0;
     done = 0;
 
-#line 335
+#line 337
 
 }
 	
 
-#line 335
+#line 337
 }
 
 /* Decode the input and return the number of decoded bytes put in buffer
@@ -511,11 +513,11 @@ local unsigned decode(count, buffer)
      */
 {
 
-#line 350
+#line 352
 
 __notify_intrinsic((void*)"unsigned int decode() C_start", (void *)&global_x);
 
-#line 350
+#line 352
 {
     local unsigned i;
     unsigned r, c;
@@ -525,10 +527,10 @@ __notify_intrinsic((void*)"unsigned int decode() C_start", (void *)&global_x);
 	buffer[r] = buffer[i];
 	i = (i + 1) & (DICSIZ - 1);
 	if (++r == count) 
-#line 358
+#line 360
 { unsigned int tau_ret_val =  r; __notify_intrinsic((void*)"unsigned int decode() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 358
+#line 360
 
     }
     for ( ; ; ) {
@@ -536,19 +538,19 @@ __notify_intrinsic((void*)"unsigned int decode() C_start", (void *)&global_x);
 	if (c == NC) {
 	    done = 1;
 	    
-#line 364
+#line 366
 { unsigned int tau_ret_val =  r; __notify_intrinsic((void*)"unsigned int decode() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 364
+#line 366
 
 	}
 	if (c <= UCHAR_MAX) {
 	    buffer[r] = c;
 	    if (++r == count) 
-#line 368
+#line 370
 { unsigned int tau_ret_val =  r; __notify_intrinsic((void*)"unsigned int decode() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 368
+#line 370
 
 	} else {
 	    j = c - (UCHAR_MAX + 1 - THRESHOLD);
@@ -557,21 +559,21 @@ __notify_intrinsic((void*)"unsigned int decode() C_start", (void *)&global_x);
 		buffer[r] = buffer[i];
 		i = (i + 1) & (DICSIZ - 1);
 		if (++r == count) 
-#line 375
+#line 377
 { unsigned int tau_ret_val =  r; __notify_intrinsic((void*)"unsigned int decode() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 375
+#line 377
 
 	    }
 	}
     }
 
-#line 379
+#line 381
 
 }
 	
 
-#line 379
+#line 381
 }
 
 
@@ -583,11 +585,11 @@ int unlzh(in, out)
     int out;
 {
 
-#line 388
+#line 390
 
 __notify_intrinsic((void*)"int unlzh() C_start", (void *)&global_x);
 
-#line 388
+#line 390
 {
     unsigned n;
     ifd = in;
@@ -601,16 +603,16 @@ __notify_intrinsic((void*)"int unlzh() C_start", (void *)&global_x);
 	}
     }
     
-#line 400
+#line 402
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"int unlzh() C_end", (void *)&global_x); return (tau_ret_val); }
 
-#line 400
+#line 402
 
 
-#line 401
+#line 403
 
 }
 	
 
-#line 401
+#line 403
 }
