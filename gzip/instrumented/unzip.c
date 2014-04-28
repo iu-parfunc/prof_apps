@@ -58,7 +58,7 @@ int check_zipfile(in)
 
 #line 55
 
-__notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"check_zipfile:start", (void *)&global_x);
 
 #line 55
 {
@@ -75,7 +75,7 @@ __notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
 	exit_code = ERROR;
 	
 #line 67
-{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int check_zipfile() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"check_zipfile:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 67
 
@@ -88,7 +88,7 @@ __notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
 	exit_code = ERROR;
 	
 #line 75
-{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int check_zipfile() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"check_zipfile:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 75
 
@@ -101,7 +101,7 @@ __notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
 	exit_code = ERROR;
 	
 #line 83
-{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int check_zipfile() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"check_zipfile:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 83
 
@@ -114,7 +114,7 @@ __notify_intrinsic((void*)"int check_zipfile() C_start", (void *)&global_x);
     /* Get ofname and time stamp from local header (to be done) */
     
 #line 91
-{ int tau_ret_val =  OK; __notify_intrinsic((void*)"int check_zipfile() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  OK; __notify_intrinsic((void*)"check_zipfile:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 91
 
@@ -140,7 +140,7 @@ int unzip(in, out)
 
 #line 103
 
-__notify_intrinsic((void*)"int unzip() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"unzip:start", (void *)&global_x);
 
 #line 103
 {
@@ -238,7 +238,7 @@ __notify_intrinsic((void*)"int unzip() C_start", (void *)&global_x);
 	    ext_header = pkzip = 0;
 	    
 #line 196
-{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int unzip() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"unzip:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 196
 
@@ -247,7 +247,7 @@ __notify_intrinsic((void*)"int unzip() C_start", (void *)&global_x);
     ext_header = pkzip = 0; /* for next file */
     
 #line 200
-{ int tau_ret_val =  OK; __notify_intrinsic((void*)"int unzip() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  OK; __notify_intrinsic((void*)"unzip:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 200
 

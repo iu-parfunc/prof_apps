@@ -115,10 +115,10 @@ LOADLIBES = $(LIBS)
 
 TAR = tar
 
-SRCS = gzip.c zip.c deflate.c trees.c bits.c unzip.c inflate.c util.c crypt.c\
+SRCS = zip.c gzip.c deflate.c trees.c bits.c unzip.c inflate.c util.c crypt.c\
        lzw.c unlzw.c unpack.c unlzh.c getopt.c match.S
 
-OBJS = gzip$O zip$O deflate$O trees$O bits$O unzip$O inflate$O util$O \
+OBJS = zip$O gzip$O deflate$O trees$O bits$O unzip$O inflate$O util$O \
        crypt$O lzw$O unlzw$O unpack$O unlzh$O getopt$O $(OBJA)
 
 HDRS = gzip.h lzw.h tailor.h revision.h crypt.h getopt.h

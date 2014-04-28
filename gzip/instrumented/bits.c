@@ -104,7 +104,7 @@ void bi_init (zipfile)
 
 #line 101
 
-__notify_intrinsic((void*)"void bi_init() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"bi_init:start", (void *)&global_x);
 
 #line 101
 {
@@ -141,7 +141,7 @@ void send_bits(value, length)
 
 #line 124
 
-__notify_intrinsic((void*)"void send_bits() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"send_bits:start", (void *)&global_x);
 
 #line 124
 {
@@ -184,7 +184,7 @@ unsigned bi_reverse(code, len)
 
 #line 153
 
-__notify_intrinsic((void*)"unsigned int bi_reverse() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"bi_reverse:start", (void *)&global_x);
 
 #line 153
 {
@@ -195,7 +195,7 @@ __notify_intrinsic((void*)"unsigned int bi_reverse() C_start", (void *)&global_x
     } while (--len > 0);
     
 #line 159
-{ unsigned int tau_ret_val =  res >> 1; __notify_intrinsic((void*)"unsigned int bi_reverse() C_end", (void *)&global_x); return (tau_ret_val); }
+{ unsigned int tau_ret_val =  res >> 1; __notify_intrinsic((void*)"bi_reverse:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 159
 
@@ -216,7 +216,7 @@ void bi_windup()
 
 #line 166
 
-__notify_intrinsic((void*)"void bi_windup() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"bi_windup:start", (void *)&global_x);
 
 #line 166
 {
@@ -251,7 +251,7 @@ void copy_block(buf, len, header)
 
 #line 187
 
-__notify_intrinsic((void*)"void copy_block() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"copy_block:start", (void *)&global_x);
 
 #line 187
 {

@@ -46,7 +46,7 @@ int copy(in, out)
 
 #line 43
 
-__notify_intrinsic((void*)"int copy() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"copy:start", (void *)&global_x);
 
 #line 43
 {
@@ -62,7 +62,7 @@ __notify_intrinsic((void*)"int copy() C_start", (void *)&global_x);
     bytes_in = bytes_out;
     
 #line 54
-{ int tau_ret_val =  OK; __notify_intrinsic((void*)"int copy() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  OK; __notify_intrinsic((void*)"copy:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 54
 
@@ -87,7 +87,7 @@ ulg updcrc(s, n)
 
 #line 65
 
-__notify_intrinsic((void*)"ulg updcrc() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"updcrc:start", (void *)&global_x);
 
 #line 65
 {
@@ -106,7 +106,7 @@ __notify_intrinsic((void*)"ulg updcrc() C_start", (void *)&global_x);
     crc = c;
     
 #line 79
-{ ulg tau_ret_val =  c ^ 0xffffffffL; __notify_intrinsic((void*)"ulg updcrc() C_end", (void *)&global_x); return (tau_ret_val); }
+{ ulg tau_ret_val =  c ^ 0xffffffffL; __notify_intrinsic((void*)"updcrc:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 79
        /* (instead of ~c for 64-bit machines) */
@@ -127,7 +127,7 @@ void clear_bufs()
 
 #line 86
 
-__notify_intrinsic((void*)"void clear_bufs() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"clear_bufs:start", (void *)&global_x);
 
 #line 86
 {
@@ -152,7 +152,7 @@ int fill_inbuf(eof_ok)
 
 #line 97
 
-__notify_intrinsic((void*)"int fill_inbuf() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"fill_inbuf:start", (void *)&global_x);
 
 #line 97
 {
@@ -170,7 +170,7 @@ __notify_intrinsic((void*)"int fill_inbuf() C_start", (void *)&global_x);
     if (insize == 0) {
 	if (eof_ok) 
 #line 110
-{ int tau_ret_val =  EOF; __notify_intrinsic((void*)"int fill_inbuf() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  EOF; __notify_intrinsic((void*)"fill_inbuf:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 110
 
@@ -180,7 +180,7 @@ __notify_intrinsic((void*)"int fill_inbuf() C_start", (void *)&global_x);
     inptr = 1;
     
 #line 115
-{ int tau_ret_val =  inbuf[0]; __notify_intrinsic((void*)"int fill_inbuf() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  inbuf[0]; __notify_intrinsic((void*)"fill_inbuf:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 115
 
@@ -202,13 +202,13 @@ void flush_outbuf()
 
 #line 123
 
-__notify_intrinsic((void*)"void flush_outbuf() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"flush_outbuf:start", (void *)&global_x);
 
 #line 123
 {
     if (outcnt == 0) 
 #line 124
-{ __notify_intrinsic((void*)"void flush_outbuf() C_end", (void *)&global_x); return; }
+{ __notify_intrinsic((void*)"flush_outbuf:end", (void *)&global_x); return; }
 
 #line 124
 
@@ -234,13 +234,13 @@ void flush_window()
 
 #line 136
 
-__notify_intrinsic((void*)"void flush_window() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"flush_window:start", (void *)&global_x);
 
 #line 136
 {
     if (outcnt == 0) 
 #line 137
-{ __notify_intrinsic((void*)"void flush_window() C_end", (void *)&global_x); return; }
+{ __notify_intrinsic((void*)"flush_window:end", (void *)&global_x); return; }
 
 #line 137
 
@@ -272,7 +272,7 @@ void write_buf(fd, buf, cnt)
 
 #line 155
 
-__notify_intrinsic((void*)"void write_buf() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"write_buf:start", (void *)&global_x);
 
 #line 155
 {
@@ -303,7 +303,7 @@ char *strlwr(s)
 
 #line 172
 
-__notify_intrinsic((void*)"char *strlwr() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"strlwr:start", (void *)&global_x);
 
 #line 172
 {
@@ -311,7 +311,7 @@ __notify_intrinsic((void*)"char *strlwr() C_start", (void *)&global_x);
     for (t = s; *t; t++) *t = tolow(*t);
     
 #line 175
-{ char * tau_ret_val =  s; __notify_intrinsic((void*)"char *strlwr() C_end", (void *)&global_x); return (tau_ret_val); }
+{ char * tau_ret_val =  s; __notify_intrinsic((void*)"strlwr:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 175
 
@@ -335,7 +335,7 @@ char *basename(fname)
 
 #line 185
 
-__notify_intrinsic((void*)"char *basename() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"basename:start", (void *)&global_x);
 
 #line 185
 {
@@ -354,7 +354,7 @@ __notify_intrinsic((void*)"char *basename() C_start", (void *)&global_x);
     if (casemap('A') == 'a') strlwr(fname);
     
 #line 199
-{ char * tau_ret_val =  fname; __notify_intrinsic((void*)"char *basename() C_end", (void *)&global_x); return (tau_ret_val); }
+{ char * tau_ret_val =  fname; __notify_intrinsic((void*)"basename:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 199
 
@@ -381,14 +381,14 @@ void make_simple_name(name)
 
 #line 212
 
-__notify_intrinsic((void*)"void make_simple_name() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"make_simple_name:start", (void *)&global_x);
 
 #line 212
 {
     char *p = strrchr(name, '.');
     if (p == NULL) 
 #line 214
-{ __notify_intrinsic((void*)"void make_simple_name() C_end", (void *)&global_x); return; }
+{ __notify_intrinsic((void*)"make_simple_name:end", (void *)&global_x); return; }
 
 #line 214
 
@@ -473,7 +473,7 @@ char *add_envopt(argcp, argvp, env)
 
 #line 285
 
-__notify_intrinsic((void*)"char *add_envopt() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"add_envopt:start", (void *)&global_x);
 
 #line 285
 {
@@ -486,7 +486,7 @@ __notify_intrinsic((void*)"char *add_envopt() C_start", (void *)&global_x);
     env = (char*)getenv(env);
     if (env == NULL) 
 #line 293
-{ char * tau_ret_val =  NULL; __notify_intrinsic((void*)"char *add_envopt() C_end", (void *)&global_x); return (tau_ret_val); }
+{ char * tau_ret_val =  NULL; __notify_intrinsic((void*)"add_envopt:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 293
 
@@ -505,7 +505,7 @@ __notify_intrinsic((void*)"char *add_envopt() C_start", (void *)&global_x);
 	free(env);
 	
 #line 307
-{ char * tau_ret_val =  NULL; __notify_intrinsic((void*)"char *add_envopt() C_end", (void *)&global_x); return (tau_ret_val); }
+{ char * tau_ret_val =  NULL; __notify_intrinsic((void*)"add_envopt:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 307
 
@@ -535,7 +535,7 @@ __notify_intrinsic((void*)"char *add_envopt() C_start", (void *)&global_x);
     *nargv = NULL;
     
 #line 332
-{ char * tau_ret_val =  env; __notify_intrinsic((void*)"char *add_envopt() C_end", (void *)&global_x); return (tau_ret_val); }
+{ char * tau_ret_val =  env; __notify_intrinsic((void*)"add_envopt:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 332
 
@@ -557,7 +557,7 @@ void error(m)
 
 #line 340
 
-__notify_intrinsic((void*)"void error() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"error:start", (void *)&global_x);
 
 #line 340
 {
@@ -578,7 +578,7 @@ void warn(a, b)
 
 #line 347
 
-__notify_intrinsic((void*)"void warn() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"warn:start", (void *)&global_x);
 
 #line 347
 {
@@ -597,7 +597,7 @@ void read_error()
 
 #line 352
 
-__notify_intrinsic((void*)"void read_error() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"read_error:start", (void *)&global_x);
 
 #line 352
 {
@@ -622,7 +622,7 @@ void write_error()
 
 #line 363
 
-__notify_intrinsic((void*)"void write_error() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"write_error:start", (void *)&global_x);
 
 #line 363
 {
@@ -649,7 +649,7 @@ void display_ratio(num, den, file)
 
 #line 376
 
-__notify_intrinsic((void*)"void display_ratio() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"display_ratio:start", (void *)&global_x);
 
 #line 376
 {
@@ -688,7 +688,7 @@ voidp xmalloc (size)
 
 #line 401
 
-__notify_intrinsic((void*)"voidp xmalloc() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"xmalloc:start", (void *)&global_x);
 
 #line 401
 {
@@ -697,7 +697,7 @@ __notify_intrinsic((void*)"voidp xmalloc() C_start", (void *)&global_x);
     if (cp == NULL) error("out of memory");
     
 #line 405
-{ voidp tau_ret_val =  cp; __notify_intrinsic((void*)"voidp xmalloc() C_end", (void *)&global_x); return (tau_ret_val); }
+{ voidp tau_ret_val =  cp; __notify_intrinsic((void*)"xmalloc:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 405
 

@@ -294,7 +294,7 @@ void lm_init (pack_level, flags)
 
 #line 291
 
-__notify_intrinsic((void*)"void lm_init() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"lm_init:start", (void *)&global_x);
 
 #line 291
 {
@@ -339,7 +339,7 @@ __notify_intrinsic((void*)"void lm_init() C_start", (void *)&global_x);
        eofile = 1, lookahead = 0;
        
 #line 331
-{ __notify_intrinsic((void*)"void lm_init() C_end", (void *)&global_x); return; }
+{ __notify_intrinsic((void*)"lm_init:end", (void *)&global_x); return; }
 
 #line 331
 
@@ -383,7 +383,7 @@ int longest_match(cur_match)
 
 #line 361
 
-__notify_intrinsic((void*)"int longest_match() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"longest_match:start", (void *)&global_x);
 
 #line 361
 {
@@ -508,7 +508,7 @@ __notify_intrinsic((void*)"int longest_match() C_start", (void *)&global_x);
 
     
 #line 481
-{ int tau_ret_val =  best_len; __notify_intrinsic((void*)"int longest_match() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  best_len; __notify_intrinsic((void*)"longest_match:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 481
 
@@ -560,7 +560,7 @@ local void fill_window()
 
 #line 519
 
-__notify_intrinsic((void*)"void fill_window() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"fill_window:start", (void *)&global_x);
 
 #line 519
 {
@@ -638,7 +638,7 @@ local ulg deflate_fast()
 
 #line 583
 
-__notify_intrinsic((void*)"ulg deflate_fast() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"deflate_fast:start", (void *)&global_x);
 
 #line 583
 {
@@ -715,7 +715,7 @@ __notify_intrinsic((void*)"ulg deflate_fast() C_start", (void *)&global_x);
     }
     
 #line 655
-{ ulg tau_ret_val =  FLUSH_BLOCK(1); __notify_intrinsic((void*)"ulg deflate_fast() C_end", (void *)&global_x); return (tau_ret_val); }
+{ ulg tau_ret_val =  FLUSH_BLOCK(1); __notify_intrinsic((void*)"deflate_fast:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 655
  /* eof */
@@ -738,7 +738,7 @@ ulg deflate()
 
 #line 664
 
-__notify_intrinsic((void*)"ulg deflate() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"deflate:start", (void *)&global_x);
 
 #line 664
 {
@@ -753,7 +753,7 @@ __notify_intrinsic((void*)"ulg deflate() C_start", (void *)&global_x);
 
     if (compr_level <= 3) 
 #line 674
-{ ulg tau_ret_val =  deflate_fast(); __notify_intrinsic((void*)"ulg deflate() C_end", (void *)&global_x); return (tau_ret_val); }
+{ ulg tau_ret_val =  deflate_fast(); __notify_intrinsic((void*)"deflate:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 674
  /* optimized for speed */
@@ -848,7 +848,7 @@ __notify_intrinsic((void*)"ulg deflate() C_start", (void *)&global_x);
 
     
 #line 764
-{ ulg tau_ret_val =  FLUSH_BLOCK(1); __notify_intrinsic((void*)"ulg deflate() C_end", (void *)&global_x); return (tau_ret_val); }
+{ ulg tau_ret_val =  FLUSH_BLOCK(1); __notify_intrinsic((void*)"deflate:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 764
  /* eof */

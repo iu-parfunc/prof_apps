@@ -23,13 +23,13 @@ int lzw(in, out)
 
 #line 20
 
-__notify_intrinsic((void*)"int lzw() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"lzw:start", (void *)&global_x);
 
 #line 20
 {
     if (msg_done) 
 #line 21
-{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int lzw() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"lzw:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 21
 
@@ -40,7 +40,7 @@ __notify_intrinsic((void*)"int lzw() C_start", (void *)&global_x);
     }
     
 #line 27
-{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int lzw() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"lzw:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 27
 

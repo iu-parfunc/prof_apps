@@ -339,7 +339,7 @@ void ct_init(attr, methodp)
 
 #line 336
 
-__notify_intrinsic((void*)"void ct_init() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"ct_init:start", (void *)&global_x);
 
 #line 336
 {
@@ -355,7 +355,7 @@ __notify_intrinsic((void*)"void ct_init() C_start", (void *)&global_x);
         
     if (static_dtree[0].Len != 0) 
 #line 347
-{ __notify_intrinsic((void*)"void ct_init() C_end", (void *)&global_x); return; }
+{ __notify_intrinsic((void*)"ct_init:end", (void *)&global_x); return; }
 
 #line 347
  /* ct_init already called */
@@ -431,7 +431,7 @@ local void init_block()
 
 #line 409
 
-__notify_intrinsic((void*)"void init_block() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"init_block:start", (void *)&global_x);
 
 #line 409
 {
@@ -491,7 +491,7 @@ local void pqdownheap(tree, k)
 
 #line 455
 
-__notify_intrinsic((void*)"void pqdownheap() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"pqdownheap:start", (void *)&global_x);
 
 #line 455
 {
@@ -536,7 +536,7 @@ local void gen_bitlen(desc)
 
 #line 486
 
-__notify_intrinsic((void*)"void gen_bitlen() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"gen_bitlen:start", (void *)&global_x);
 
 #line 486
 {
@@ -578,7 +578,7 @@ __notify_intrinsic((void*)"void gen_bitlen() C_start", (void *)&global_x);
     }
     if (overflow == 0) 
 #line 523
-{ __notify_intrinsic((void*)"void gen_bitlen() C_end", (void *)&global_x); return; }
+{ __notify_intrinsic((void*)"gen_bitlen:end", (void *)&global_x); return; }
 
 #line 523
 
@@ -641,7 +641,7 @@ local void gen_codes (tree, max_code)
 
 #line 572
 
-__notify_intrinsic((void*)"void gen_codes() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"gen_codes:start", (void *)&global_x);
 
 #line 572
 {
@@ -695,7 +695,7 @@ local void build_tree(desc)
 
 #line 612
 
-__notify_intrinsic((void*)"void build_tree() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"build_tree:start", (void *)&global_x);
 
 #line 612
 {
@@ -797,7 +797,7 @@ local void scan_tree (tree, max_code)
 
 #line 700
 
-__notify_intrinsic((void*)"void scan_tree() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"scan_tree:start", (void *)&global_x);
 
 #line 700
 {
@@ -855,7 +855,7 @@ local void send_tree (tree, max_code)
 
 #line 744
 
-__notify_intrinsic((void*)"void send_tree() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"send_tree:start", (void *)&global_x);
 
 #line 744
 {
@@ -917,7 +917,7 @@ local int build_bl_tree()
 
 #line 792
 
-__notify_intrinsic((void*)"int build_bl_tree() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"build_bl_tree:start", (void *)&global_x);
 
 #line 792
 {
@@ -946,7 +946,7 @@ __notify_intrinsic((void*)"int build_bl_tree() C_start", (void *)&global_x);
 
     
 #line 816
-{ int tau_ret_val =  max_blindex; __notify_intrinsic((void*)"int build_bl_tree() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  max_blindex; __notify_intrinsic((void*)"build_bl_tree:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 816
 
@@ -970,7 +970,7 @@ local void send_all_trees(lcodes, dcodes, blcodes)
 
 #line 826
 
-__notify_intrinsic((void*)"void send_all_trees() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"send_all_trees:start", (void *)&global_x);
 
 #line 826
 {
@@ -1016,7 +1016,7 @@ ulg flush_block(buf, stored_len, eof)
 
 #line 858
 
-__notify_intrinsic((void*)"ulg flush_block() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"flush_block:start", (void *)&global_x);
 
 #line 858
 {
@@ -1115,7 +1115,7 @@ __notify_intrinsic((void*)"ulg flush_block() C_start", (void *)&global_x);
 
     
 #line 952
-{ ulg tau_ret_val =  compressed_len >> 3; __notify_intrinsic((void*)"ulg flush_block() C_end", (void *)&global_x); return (tau_ret_val); }
+{ ulg tau_ret_val =  compressed_len >> 3; __notify_intrinsic((void*)"flush_block:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 952
 
@@ -1139,7 +1139,7 @@ int ct_tally (dist, lc)
 
 #line 962
 
-__notify_intrinsic((void*)"int ct_tally() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"ct_tally:start", (void *)&global_x);
 
 #line 962
 {
@@ -1182,14 +1182,14 @@ __notify_intrinsic((void*)"int ct_tally() C_start", (void *)&global_x);
                100L - out_length*100L/in_length));
         if (last_dist < last_lit/2 && out_length < in_length/2) 
 #line 1000
-{ int tau_ret_val =  1; __notify_intrinsic((void*)"int ct_tally() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  1; __notify_intrinsic((void*)"ct_tally:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 1000
 
     }
     
 #line 1002
-{ int tau_ret_val =  (last_lit == LIT_BUFSIZE-1 || last_dist == DIST_BUFSIZE); __notify_intrinsic((void*)"int ct_tally() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  (last_lit == LIT_BUFSIZE-1 || last_dist == DIST_BUFSIZE); __notify_intrinsic((void*)"ct_tally:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 1002
 
@@ -1216,7 +1216,7 @@ local void compress_block(ltree, dtree)
 
 #line 1015
 
-__notify_intrinsic((void*)"void compress_block() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"compress_block:start", (void *)&global_x);
 
 #line 1015
 {
@@ -1280,7 +1280,7 @@ local void set_file_type()
 
 #line 1065
 
-__notify_intrinsic((void*)"void set_file_type() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"set_file_type:start", (void *)&global_x);
 
 #line 1065
 {

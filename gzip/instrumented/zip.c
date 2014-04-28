@@ -40,7 +40,7 @@ int zip(in, out)
 
 #line 37
 
-__notify_intrinsic((void*)"int zip() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"zip:start", (void *)&global_x);
 
 #line 37
 {
@@ -104,7 +104,7 @@ __notify_intrinsic((void*)"int zip() C_start", (void *)&global_x);
     flush_outbuf();
     
 #line 96
-{ int tau_ret_val =  OK; __notify_intrinsic((void*)"int zip() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  OK; __notify_intrinsic((void*)"zip:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 96
 
@@ -130,7 +130,7 @@ int file_read(buf, size)
 
 #line 108
 
-__notify_intrinsic((void*)"int file_read() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"file_read:start", (void *)&global_x);
 
 #line 108
 {
@@ -141,7 +141,6 @@ __notify_intrinsic((void*)"int file_read() C_start", (void *)&global_x);
     len = read(ifd, buf, size);
     if (len == (unsigned)(-1) || len == 0) 
 #line 114
-{ int tau_ret_val =  (int)len; __notify_intrinsic((void*)"int file_read() C_end", (void *)&global_x); return (tau_ret_val); }
 
 #line 114
 
@@ -150,7 +149,7 @@ __notify_intrinsic((void*)"int file_read() C_start", (void *)&global_x);
     isize += (ulg)len;
     
 #line 118
-{ int tau_ret_val =  (int)len; __notify_intrinsic((void*)"int file_read() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  (int)len; __notify_intrinsic((void*)"file_read:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 118
 

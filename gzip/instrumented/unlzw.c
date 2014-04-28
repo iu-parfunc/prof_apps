@@ -199,7 +199,7 @@ int unlzw(in, out)
 
 #line 196
 
-__notify_intrinsic((void*)"int unlzw() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"unlzw:start", (void *)&global_x);
 
 #line 196
 {
@@ -239,7 +239,7 @@ __notify_intrinsic((void*)"int unlzw() C_start", (void *)&global_x);
 	exit_code = ERROR;
 	
 #line 231
-{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"int unlzw() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  ERROR; __notify_intrinsic((void*)"unlzw:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 231
 
@@ -391,7 +391,7 @@ __notify_intrinsic((void*)"int unlzw() C_start", (void *)&global_x);
     }
     
 #line 378
-{ int tau_ret_val =  OK; __notify_intrinsic((void*)"int unlzw() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  OK; __notify_intrinsic((void*)"unlzw:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 378
 

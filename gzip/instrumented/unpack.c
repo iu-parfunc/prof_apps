@@ -100,7 +100,7 @@ local void read_tree()
 
 #line 97
 
-__notify_intrinsic((void*)"void read_tree() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"read_tree:start", (void *)&global_x);
 
 #line 97
 {
@@ -165,7 +165,7 @@ local void build_tree()
 
 #line 148
 
-__notify_intrinsic((void*)"void build_tree() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"build_tree:start", (void *)&global_x);
 
 #line 148
 {
@@ -220,7 +220,7 @@ int unpack(in, out)
 
 #line 189
 
-__notify_intrinsic((void*)"int unpack() C_start", (void *)&global_x);
+__notify_intrinsic((void*)"unpack:start", (void *)&global_x);
 
 #line 189
 {
@@ -276,7 +276,7 @@ __notify_intrinsic((void*)"int unpack() C_start", (void *)&global_x);
     }
     
 #line 240
-{ int tau_ret_val =  OK; __notify_intrinsic((void*)"int unpack() C_end", (void *)&global_x); return (tau_ret_val); }
+{ int tau_ret_val =  OK; __notify_intrinsic((void*)"unpack:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 240
 

@@ -1,7 +1,7 @@
 # Instrumentation for C
 BEGIN_INSTRUMENT_SECTION
-  entry code="__notify_intrinsic((void*)\"@ROUTINE@_start\", (void *)&global_x);" lang="c"
-  exit  code="__notify_intrinsic((void*)\"@ROUTINE@_end\", (void *)&global_x);" lang="c"
+  entry code="__notify_intrinsic((void*)\"@ROUTINE@:start\", (void *)&global_x);" lang="c"
+  exit  code="__notify_intrinsic((void*)\"@ROUTINE@:end\", (void *)&global_x);" lang="c"
 END_INSTRUMENT_SECTION
 
 # Instrumentation for C++
