@@ -319,37 +319,31 @@ __notify_intrinsic((void*)"usage:start", (void *)&global_x);
 #line 311
 {
     fprintf(stderr, "usage: %s [-%scdfhlLnN%stvV19] [-S suffix] [file ...]\n",
-	    progname,
-#if O_BINARY
-	    "a",
-#else
-	    "",
-#endif
-#ifdef NO_DIR
-	    ""
-#else
-	    "r"
-#endif
-	    );
+	    progname, "");
+    
+#line 314
+{ __notify_intrinsic((void*)"usage:end", (void *)&global_x); return; }
 
-#line 325
+#line 314
+
+
+#line 315
 
 }
 	
-__notify_intrinsic((void*)"usage:end", (void *)&global_x);
 
-#line 325
+#line 315
 }
 
 /* ======================================================================== */
 local void help()
 {
 
-#line 329
+#line 319
 
 __notify_intrinsic((void*)"help:start", (void *)&global_x);
 
-#line 329
+#line 319
 {
     static char  *help_msg[] = {
 #if O_BINARY
@@ -391,47 +385,48 @@ __notify_intrinsic((void*)"help:start", (void *)&global_x);
     usage();
     while (*p) fprintf(stderr, "%s\n", *p++);
 
-#line 369
-
 __notify_intrinsic((void*)"help:end", (void *)&global_x);
+#line 359
+
 }
 	
 
-#line 369
+#line 359
 }
 
 /* ======================================================================== */
 local void license()
 {
 
-#line 373
+#line 363
 
 __notify_intrinsic((void*)"license:start", (void *)&global_x);
 
-#line 373
+#line 363
 {
     char **p = license_msg;
 
     fprintf(stderr,"%s %s (%s)\n", progname, VERSION, REVDATE);
     while (*p) fprintf(stderr, "%s\n", *p++);
 
-#line 378
+#line 368
 
 }
 	
 __notify_intrinsic((void*)"license:end", (void *)&global_x);
-#line 378
+
+#line 368
 }
 
 /* ======================================================================== */
 local void version()
 {
 
-#line 382
+#line 372
 
 __notify_intrinsic((void*)"version:start", (void *)&global_x);
 
-#line 382
+#line 372
 {
     fprintf(stderr,"%s %s (%s)\n", progname, VERSION, REVDATE);
 
@@ -474,13 +469,13 @@ __notify_intrinsic((void*)"version:start", (void *)&global_x);
 #endif
     fprintf(stderr, "\n");
 
-#line 423
+#line 413
 
 __notify_intrinsic((void*)"version:end", (void *)&global_x);
 }
 	
 
-#line 423
+#line 413
 }
 
 /* ======================================================================== */
@@ -489,11 +484,12 @@ int main (argc, argv)
     char **argv;
 {
 
-#line 429
+#line 419
 
 __notify_intrinsic((void*)"main:start", (void *)&global_x);
 
-#line 429
+#line 419
+{
 
     /* Initialize profiling */
     start_profiler();
@@ -620,6 +616,7 @@ __notify_intrinsic((void*)"main:start", (void *)&global_x);
 	    /* Error message already emitted by getopt_long. */
 	    usage();
 	    do_exit(ERROR);
+	}
     } /* loop on all arguments */
 
     /* By default, save name and timestamp on compression but do not
@@ -672,19 +669,18 @@ __notify_intrinsic((void*)"main:start", (void *)&global_x);
     }
     do_exit(exit_code);
     
-//    __notify_intrinsic((void*)"main:end", (void *)&global_x); 
+#line 598
+{ int tau_ret_val =  exit_code; __notify_intrinsic((void*)"main:end", (void *)&global_x); return (tau_ret_val); }
 
-__notify_intrinsic((void*)"main:end", (void *)&global_x);
-    return (exit_code); 
-
+#line 598
  /* just to avoid lint warning */
 
-#line 609
+#line 599
 
 }
 	
 
-#line 609
+#line 599
 }
 
 /* ========================================================================
@@ -693,11 +689,11 @@ __notify_intrinsic((void*)"main:end", (void *)&global_x);
 local void treat_stdin()
 {
 
-#line 615
+#line 605
 
 __notify_intrinsic((void*)"treat_stdin:start", (void *)&global_x);
 
-#line 615
+#line 605
 {
     if (!force && !list &&
 	isatty(fileno((FILE *)(decompress ? stdin : stdout)))) {
@@ -759,10 +755,10 @@ __notify_intrinsic((void*)"treat_stdin:start", (void *)&global_x);
     if (list) {
         do_list(ifd, method);
         
-#line 675
+#line 665
 { __notify_intrinsic((void*)"treat_stdin:end", (void *)&global_x); return; }
 
-#line 675
+#line 665
 
     }
 
@@ -770,10 +766,10 @@ __notify_intrinsic((void*)"treat_stdin:start", (void *)&global_x);
      */
     for (;;) {
 	if ((*work)(fileno(stdin), fileno(stdout)) != OK) 
-#line 681
+#line 671
 { __notify_intrinsic((void*)"treat_stdin:end", (void *)&global_x); return; }
 
-#line 681
+#line 671
 
 
 	if (!decompress || last_member || inptr == insize) break;
@@ -781,10 +777,10 @@ __notify_intrinsic((void*)"treat_stdin:start", (void *)&global_x);
 
 	method = get_method(ifd);
 	if (method < 0) 
-#line 687
+#line 677
 { __notify_intrinsic((void*)"treat_stdin:end", (void *)&global_x); return; }
 
-#line 687
+#line 677
  /* error message already emitted */
 	bytes_out = 0;            /* required for length check */
     }
@@ -804,12 +800,12 @@ __notify_intrinsic((void*)"treat_stdin:start", (void *)&global_x);
 	}
     }
 
-#line 705
+#line 695
 
 }
 	
 
-#line 705
+#line 695
 }
 
 /* ========================================================================
@@ -819,11 +815,11 @@ local void treat_file(iname)
     char *iname;
 {
 
-#line 712
+#line 702
 
 __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 
-#line 712
+#line 702
 {
     /* Accept "-" as synonym for stdin */
     if (strequ(iname, "-")) {
@@ -831,19 +827,19 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 	treat_stdin();
 	to_stdout = cflag;
 	
-#line 718
+#line 708
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 718
+#line 708
 
     }
 
     /* Check if the input file is present, set ifname and istat: */
     if (get_istat(iname, &istat) != OK) 
-#line 722
+#line 712
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 722
+#line 712
 
 
     /* If the input name is that of a directory, recurse or ignore: */
@@ -861,10 +857,10 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 #endif
 	WARN((stderr,"%s: %s is a directory -- ignored\n", progname, ifname));
 	
-#line 738
+#line 728
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 738
+#line 728
 
     }
     if (!S_ISREG(istat.st_mode)) {
@@ -872,10 +868,10 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 	      "%s: %s is not a directory or a regular file - ignored\n",
 	      progname, ifname));
 	
-#line 744
+#line 734
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 744
+#line 734
 
     }
     if (istat.st_nlink > 1 && !to_stdout && !force) {
@@ -883,10 +879,10 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 	      progname, ifname,
 	      (int)istat.st_nlink - 1, istat.st_nlink > 2 ? 's' : ' '));
 	
-#line 750
+#line 740
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 750
+#line 740
 
     }
 
@@ -901,10 +897,10 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 
     } else if (make_ofname() != OK) {
 	
-#line 763
+#line 753
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 763
+#line 753
 
     }
 
@@ -919,10 +915,10 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 	perror(ifname);
 	exit_code = ERROR;
 	
-#line 776
+#line 766
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 776
+#line 766
 
     }
     clear_bufs(); /* clear input and output buffers */
@@ -933,10 +929,10 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 	if (method < 0) {
 	    close(ifd);
 	    
-#line 785
+#line 775
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 785
+#line 775
                /* error message already emitted */
 	}
     }
@@ -944,10 +940,10 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
         do_list(ifd, method);
         close(ifd);
         
-#line 791
+#line 781
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 791
+#line 781
 
     }
 
@@ -960,10 +956,10 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 	/* keep remove_ofname as zero */
     } else {
 	if (create_outfile() != OK) 
-#line 802
+#line 792
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 802
+#line 792
 
 
 	if (!decompress && save_orig_name && !verbose && !quiet) {
@@ -1001,10 +997,10 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
     if (method == -1) {
 	if (!to_stdout) unlink (ofname);
 	
-#line 838
+#line 828
 { __notify_intrinsic((void*)"treat_file:end", (void *)&global_x); return; }
 
-#line 838
+#line 828
 
     }
     /* Display statistics */
@@ -1026,12 +1022,12 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 	copy_stat(&istat);
     }
 
-#line 858
+#line 848
 
 }
 	
 
-#line 858
+#line 848
 }
 
 /* ========================================================================
@@ -1046,11 +1042,11 @@ __notify_intrinsic((void*)"treat_file:start", (void *)&global_x);
 local int create_outfile()
 {
 
-#line 870
+#line 860
 
 __notify_intrinsic((void*)"create_outfile:start", (void *)&global_x);
 
-#line 870
+#line 860
 {
     struct stat	ostat; /* stat for ofname */
     int flags = O_WRONLY | O_CREAT | O_EXCL | O_BINARY;
@@ -1063,10 +1059,10 @@ __notify_intrinsic((void*)"create_outfile:start", (void *)&global_x);
 	if (check_ofname() != OK) {
 	    close(ifd);
 	    
-#line 881
+#line 871
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"create_outfile:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 881
+#line 871
 
 	}
 	/* Create the output file */
@@ -1077,10 +1073,10 @@ __notify_intrinsic((void*)"create_outfile:start", (void *)&global_x);
 	    close(ifd);
 	    exit_code = ERROR;
 	    
-#line 890
+#line 880
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"create_outfile:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 890
+#line 880
 
 	}
 
@@ -1096,17 +1092,17 @@ __notify_intrinsic((void*)"create_outfile:start", (void *)&global_x);
 	    unlink(ofname);
 	    exit_code = ERROR;
 	    
-#line 904
+#line 894
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"create_outfile:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 904
+#line 894
 
 	}
 	if (!name_too_long(ofname, &ostat)) 
-#line 906
+#line 896
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"create_outfile:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 906
+#line 896
 
 
 	if (decompress) {
@@ -1114,10 +1110,10 @@ __notify_intrinsic((void*)"create_outfile:start", (void *)&global_x);
 	    WARN((stderr, "%s: %s: warning, name truncated\n",
 		  progname, ofname));
 	    
-#line 912
+#line 902
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"create_outfile:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 912
+#line 902
 
 	}
 	close(ofd);
@@ -1130,12 +1126,12 @@ __notify_intrinsic((void*)"create_outfile:start", (void *)&global_x);
 	shorten_name(ofname);
     }
 
-#line 923
+#line 913
 
 }
 	
 
-#line 923
+#line 913
 }
 
 /* ========================================================================
@@ -1147,36 +1143,36 @@ local int do_stat(name, sbuf)
     struct stat *sbuf;
 {
 
-#line 932
+#line 922
 
 __notify_intrinsic((void*)"do_stat:start", (void *)&global_x);
 
-#line 932
+#line 922
 {
     errno = 0;
 #if (defined(S_IFLNK) || defined (S_ISLNK)) && !defined(NO_SYMLINK)
     if (!to_stdout && !force) {
 	
-#line 936
+#line 926
 { int tau_ret_val =  lstat(name, sbuf); __notify_intrinsic((void*)"do_stat:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 936
+#line 926
 
     }
 #endif
     
-#line 939
+#line 929
 { int tau_ret_val =  stat(name, sbuf); __notify_intrinsic((void*)"do_stat:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 939
+#line 929
 
 
-#line 940
+#line 930
 
 }
 	
 
-#line 940
+#line 930
 }
 
 /* ========================================================================
@@ -1195,11 +1191,11 @@ local char *get_suffix(name)
     char *name;
 {
 
-#line 956
+#line 946
 
 __notify_intrinsic((void*)"get_suffix:start", (void *)&global_x);
 
-#line 956
+#line 946
 {
     int nlen, slen;
     char suffix[MAX_SUFFIX+3]; /* last chars of name, forced to lower case */
@@ -1233,27 +1229,27 @@ __notify_intrinsic((void*)"get_suffix:start", (void *)&global_x);
        if (slen > s && suffix[slen-s-1] != PATH_SEP
            && strequ(suffix + slen - s, *suf)) {
            
-#line 988
+#line 978
 { char * tau_ret_val =  name+nlen-s; __notify_intrinsic((void*)"get_suffix:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 988
+#line 978
 
        }
     } while (*++suf != NULL);
 
     
-#line 992
+#line 982
 { char * tau_ret_val =  NULL; __notify_intrinsic((void*)"get_suffix:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 992
+#line 982
 
 
-#line 993
+#line 983
 
 }
 	
 
-#line 993
+#line 983
 }
 
 
@@ -1269,11 +1265,11 @@ local int get_istat(iname, sbuf)
     struct stat *sbuf;
 {
 
-#line 1006
+#line 996
 
 __notify_intrinsic((void*)"get_istat:start", (void *)&global_x);
 
-#line 1006
+#line 996
 {
     int ilen;  /* strlen(ifname) */
     static char *suffixes[] = {z_suffix, ".gz", ".z", "-z", ".Z", NULL};
@@ -1287,20 +1283,20 @@ __notify_intrinsic((void*)"get_istat:start", (void *)&global_x);
 
     /* If input file exists, return OK. */
     if (do_stat(ifname, sbuf) == 0) 
-#line 1018
+#line 1008
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"get_istat:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1018
+#line 1008
 
 
     if (!decompress || errno != ENOENT) {
 	perror(ifname);
 	exit_code = ERROR;
 	
-#line 1023
+#line 1013
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"get_istat:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1023
+#line 1013
 
     }
     /* file.ext doesn't exist, try adding a suffix (after removing any
@@ -1311,10 +1307,10 @@ __notify_intrinsic((void*)"get_istat:start", (void *)&global_x);
 	perror(ifname); /* ifname already has z suffix and does not exist */
 	exit_code = ERROR;
 	
-#line 1032
+#line 1022
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"get_istat:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1032
+#line 1022
 
     }
 #ifdef NO_MULTIPLE_DOTS
@@ -1342,10 +1338,10 @@ __notify_intrinsic((void*)"get_istat:start", (void *)&global_x);
 #endif
         strcat(ifname, s);
         if (do_stat(ifname, sbuf) == 0) 
-#line 1058
+#line 1048
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"get_istat:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1058
+#line 1048
 
 	ifname[ilen] = '\0';
     } while (*++suf != NULL);
@@ -1360,18 +1356,18 @@ __notify_intrinsic((void*)"get_istat:start", (void *)&global_x);
     perror(ifname);
     exit_code = ERROR;
     
-#line 1071
+#line 1061
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"get_istat:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1071
+#line 1061
 
 
-#line 1072
+#line 1062
 
 }
 	
 
-#line 1072
+#line 1062
 }
 
 /* ========================================================================
@@ -1381,11 +1377,11 @@ __notify_intrinsic((void*)"get_istat:start", (void *)&global_x);
 local int make_ofname()
 {
 
-#line 1079
+#line 1069
 
 __notify_intrinsic((void*)"make_ofname:start", (void *)&global_x);
 
-#line 1079
+#line 1069
 {
     char *suff;            /* ofname z suffix */
 
@@ -1399,10 +1395,10 @@ __notify_intrinsic((void*)"make_ofname:start", (void *)&global_x);
 	     * except with -r (behave as with just -dr).
              */
             if (!recursive && (list || test)) 
-#line 1091
+#line 1081
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"make_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1091
+#line 1081
 
 
 	    /* Avoid annoying messages with -r */
@@ -1411,10 +1407,10 @@ __notify_intrinsic((void*)"make_ofname:start", (void *)&global_x);
 		      progname, ifname));
 	    }
 	    
-#line 1098
+#line 1088
 { int tau_ret_val =  WARNING; __notify_intrinsic((void*)"make_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1098
+#line 1088
 
 	}
 	/* Make a special case for .tgz and .taz: */
@@ -1434,10 +1430,10 @@ __notify_intrinsic((void*)"make_ofname:start", (void *)&global_x);
 	}
 	if (exit_code == OK) exit_code = WARNING;
 	
-#line 1116
+#line 1106
 { int tau_ret_val =  WARNING; __notify_intrinsic((void*)"make_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1116
+#line 1106
 
     } else {
         save_orig_name = 0;
@@ -1465,18 +1461,18 @@ __notify_intrinsic((void*)"make_ofname:start", (void *)&global_x);
 
     } /* decompress ? */
     
-#line 1142
+#line 1132
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"make_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1142
+#line 1132
 
 
-#line 1143
+#line 1133
 
 }
 	
 
-#line 1143
+#line 1133
 }
 
 
@@ -1495,11 +1491,11 @@ local int get_method(in)
     int in;        /* input file descriptor */
 {
 
-#line 1159
+#line 1149
 
 __notify_intrinsic((void*)"get_method:start", (void *)&global_x);
 
-#line 1159
+#line 1149
 {
     uch flags;     /* compression flags */
     char magic[2]; /* magic header */
@@ -1532,10 +1528,10 @@ __notify_intrinsic((void*)"get_method:start", (void *)&global_x);
 		    progname, ifname, method);
 	    exit_code = ERROR;
 	    
-#line 1190
+#line 1180
 { int tau_ret_val =  -1; __notify_intrinsic((void*)"get_method:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1190
+#line 1180
 
 	}
 	work = unzip;
@@ -1547,10 +1543,10 @@ __notify_intrinsic((void*)"get_method:start", (void *)&global_x);
 		    progname, ifname);
 	    exit_code = ERROR;
 	    
-#line 1200
+#line 1190
 { int tau_ret_val =  -1; __notify_intrinsic((void*)"get_method:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1200
+#line 1190
 
 	}
 	if ((flags & CONTINUATION) != 0) {
@@ -1559,10 +1555,10 @@ __notify_intrinsic((void*)"get_method:start", (void *)&global_x);
 		    progname, ifname);
 	    exit_code = ERROR;
 	    if (force <= 1) 
-#line 1207
+#line 1197
 { int tau_ret_val =  -1; __notify_intrinsic((void*)"get_method:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1207
+#line 1197
 
 	}
 	if ((flags & RESERVED) != 0) {
@@ -1571,10 +1567,10 @@ __notify_intrinsic((void*)"get_method:start", (void *)&global_x);
 		    progname, ifname, flags);
 	    exit_code = ERROR;
 	    if (force <= 1) 
-#line 1214
+#line 1204
 { int tau_ret_val =  -1; __notify_intrinsic((void*)"get_method:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1214
+#line 1204
 
 	}
 	stamp  = (ulg)get_byte();
@@ -1645,10 +1641,10 @@ __notify_intrinsic((void*)"get_method:start", (void *)&global_x);
         inptr = 0;
 	work = unzip;
 	if (check_zipfile(in) != OK) 
-#line 1283
+#line 1273
 { int tau_ret_val =  -1; __notify_intrinsic((void*)"get_method:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1283
+#line 1273
 
 	/* check_zipfile may get ofname from the local header */
 	last_member = 1;
@@ -1674,38 +1670,38 @@ __notify_intrinsic((void*)"get_method:start", (void *)&global_x);
 	last_member = 1;
     }
     if (method >= 0) 
-#line 1307
+#line 1297
 { int tau_ret_val =  method; __notify_intrinsic((void*)"get_method:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1307
+#line 1297
 
 
     if (part_nb == 1) {
 	fprintf(stderr, "\n%s: %s: not in gzip format\n", progname, ifname);
 	exit_code = ERROR;
 	
-#line 1312
+#line 1302
 { int tau_ret_val =  -1; __notify_intrinsic((void*)"get_method:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1312
+#line 1302
 
     } else {
 	WARN((stderr, "\n%s: %s: decompression OK, trailing garbage ignored\n",
 	      progname, ifname));
 	
-#line 1316
+#line 1306
 { int tau_ret_val =  -2; __notify_intrinsic((void*)"get_method:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1316
+#line 1306
 
     }
 
-#line 1318
+#line 1308
 
 }
 	
 
-#line 1318
+#line 1308
 }
 
 /* ========================================================================
@@ -1718,11 +1714,11 @@ local void do_list(ifd, method)
     int method;  /* compression method */
 {
 
-#line 1328
+#line 1318
 
 __notify_intrinsic((void*)"do_list:start", (void *)&global_x);
 
-#line 1328
+#line 1318
 {
     ulg crc;  /* original crc */
     static int first_time = 1;
@@ -1745,10 +1741,10 @@ __notify_intrinsic((void*)"do_list:start", (void *)&global_x);
 	}
     } else if (method < 0) {
 	if (total_in <= 0 || total_out <= 0) 
-#line 1349
+#line 1339
 { __notify_intrinsic((void*)"do_list:end", (void *)&global_x); return; }
 
-#line 1349
+#line 1339
 
 	if (verbose) {
 	    printf("                            %9lu %9lu ",
@@ -1762,10 +1758,10 @@ __notify_intrinsic((void*)"do_list:start", (void *)&global_x);
 	 */
 	printf(" (totals)\n");
 	
-#line 1361
+#line 1351
 { __notify_intrinsic((void*)"do_list:end", (void *)&global_x); return; }
 
-#line 1361
+#line 1351
 
     }
     crc = (ulg)~0; /* unknown */
@@ -1813,12 +1809,12 @@ __notify_intrinsic((void*)"do_list:start", (void *)&global_x);
     display_ratio(bytes_out-(bytes_in-header_bytes), bytes_out, stdout);
     printf(" %s\n", ofname);
 
-#line 1407
+#line 1397
 
 }
 	
 
-#line 1407
+#line 1397
 }
 
 /* ========================================================================
@@ -1829,14 +1825,14 @@ local int same_file(stat1, stat2)
     struct stat *stat2;
 {
 
-#line 1415
+#line 1405
 
 __notify_intrinsic((void*)"same_file:start", (void *)&global_x);
 
-#line 1415
+#line 1405
 {
     
-#line 1428
+#line 1418
 { int tau_ret_val =  stat1->st_ino   == stat2->st_ino
 	&& stat1->st_dev   == stat2->st_dev
 #ifdef NO_ST_INO
@@ -1851,15 +1847,15 @@ __notify_intrinsic((void*)"same_file:start", (void *)&global_x);
 #endif
 	    ; __notify_intrinsic((void*)"same_file:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1428
+#line 1418
 
 
-#line 1429
+#line 1419
 
 }
 	
 
-#line 1429
+#line 1419
 }
 
 /* ========================================================================
@@ -1871,11 +1867,11 @@ local int name_too_long(name, statb)
     struct stat *statb;   /* stat buf for this file name */
 {
 
-#line 1438
+#line 1428
 
 __notify_intrinsic((void*)"name_too_long:start", (void *)&global_x);
 
-#line 1438
+#line 1428
 {
     int s = strlen(name);
     char c = name[s-1];
@@ -1888,18 +1884,18 @@ __notify_intrinsic((void*)"name_too_long:start", (void *)&global_x);
     name[s-1] = c;
     Trace((stderr, " too_long(%s) => %d\n", name, res));
     
-#line 1449
+#line 1439
 { int tau_ret_val =  res; __notify_intrinsic((void*)"name_too_long:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1449
+#line 1439
 
 
-#line 1450
+#line 1440
 
 }
 	
 
-#line 1450
+#line 1440
 }
 
 /* ========================================================================
@@ -1915,11 +1911,11 @@ local void shorten_name(name)
     char *name;
 {
 
-#line 1463
+#line 1453
 
 __notify_intrinsic((void*)"shorten_name:start", (void *)&global_x);
 
-#line 1463
+#line 1453
 {
     int len;                 /* length of name without z_suffix */
     char *trunc = NULL;      /* character to be truncated */
@@ -1932,10 +1928,10 @@ __notify_intrinsic((void*)"shorten_name:start", (void *)&global_x);
 	if (len <= 1) error("name too short");
 	name[len-1] = '\0';
 	
-#line 1474
+#line 1464
 { __notify_intrinsic((void*)"shorten_name:end", (void *)&global_x); return; }
 
-#line 1474
+#line 1464
 
     }
     p = get_suffix(name);
@@ -1947,10 +1943,10 @@ __notify_intrinsic((void*)"shorten_name:start", (void *)&global_x);
     if (len > 4 && strequ(p-4, ".tar")) {
 	strcpy(p-4, ".tgz");
 	
-#line 1484
+#line 1474
 { __notify_intrinsic((void*)"shorten_name:end", (void *)&global_x); return; }
 
-#line 1484
+#line 1474
 
     }
     /* Try keeping short extensions intact:
@@ -1979,12 +1975,12 @@ __notify_intrinsic((void*)"shorten_name:start", (void *)&global_x);
     }
     strcpy(trunc, z_suffix);
 
-#line 1511
+#line 1501
 
 }
 	
 
-#line 1511
+#line 1501
 }
 
 /* ========================================================================
@@ -2004,11 +2000,11 @@ __notify_intrinsic((void*)"shorten_name:start", (void *)&global_x);
 local int check_ofname()
 {
 
-#line 1528
+#line 1518
 
 __notify_intrinsic((void*)"check_ofname:start", (void *)&global_x);
 
-#line 1528
+#line 1518
 {
     struct stat	ostat; /* stat for ofname */
 
@@ -2019,10 +2015,10 @@ __notify_intrinsic((void*)"check_ofname:start", (void *)&global_x);
     errno = 0;
     while (stat(ofname, &ostat) != 0) {
         if (errno != ENAMETOOLONG) 
-#line 1537
+#line 1527
 { int tau_ret_val =  0; __notify_intrinsic((void*)"check_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1537
+#line 1527
  /* ofname does not exist */
 	shorten_name(ofname);
     }
@@ -2036,10 +2032,10 @@ __notify_intrinsic((void*)"check_ofname:start", (void *)&global_x);
     if (!decompress && name_too_long(ofname, &ostat)) {
 	shorten_name(ofname);
 	if (stat(ofname, &ostat) != 0) 
-#line 1549
+#line 1539
 { int tau_ret_val =  0; __notify_intrinsic((void*)"check_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1549
+#line 1539
 
     }
 
@@ -2056,10 +2052,10 @@ __notify_intrinsic((void*)"check_ofname:start", (void *)&global_x);
 	}
 	exit_code = ERROR;
 	
-#line 1564
+#line 1554
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"check_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1564
+#line 1554
 
     }
     /* Ask permission to overwrite the existing file */
@@ -2076,10 +2072,10 @@ __notify_intrinsic((void*)"check_ofname:start", (void *)&global_x);
 	    fprintf(stderr, "\tnot overwritten\n");
 	    if (exit_code == OK) exit_code = WARNING;
 	    
-#line 1579
+#line 1569
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"check_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1579
+#line 1569
 
 	}
     }
@@ -2089,25 +2085,25 @@ __notify_intrinsic((void*)"check_ofname:start", (void *)&global_x);
 	perror(ofname);
 	exit_code = ERROR;
 	
-#line 1587
+#line 1577
 { int tau_ret_val =  ERROR; __notify_intrinsic((void*)"check_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1587
+#line 1577
 
     }
     
-#line 1589
+#line 1579
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"check_ofname:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1589
+#line 1579
 
 
-#line 1590
+#line 1580
 
 }
 	
 
-#line 1590
+#line 1580
 }
 
 
@@ -2120,11 +2116,11 @@ local void reset_times (name, statb)
     struct stat *statb;
 {
 
-#line 1600
+#line 1590
 
 __notify_intrinsic((void*)"reset_times:start", (void *)&global_x);
 
-#line 1600
+#line 1590
 {
     struct utimbuf	timep;
 
@@ -2138,13 +2134,13 @@ __notify_intrinsic((void*)"reset_times:start", (void *)&global_x);
 	if (!quiet) perror(ofname);
     }
 
-#line 1612
+#line 1602
+__notify_intrinsic((void*)"reset_times:end", (void *)&global_x);
 
 }
 	
-__notify_intrinsic((void*)"reset_times:end", (void *)&global_x);
 
-#line 1612
+#line 1602
 }
 #endif
 
@@ -2157,11 +2153,11 @@ local void copy_stat(ifstat)
     struct stat *ifstat;
 {
 
-#line 1622
+#line 1612
 
 __notify_intrinsic((void*)"copy_stat:start", (void *)&global_x);
 
-#line 1622
+#line 1612
 {
 #ifndef NO_UTIME
     if (decompress && time_stamp != 0 && ifstat->st_mtime != time_stamp) {
@@ -2188,12 +2184,13 @@ __notify_intrinsic((void*)"copy_stat:start", (void *)&global_x);
 	if (!quiet) perror(ifname);
     }
 
-#line 1647
+#line 1637
 __notify_intrinsic((void*)"copy_stat:end", (void *)&global_x);
+
 }
 	
 
-#line 1647
+#line 1637
 }
 
 #ifndef NO_DIR
@@ -2269,11 +2266,11 @@ local void do_exit(exitcode)
     int exitcode;
 {
 
-#line 1720
+#line 1710
 
 __notify_intrinsic((void*)"do_exit:start", (void *)&global_x);
 
-#line 1720
+#line 1710
 {
     static int in_exit = 0;
 
@@ -2291,14 +2288,15 @@ __notify_intrinsic((void*)"do_exit:start", (void *)&global_x);
     FREE(tab_prefix0);
     FREE(tab_prefix1);
 #endif
+__notify_intrinsic((void*)"do_exit:end", (void *)&global_x);
     exit(exitcode);
 
-#line 1738
+#line 1728
 
 }
 	
-__notify_intrinsic((void*)"do_exit:end", (void *)&global_x);
-#line 1738
+
+#line 1728
 }
 
 /* ========================================================================
@@ -2307,11 +2305,11 @@ __notify_intrinsic((void*)"do_exit:end", (void *)&global_x);
 RETSIGTYPE abort_gzip()
 {
 
-#line 1744
+#line 1734
 
 __notify_intrinsic((void*)"abort_gzip:start", (void *)&global_x);
 
-#line 1744
+#line 1734
 {
    if (remove_ofname) {
        close(ofd);
@@ -2319,11 +2317,11 @@ __notify_intrinsic((void*)"abort_gzip:start", (void *)&global_x);
    }
    do_exit(ERROR);
 
-#line 1750
+#line 1740
 
 __notify_intrinsic((void*)"abort_gzip:end", (void *)&global_x);
 }
 	
 
-#line 1750
+#line 1740
 }

@@ -141,6 +141,7 @@ __notify_intrinsic((void*)"file_read:start", (void *)&global_x);
     len = read(ifd, buf, size);
     if (len == (unsigned)(-1) || len == 0) 
 #line 114
+{ int tau_ret_val =  (int)len; __notify_intrinsic((void*)"file_read:end", (void *)&global_x); return (tau_ret_val); }
 
 #line 114
 

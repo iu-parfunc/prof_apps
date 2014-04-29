@@ -310,18 +310,8 @@ local void reset_times  OF((char *name, struct stat *statb));
 local void usage()
 {
     fprintf(stderr, "usage: %s [-%scdfhlLnN%stvV19] [-S suffix] [file ...]\n",
-	    progname,
-#if O_BINARY
-	    "a",
-#else
-	    "",
-#endif
-#ifdef NO_DIR
-	    ""
-#else
-	    "r"
-#endif
-	    );
+	    progname, "");
+    return;
 }
 
 /* ======================================================================== */
