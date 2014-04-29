@@ -2,7 +2,7 @@
 # Generated automatically by configure.
 # Run this file to recreate the current configuration.
 # This directory was configured as follows,
-# on host ubuntu:
+# on host tank.soic.indiana.edu:
 #
 # ./configure dummy gcc
 
@@ -26,7 +26,7 @@ G=''
 CFLAGS='-O'
 ASCPP='/lib/cpp -DNO_UNDERLINE'
 OBJA=''
-SEDCMD=''
+SEDCMD='1d'
 LIBS=''
 srcdir='.'
 DEFS=' -DSTDC_HEADERS=1 -DHAVE_UNISTD_H=1 -DDIRENT=1'
