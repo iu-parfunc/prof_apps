@@ -1,5 +1,6 @@
 # Instrumentation for C
 BEGIN_INSTRUMENT_SECTION
+#  entry code="__notify_intrinsic((void*)\"@ROUTINE@:start\", (void *)&global_x); fprintf(stderr, \"Executing @ROUTINE@\\n\");" lang="c"
   entry code="__notify_intrinsic((void*)\"@ROUTINE@:start\", (void *)&global_x);" lang="c"
   exit  code="__notify_intrinsic((void*)\"@ROUTINE@:end\", (void *)&global_x);" lang="c"
 END_INSTRUMENT_SECTION

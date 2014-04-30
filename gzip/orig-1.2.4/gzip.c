@@ -356,6 +356,8 @@ local void help()
     fprintf(stderr,"%s %s (%s)\n", progname, VERSION, REVDATE);
     usage();
     while (*p) fprintf(stderr, "%s\n", *p++);
+
+    return;
 }
 
 /* ======================================================================== */
@@ -365,6 +367,8 @@ local void license()
 
     fprintf(stderr,"%s %s (%s)\n", progname, VERSION, REVDATE);
     while (*p) fprintf(stderr, "%s\n", *p++);
+
+    return;
 }
 
 /* ======================================================================== */
@@ -410,6 +414,8 @@ local void version()
     fprintf(stderr, "MAXSEG_64K");
 #endif
     fprintf(stderr, "\n");
+
+    return;
 }
 
 /* ======================================================================== */
@@ -1599,6 +1605,8 @@ local void reset_times (name, statb)
 	WARN((stderr, "%s: ", progname));
 	if (!quiet) perror(ofname);
     }
+
+    return;
 }
 #endif
 
@@ -1634,6 +1642,8 @@ local void copy_stat(ifstat)
 	WARN((stderr, "%s: ", progname));
 	if (!quiet) perror(ifname);
     }
+
+    return;
 }
 
 #ifndef NO_DIR
@@ -1724,6 +1734,8 @@ local void do_exit(exitcode)
     FREE(tab_prefix0);
     FREE(tab_prefix1);
 #endif
+
+__notify_intrinsic((void*)"do_exit:end", (void *)&global_x);     
     exit(exitcode);
 }
 
@@ -1736,5 +1748,6 @@ RETSIGTYPE abort_gzip()
        close(ofd);
        unlink (ofname);
    }
+__notify_intrinsic((void*)"abort_gzip:end", (void *)&global_x); 
    do_exit(ERROR);
 }

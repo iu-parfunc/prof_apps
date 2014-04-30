@@ -134,13 +134,19 @@ __notify_intrinsic((void*)"clear_bufs:start", (void *)&global_x);
     outcnt = 0;
     insize = inptr = 0;
     bytes_in = bytes_out = 0L;
+    
+#line 90
+{ __notify_intrinsic((void*)"clear_bufs:end", (void *)&global_x); return; }
 
 #line 90
+
+
+#line 91
 
 }
 	
 
-#line 90
+#line 91
 }
 
 /* ===========================================================================
@@ -150,11 +156,11 @@ int fill_inbuf(eof_ok)
     int eof_ok;          /* set if EOF acceptable as a result */
 {
 
-#line 97
+#line 98
 
 __notify_intrinsic((void*)"fill_inbuf:start", (void *)&global_x);
 
-#line 97
+#line 98
 {
     int len;
 
@@ -169,28 +175,28 @@ __notify_intrinsic((void*)"fill_inbuf:start", (void *)&global_x);
 
     if (insize == 0) {
 	if (eof_ok) 
-#line 110
+#line 111
 { int tau_ret_val =  EOF; __notify_intrinsic((void*)"fill_inbuf:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 110
+#line 111
 
 	read_error();
     }
     bytes_in += (ulg)insize;
     inptr = 1;
     
-#line 115
+#line 116
 { int tau_ret_val =  inbuf[0]; __notify_intrinsic((void*)"fill_inbuf:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 115
-
-
 #line 116
+
+
+#line 117
 
 }
 	
 
-#line 116
+#line 117
 }
 
 /* ===========================================================================
@@ -200,29 +206,35 @@ __notify_intrinsic((void*)"fill_inbuf:start", (void *)&global_x);
 void flush_outbuf()
 {
 
-#line 123
+#line 124
 
 __notify_intrinsic((void*)"flush_outbuf:start", (void *)&global_x);
 
-#line 123
+#line 124
 {
     if (outcnt == 0) 
-#line 124
+#line 125
 { __notify_intrinsic((void*)"flush_outbuf:end", (void *)&global_x); return; }
 
-#line 124
+#line 125
 
 
     write_buf(ofd, (char *)outbuf, outcnt);
     bytes_out += (ulg)outcnt;
     outcnt = 0;
+    
+#line 130
+{ __notify_intrinsic((void*)"flush_outbuf:end", (void *)&global_x); return; }
 
-#line 129
+#line 130
+
+
+#line 131
 
 }
 	
 
-#line 129
+#line 131
 }
 
 /* ===========================================================================
@@ -232,17 +244,17 @@ __notify_intrinsic((void*)"flush_outbuf:start", (void *)&global_x);
 void flush_window()
 {
 
-#line 136
+#line 138
 
 __notify_intrinsic((void*)"flush_window:start", (void *)&global_x);
 
-#line 136
+#line 138
 {
     if (outcnt == 0) 
-#line 137
+#line 139
 { __notify_intrinsic((void*)"flush_window:end", (void *)&global_x); return; }
 
-#line 137
+#line 139
 
     updcrc(window, outcnt);
 
@@ -251,13 +263,19 @@ __notify_intrinsic((void*)"flush_window:start", (void *)&global_x);
     }
     bytes_out += (ulg)outcnt;
     outcnt = 0;
+    
+#line 147
+{ __notify_intrinsic((void*)"flush_window:end", (void *)&global_x); return; }
 
-#line 145
+#line 147
+
+
+#line 148
 
 }
 	
 
-#line 145
+#line 148
 }
 
 /* ===========================================================================
@@ -270,11 +288,11 @@ void write_buf(fd, buf, cnt)
     unsigned  cnt;
 {
 
-#line 155
+#line 158
 
 __notify_intrinsic((void*)"write_buf:start", (void *)&global_x);
 
-#line 155
+#line 158
 {
     unsigned  n;
 
@@ -285,13 +303,19 @@ __notify_intrinsic((void*)"write_buf:start", (void *)&global_x);
 	cnt -= n;
 	buf = (voidp)((char*)buf+n);
     }
+    
+#line 168
+{ __notify_intrinsic((void*)"write_buf:end", (void *)&global_x); return; }
 
-#line 165
+#line 168
+
+
+#line 169
 
 }
 	
 
-#line 165
+#line 169
 }
 
 /* ========================================================================
@@ -301,27 +325,27 @@ char *strlwr(s)
     char *s;
 {
 
-#line 172
+#line 176
 
 __notify_intrinsic((void*)"strlwr:start", (void *)&global_x);
 
-#line 172
+#line 176
 {
     char *t;
     for (t = s; *t; t++) *t = tolow(*t);
     
-#line 175
+#line 179
 { char * tau_ret_val =  s; __notify_intrinsic((void*)"strlwr:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 175
+#line 179
 
 
-#line 176
+#line 180
 
 }
 	
 
-#line 176
+#line 180
 }
 
 /* ========================================================================
@@ -333,11 +357,11 @@ char *basename(fname)
     char *fname;
 {
 
-#line 185
+#line 189
 
 __notify_intrinsic((void*)"basename:start", (void *)&global_x);
 
-#line 185
+#line 189
 {
     char *p;
 
@@ -353,18 +377,18 @@ __notify_intrinsic((void*)"basename:start", (void *)&global_x);
 #endif
     if (casemap('A') == 'a') strlwr(fname);
     
-#line 199
+#line 203
 { char * tau_ret_val =  fname; __notify_intrinsic((void*)"basename:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 199
+#line 203
 
 
-#line 200
+#line 204
 
 }
 	
 
-#line 200
+#line 204
 }
 
 /* ========================================================================
@@ -379,30 +403,36 @@ void make_simple_name(name)
     char *name;
 {
 
-#line 212
+#line 216
 
 __notify_intrinsic((void*)"make_simple_name:start", (void *)&global_x);
 
-#line 212
+#line 216
 {
     char *p = strrchr(name, '.');
     if (p == NULL) 
-#line 214
+#line 218
 { __notify_intrinsic((void*)"make_simple_name:end", (void *)&global_x); return; }
 
-#line 214
+#line 218
 
     if (p == name) p++;
     do {
         if (*--p == '.') *p = '_';
     } while (p != name);
+    
+#line 223
+{ __notify_intrinsic((void*)"make_simple_name:end", (void *)&global_x); return; }
 
-#line 219
+#line 223
+
+
+#line 224
 
 }
 	
 
-#line 219
+#line 224
 }
 
 
@@ -471,11 +501,11 @@ char *add_envopt(argcp, argvp, env)
     char *env;           /* name of environment variable */
 {
 
-#line 285
+#line 290
 
 __notify_intrinsic((void*)"add_envopt:start", (void *)&global_x);
 
-#line 285
+#line 290
 {
     char *p;             /* running pointer through env variable */
     char **oargv;        /* runs through old argv array */
@@ -485,10 +515,10 @@ __notify_intrinsic((void*)"add_envopt:start", (void *)&global_x);
 
     env = (char*)getenv(env);
     if (env == NULL) 
-#line 293
+#line 298
 { char * tau_ret_val =  NULL; __notify_intrinsic((void*)"add_envopt:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 293
+#line 298
 
 
     p = (char*)xmalloc(strlen(env)+1);
@@ -504,10 +534,10 @@ __notify_intrinsic((void*)"add_envopt:start", (void *)&global_x);
     if (nargc == 0) {
 	free(env);
 	
-#line 307
+#line 312
 { char * tau_ret_val =  NULL; __notify_intrinsic((void*)"add_envopt:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 307
+#line 312
 
     }
     *argcp += nargc;
@@ -534,18 +564,18 @@ __notify_intrinsic((void*)"add_envopt:start", (void *)&global_x);
     while (oargc--) *(nargv++) = *(oargv++);
     *nargv = NULL;
     
-#line 332
+#line 337
 { char * tau_ret_val =  env; __notify_intrinsic((void*)"add_envopt:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 332
+#line 337
 
 
-#line 333
+#line 338
 
 }
 	
 
-#line 333
+#line 338
 }
 
 /* ========================================================================
@@ -555,51 +585,58 @@ void error(m)
     char *m;
 {
 
-#line 340
+#line 345
 
 __notify_intrinsic((void*)"error:start", (void *)&global_x);
 
-#line 340
+#line 345
 {
     fprintf(stderr, "\n%s: %s: %s\n", progname, ifname, m);
+__notify_intrinsic((void*)"error:end", (void *)&global_x); 
     abort_gzip();
 
-#line 343
+#line 349
 
 }
 	
 
-#line 343
+#line 349
 }
 
 void warn(a, b)
     char *a, *b;            /* message strings juxtaposed in output */
 {
 
-#line 347
+#line 353
 
 __notify_intrinsic((void*)"warn:start", (void *)&global_x);
 
-#line 347
+#line 353
 {
     WARN((stderr, "%s: %s: warning: %s%s\n", progname, ifname, a, b));
+    
+#line 355
+{ __notify_intrinsic((void*)"warn:end", (void *)&global_x); return; }
 
-#line 349
+#line 355
+
+
+#line 356
 
 }
 	
 
-#line 349
+#line 356
 }
 
 void read_error()
 {
 
-#line 352
+#line 359
 
 __notify_intrinsic((void*)"read_error:start", (void *)&global_x);
 
-#line 352
+#line 359
 {
     fprintf(stderr, "\n%s: ", progname);
     if (errno != 0) {
@@ -607,35 +644,38 @@ __notify_intrinsic((void*)"read_error:start", (void *)&global_x);
     } else {
 	fprintf(stderr, "%s: unexpected end of file\n", ifname);
     }
+
+__notify_intrinsic((void*)"read_error:end", (void *)&global_x); 
     abort_gzip();
 
-#line 360
+#line 369
 
 }
 	
 
-#line 360
+#line 369
 }
 
 void write_error()
 {
 
-#line 363
+#line 372
 
 __notify_intrinsic((void*)"write_error:start", (void *)&global_x);
 
-#line 363
+#line 372
 {
     fprintf(stderr, "\n%s: ", progname);
     perror(ofname);
+__notify_intrinsic((void*)"write_error:end", (void *)&global_x); 
     abort_gzip();
 
-#line 367
+#line 377
 
 }
 	
 
-#line 367
+#line 377
 }
 
 /* ========================================================================
@@ -647,11 +687,11 @@ void display_ratio(num, den, file)
     FILE *file;
 {
 
-#line 376
+#line 386
 
 __notify_intrinsic((void*)"display_ratio:start", (void *)&global_x);
 
-#line 376
+#line 386
 {
     long ratio;  /* 1000 times the compression ratio */
 
@@ -669,13 +709,19 @@ __notify_intrinsic((void*)"display_ratio:start", (void *)&global_x);
 	putc(' ', file);
     }
     fprintf(file, "%2ld.%1ld%%", ratio / 10L, ratio % 10L);
+    
+#line 403
+{ __notify_intrinsic((void*)"display_ratio:end", (void *)&global_x); return; }
 
-#line 393
+#line 403
+
+
+#line 404
 
 }
 	
 
-#line 393
+#line 404
 }
 
 
@@ -686,28 +732,28 @@ voidp xmalloc (size)
     unsigned size;
 {
 
-#line 401
+#line 412
 
 __notify_intrinsic((void*)"xmalloc:start", (void *)&global_x);
 
-#line 401
+#line 412
 {
     voidp cp = (voidp)malloc (size);
 
     if (cp == NULL) error("out of memory");
     
-#line 405
+#line 416
 { voidp tau_ret_val =  cp; __notify_intrinsic((void*)"xmalloc:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 405
+#line 416
 
 
-#line 406
+#line 417
 
 }
 	
 
-#line 406
+#line 417
 }
 
 /* ========================================================================

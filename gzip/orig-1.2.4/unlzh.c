@@ -119,6 +119,7 @@ local void fillbuf(n)  /* Shift bitbuf n bits left, read n bits */
 	bitcount = CHAR_BIT;
     }
     bitbuf |= subbitbuf >> (bitcount -= n);
+    return;
 }
 
 local unsigned getbits(n)
@@ -134,6 +135,7 @@ local void init_getbits()
 {
     bitbuf = 0;  subbitbuf = 0;  bitcount = 0;
     fillbuf(BITBUFSIZ);
+    return;
 }
 
 /***********************************************************
@@ -198,6 +200,7 @@ local void make_table(nchar, bitlen, tablebits, table)
 	}
 	start[len] = nextcode;
     }
+    return;
 }
 
 /***********************************************************
@@ -235,6 +238,7 @@ local void read_pt_len(nn, nbit, i_special)
 	while (i < nn) pt_len[i++] = 0;
 	make_table(nn, pt_len, 8, pt_table);
     }
+    return;
 }
 
 local void read_c_len()
@@ -270,6 +274,8 @@ local void read_c_len()
 	while (i < NC) c_len[i++] = 0;
 	make_table(NC, c_len, 12, c_table);
     }
+
+    return;
 }
 
 local unsigned decode_c()
@@ -320,6 +326,7 @@ local unsigned decode_p()
 local void huf_decode_start()
 {
     init_getbits();  blocksize = 0;
+    return;
 }
 
 /***********************************************************
@@ -334,6 +341,7 @@ local void decode_start()
     huf_decode_start();
     j = 0;
     done = 0;
+    return;
 }
 
 /* Decode the input and return the number of decoded bytes put in buffer

@@ -148,13 +148,19 @@ __notify_intrinsic((void*)"read_tree:start", (void *)&global_x);
 	}
     }
     leaves[max_len]++; /* Now include the EOB code in the Huffman tree */
+    
+#line 142
+{ __notify_intrinsic((void*)"read_tree:end", (void *)&global_x); return; }
 
 #line 142
+
+
+#line 143
 
 }
 	
 
-#line 142
+#line 143
 }
 
 /* ===========================================================================
@@ -163,11 +169,11 @@ __notify_intrinsic((void*)"read_tree:start", (void *)&global_x);
 local void build_tree()
 {
 
-#line 148
+#line 149
 
 __notify_intrinsic((void*)"build_tree:start", (void *)&global_x);
 
-#line 148
+#line 149
 {
     int nodes = 0; /* number of nodes (parents+leaves) at current bit length */
     int len;       /* current bit length */
@@ -198,12 +204,12 @@ __notify_intrinsic((void*)"build_tree:start", (void *)&global_x);
     /* The length of all other codes is unknown: */
     while (prefixp > prefix_len) *--prefixp = 0;
 
-#line 177
+#line 178
 
 }
 	
 
-#line 177
+#line 178
 }
 
 /* ===========================================================================
@@ -218,11 +224,11 @@ int unpack(in, out)
     int in, out;            /* input and output file descriptors */
 {
 
-#line 189
+#line 190
 
 __notify_intrinsic((void*)"unpack:start", (void *)&global_x);
 
-#line 189
+#line 190
 {
     int len;                /* Bit length of current code */
     unsigned eob;           /* End Of Block code */
@@ -275,16 +281,16 @@ __notify_intrinsic((void*)"unpack:start", (void *)&global_x);
 	error("invalid compressed data--length error");
     }
     
-#line 240
+#line 241
 { int tau_ret_val =  OK; __notify_intrinsic((void*)"unpack:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 240
-
-
 #line 241
+
+
+#line 242
 
 }
 	
 
-#line 241
+#line 242
 }

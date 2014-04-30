@@ -414,13 +414,19 @@ __notify_intrinsic((void*)"ct_init:start", (void *)&global_x);
 
     /* Initialize the first block of the first file: */
     init_block();
+    
+#line 403
+{ __notify_intrinsic((void*)"ct_init:end", (void *)&global_x); return; }
 
 #line 403
+
+
+#line 404
 
 }
 	
 
-#line 403
+#line 404
 }
 
 /* ===========================================================================
@@ -429,11 +435,11 @@ __notify_intrinsic((void*)"ct_init:start", (void *)&global_x);
 local void init_block()
 {
 
-#line 409
+#line 410
 
 __notify_intrinsic((void*)"init_block:start", (void *)&global_x);
 
-#line 409
+#line 410
 {
     int n; /* iterates over tree elements */
 
@@ -446,13 +452,19 @@ __notify_intrinsic((void*)"init_block:start", (void *)&global_x);
     opt_len = static_len = 0L;
     last_lit = last_dist = last_flags = 0;
     flags = 0; flag_bit = 1;
+    
+#line 422
+{ __notify_intrinsic((void*)"init_block:end", (void *)&global_x); return; }
 
-#line 421
+#line 422
+
+
+#line 423
 
 }
 	
 
-#line 421
+#line 423
 }
 
 #define SMALLEST 1
@@ -489,11 +501,11 @@ local void pqdownheap(tree, k)
     int k;               /* node to move down */
 {
 
-#line 455
+#line 457
 
 __notify_intrinsic((void*)"pqdownheap:start", (void *)&global_x);
 
-#line 455
+#line 457
 {
     int v = heap[k];
     int j = k << 1;  /* left son of k */
@@ -511,13 +523,19 @@ __notify_intrinsic((void*)"pqdownheap:start", (void *)&global_x);
         j <<= 1;
     }
     heap[k] = v;
+    
+#line 474
+{ __notify_intrinsic((void*)"pqdownheap:end", (void *)&global_x); return; }
 
-#line 472
+#line 474
+
+
+#line 475
 
 }
 	
 
-#line 472
+#line 475
 }
 
 /* ===========================================================================
@@ -534,11 +552,11 @@ local void gen_bitlen(desc)
     tree_desc near *desc; /* the tree descriptor */
 {
 
-#line 486
+#line 489
 
 __notify_intrinsic((void*)"gen_bitlen:start", (void *)&global_x);
 
-#line 486
+#line 489
 {
     ct_data near *tree  = desc->dyn_tree;
     int near *extra     = desc->extra_bits;
@@ -577,10 +595,10 @@ __notify_intrinsic((void*)"gen_bitlen:start", (void *)&global_x);
         if (stree) static_len += (ulg)f * (stree[n].Len + xbits);
     }
     if (overflow == 0) 
-#line 523
+#line 526
 { __notify_intrinsic((void*)"gen_bitlen:end", (void *)&global_x); return; }
 
-#line 523
+#line 526
 
 
     Trace((stderr,"\nbit length overflow\n"));
@@ -617,13 +635,19 @@ __notify_intrinsic((void*)"gen_bitlen:start", (void *)&global_x);
             n--;
         }
     }
+    
+#line 562
+{ __notify_intrinsic((void*)"gen_bitlen:end", (void *)&global_x); return; }
 
-#line 559
+#line 562
+
+
+#line 563
 
 }
 	
 
-#line 559
+#line 563
 }
 
 /* ===========================================================================
@@ -639,11 +663,11 @@ local void gen_codes (tree, max_code)
     int max_code;              /* largest code with non zero frequency */
 {
 
-#line 572
+#line 576
 
 __notify_intrinsic((void*)"gen_codes:start", (void *)&global_x);
 
-#line 572
+#line 576
 {
     ush next_code[MAX_BITS+1]; /* next code value for each bit length */
     ush code = 0;              /* running code value */
@@ -672,13 +696,19 @@ __notify_intrinsic((void*)"gen_codes:start", (void *)&global_x);
         Tracec(tree != static_ltree, (stderr,"\nn %3d %c l %2d c %4x (%x) ",
              n, (isgraph(n) ? n : ' '), len, tree[n].Code, next_code[len]-1));
     }
+    
+#line 604
+{ __notify_intrinsic((void*)"gen_codes:end", (void *)&global_x); return; }
 
-#line 600
+#line 604
+
+
+#line 605
 
 }
 	
 
-#line 600
+#line 605
 }
 
 /* ===========================================================================
@@ -693,11 +723,11 @@ local void build_tree(desc)
     tree_desc near *desc; /* the tree descriptor */
 {
 
-#line 612
+#line 617
 
 __notify_intrinsic((void*)"build_tree:start", (void *)&global_x);
 
-#line 612
+#line 617
 {
     ct_data near *tree   = desc->dyn_tree;
     ct_data near *stree  = desc->static_tree;
@@ -775,13 +805,19 @@ __notify_intrinsic((void*)"build_tree:start", (void *)&global_x);
 
     /* The field len is now set, we can generate the bit codes */
     gen_codes ((ct_data near *)tree, max_code);
+    
+#line 694
+{ __notify_intrinsic((void*)"build_tree:end", (void *)&global_x); return; }
 
-#line 689
+#line 694
+
+
+#line 695
 
 }
 	
 
-#line 689
+#line 695
 }
 
 /* ===========================================================================
@@ -795,11 +831,11 @@ local void scan_tree (tree, max_code)
     int max_code;       /* and its largest code of non zero frequency */
 {
 
-#line 700
+#line 706
 
 __notify_intrinsic((void*)"scan_tree:start", (void *)&global_x);
 
-#line 700
+#line 706
 {
     int n;                     /* iterates over all tree elements */
     int prevlen = -1;          /* last emitted length */
@@ -836,12 +872,19 @@ __notify_intrinsic((void*)"scan_tree:start", (void *)&global_x);
         }
     }
 
-#line 735
+    
+#line 742
+{ __notify_intrinsic((void*)"scan_tree:end", (void *)&global_x); return; }
+
+#line 742
+
+
+#line 743
 
 }
 	
 
-#line 735
+#line 743
 }
 
 /* ===========================================================================
@@ -853,11 +896,11 @@ local void send_tree (tree, max_code)
     int max_code;       /* and its largest code of non zero frequency */
 {
 
-#line 744
+#line 752
 
 __notify_intrinsic((void*)"send_tree:start", (void *)&global_x);
 
-#line 744
+#line 752
 {
     int n;                     /* iterates over all tree elements */
     int prevlen = -1;          /* last emitted length */
@@ -899,13 +942,20 @@ __notify_intrinsic((void*)"send_tree:start", (void *)&global_x);
             max_count = 7, min_count = 4;
         }
     }
+   
+    
+#line 794
+{ __notify_intrinsic((void*)"send_tree:end", (void *)&global_x); return; }
 
-#line 785
+#line 794
+
+
+#line 795
 
 }
 	
 
-#line 785
+#line 795
 }
 
 /* ===========================================================================
@@ -915,11 +965,11 @@ __notify_intrinsic((void*)"send_tree:start", (void *)&global_x);
 local int build_bl_tree()
 {
 
-#line 792
+#line 802
 
 __notify_intrinsic((void*)"build_bl_tree:start", (void *)&global_x);
 
-#line 792
+#line 802
 {
     int max_blindex;  /* index of last bit length code of non zero freq */
 
@@ -945,18 +995,18 @@ __notify_intrinsic((void*)"build_bl_tree:start", (void *)&global_x);
     Tracev((stderr, "\ndyn trees: dyn %ld, stat %ld", opt_len, static_len));
 
     
-#line 816
+#line 826
 { int tau_ret_val =  max_blindex; __notify_intrinsic((void*)"build_bl_tree:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 816
+#line 826
 
 
-#line 817
+#line 827
 
 }
 	
 
-#line 817
+#line 827
 }
 
 /* ===========================================================================
@@ -968,11 +1018,11 @@ local void send_all_trees(lcodes, dcodes, blcodes)
     int lcodes, dcodes, blcodes; /* number of codes for each tree */
 {
 
-#line 826
+#line 836
 
 __notify_intrinsic((void*)"send_all_trees:start", (void *)&global_x);
 
-#line 826
+#line 836
 {
     int rank;                    /* index in bl_order */
 
@@ -994,13 +1044,19 @@ __notify_intrinsic((void*)"send_all_trees:start", (void *)&global_x);
 
     send_tree((ct_data near *)dyn_dtree, dcodes-1); /* send the distance tree */
     Tracev((stderr, "\ndist tree: sent %ld", bits_sent));
+    
+#line 857
+{ __notify_intrinsic((void*)"send_all_trees:end", (void *)&global_x); return; }
 
-#line 847
+#line 857
+
+
+#line 858
 
 }
 	
 
-#line 847
+#line 858
 }
 
 /* ===========================================================================
@@ -1014,11 +1070,11 @@ ulg flush_block(buf, stored_len, eof)
     int eof;          /* true if this is the last block for a file */
 {
 
-#line 858
+#line 869
 
 __notify_intrinsic((void*)"flush_block:start", (void *)&global_x);
 
-#line 858
+#line 869
 {
     ulg opt_lenb, static_lenb; /* opt_len and static_len in bytes */
     int max_blindex;  /* index of last bit length code of non zero freq */
@@ -1114,18 +1170,18 @@ __notify_intrinsic((void*)"flush_block:start", (void *)&global_x);
            compressed_len-7*eof));
 
     
-#line 952
+#line 963
 { ulg tau_ret_val =  compressed_len >> 3; __notify_intrinsic((void*)"flush_block:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 952
+#line 963
 
 
-#line 953
+#line 964
 
 }
 	
 
-#line 953
+#line 964
 }
 
 /* ===========================================================================
@@ -1137,11 +1193,11 @@ int ct_tally (dist, lc)
     int lc;    /* match length-MIN_MATCH or unmatched char (if dist==0) */
 {
 
-#line 962
+#line 973
 
 __notify_intrinsic((void*)"ct_tally:start", (void *)&global_x);
 
-#line 962
+#line 973
 {
     l_buf[last_lit++] = (uch)lc;
     if (dist == 0) {
@@ -1181,29 +1237,29 @@ __notify_intrinsic((void*)"ct_tally:start", (void *)&global_x);
                last_lit, last_dist, in_length, out_length,
                100L - out_length*100L/in_length));
         if (last_dist < last_lit/2 && out_length < in_length/2) 
-#line 1000
+#line 1011
 { int tau_ret_val =  1; __notify_intrinsic((void*)"ct_tally:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1000
+#line 1011
 
     }
     
-#line 1002
+#line 1013
 { int tau_ret_val =  (last_lit == LIT_BUFSIZE-1 || last_dist == DIST_BUFSIZE); __notify_intrinsic((void*)"ct_tally:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 1002
+#line 1013
 
     /* We avoid equality with LIT_BUFSIZE because of wraparound at 64K
      * on 16 bit machines and because stored blocks are restricted to
      * 64K-1 bytes.
      */
 
-#line 1007
+#line 1018
 
 }
 	
 
-#line 1007
+#line 1018
 }
 
 /* ===========================================================================
@@ -1214,11 +1270,11 @@ local void compress_block(ltree, dtree)
     ct_data near *dtree; /* distance tree */
 {
 
-#line 1015
+#line 1026
 
 __notify_intrinsic((void*)"compress_block:start", (void *)&global_x);
 
-#line 1015
+#line 1026
 {
     unsigned dist;      /* distance of matched string */
     int lc;             /* match length or unmatched char (if dist == 0) */
@@ -1260,13 +1316,19 @@ __notify_intrinsic((void*)"compress_block:start", (void *)&global_x);
     } while (lx < last_lit);
 
     send_code(END_BLOCK, ltree);
+    
+#line 1067
+{ __notify_intrinsic((void*)"compress_block:end", (void *)&global_x); return; }
 
-#line 1056
+#line 1067
+
+
+#line 1068
 
 }
 	
 
-#line 1056
+#line 1068
 }
 
 /* ===========================================================================
@@ -1278,11 +1340,11 @@ __notify_intrinsic((void*)"compress_block:start", (void *)&global_x);
 local void set_file_type()
 {
 
-#line 1065
+#line 1077
 
 __notify_intrinsic((void*)"set_file_type:start", (void *)&global_x);
 
-#line 1065
+#line 1077
 {
     int n = 0;
     unsigned ascii_freq = 0;
@@ -1294,11 +1356,17 @@ __notify_intrinsic((void*)"set_file_type:start", (void *)&global_x);
     if (*file_type == BINARY && translate_eol) {
         warn("-l used on binary file", "");
     }
+    
+#line 1088
+{ __notify_intrinsic((void*)"set_file_type:end", (void *)&global_x); return; }
 
-#line 1076
+#line 1088
+
+
+#line 1089
 
 }
 	
 
-#line 1076
+#line 1089
 }

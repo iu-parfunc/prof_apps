@@ -611,12 +611,19 @@ __notify_intrinsic((void*)"fill_window:start", (void *)&global_x);
         }
     }
 
-#line 566
+    
+#line 567
+{ __notify_intrinsic((void*)"fill_window:end", (void *)&global_x); return; }
+
+#line 567
+
+
+#line 568
 
 }
 	
 
-#line 566
+#line 568
 }
 
 /* ===========================================================================
@@ -636,11 +643,11 @@ __notify_intrinsic((void*)"fill_window:start", (void *)&global_x);
 local ulg deflate_fast()
 {
 
-#line 583
+#line 585
 
 __notify_intrinsic((void*)"deflate_fast:start", (void *)&global_x);
 
-#line 583
+#line 585
 {
     IPos hash_head; /* head of the hash chain */
     int flush;      /* set if current block must be flushed */
@@ -714,18 +721,18 @@ __notify_intrinsic((void*)"deflate_fast:start", (void *)&global_x);
 
     }
     
-#line 655
+#line 657
 { ulg tau_ret_val =  FLUSH_BLOCK(1); __notify_intrinsic((void*)"deflate_fast:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 655
+#line 657
  /* eof */
 
-#line 656
+#line 658
 
 }
 	
 
-#line 656
+#line 658
 }
 
 /* ===========================================================================
@@ -736,11 +743,11 @@ __notify_intrinsic((void*)"deflate_fast:start", (void *)&global_x);
 ulg deflate()
 {
 
-#line 664
+#line 666
 
 __notify_intrinsic((void*)"deflate:start", (void *)&global_x);
 
-#line 664
+#line 666
 {
     IPos hash_head;          /* head of hash chain */
     IPos prev_match;         /* previous match */
@@ -752,10 +759,10 @@ __notify_intrinsic((void*)"deflate:start", (void *)&global_x);
 #endif
 
     if (compr_level <= 3) 
-#line 674
+#line 676
 { ulg tau_ret_val =  deflate_fast(); __notify_intrinsic((void*)"deflate:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 674
+#line 676
  /* optimized for speed */
 
     /* Process the input block. */
@@ -847,16 +854,16 @@ __notify_intrinsic((void*)"deflate:start", (void *)&global_x);
     if (match_available) ct_tally (0, window[strstart-1]);
 
     
-#line 764
+#line 766
 { ulg tau_ret_val =  FLUSH_BLOCK(1); __notify_intrinsic((void*)"deflate:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 764
+#line 766
  /* eof */
 
-#line 765
+#line 767
 
 }
 	
 
-#line 765
+#line 767
 }

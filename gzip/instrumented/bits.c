@@ -122,12 +122,19 @@ __notify_intrinsic((void*)"bi_init:start", (void *)&global_x);
 	read_buf  = file_read;
     }
 
-#line 115
+    
+#line 116
+{ __notify_intrinsic((void*)"bi_init:end", (void *)&global_x); return; }
+
+#line 116
+
+
+#line 117
 
 }
 	
 
-#line 115
+#line 117
 }
 
 /* ===========================================================================
@@ -139,11 +146,11 @@ void send_bits(value, length)
     int length; /* number of bits */
 {
 
-#line 124
+#line 126
 
 __notify_intrinsic((void*)"send_bits:start", (void *)&global_x);
 
-#line 124
+#line 126
 {
 #ifdef DEBUG
     Tracev((stderr," l %2d v %4x ", length, value));
@@ -163,13 +170,19 @@ __notify_intrinsic((void*)"send_bits:start", (void *)&global_x);
         bi_buf |= value << bi_valid;
         bi_valid += length;
     }
+    
+#line 145
+{ __notify_intrinsic((void*)"send_bits:end", (void *)&global_x); return; }
 
-#line 143
+#line 145
+
+
+#line 146
 
 }
 	
 
-#line 143
+#line 146
 }
 
 /* ===========================================================================
@@ -182,11 +195,11 @@ unsigned bi_reverse(code, len)
     int len;       /* its bit length */
 {
 
-#line 153
+#line 156
 
 __notify_intrinsic((void*)"bi_reverse:start", (void *)&global_x);
 
-#line 153
+#line 156
 {
     register unsigned res = 0;
     do {
@@ -194,18 +207,18 @@ __notify_intrinsic((void*)"bi_reverse:start", (void *)&global_x);
         code >>= 1, res <<= 1;
     } while (--len > 0);
     
-#line 159
+#line 162
 { unsigned int tau_ret_val =  res >> 1; __notify_intrinsic((void*)"bi_reverse:end", (void *)&global_x); return (tau_ret_val); }
 
-#line 159
+#line 162
 
 
-#line 160
+#line 163
 
 }
 	
 
-#line 160
+#line 163
 }
 
 /* ===========================================================================
@@ -214,11 +227,11 @@ __notify_intrinsic((void*)"bi_reverse:start", (void *)&global_x);
 void bi_windup()
 {
 
-#line 166
+#line 169
 
 __notify_intrinsic((void*)"bi_windup:start", (void *)&global_x);
 
-#line 166
+#line 169
 {
     if (bi_valid > 8) {
         put_short(bi_buf);
@@ -230,13 +243,19 @@ __notify_intrinsic((void*)"bi_windup:start", (void *)&global_x);
 #ifdef DEBUG
     bits_sent = (bits_sent+7) & ~7;
 #endif
+   
+#line 180
+{ __notify_intrinsic((void*)"bi_windup:end", (void *)&global_x); return; }
 
-#line 177
+#line 180
+
+
+#line 181
 
 }
 	
 
-#line 177
+#line 181
 }
 
 /* ===========================================================================
@@ -249,11 +268,11 @@ void copy_block(buf, len, header)
     int      header;  /* true if block header must be written */
 {
 
-#line 187
+#line 191
 
 __notify_intrinsic((void*)"copy_block:start", (void *)&global_x);
 
-#line 187
+#line 191
 {
     bi_windup();              /* align on byte boundary */
 
@@ -274,11 +293,17 @@ __notify_intrinsic((void*)"copy_block:start", (void *)&global_x);
 #endif
 	put_byte(*buf++);
     }
+    
+#line 211
+{ __notify_intrinsic((void*)"copy_block:end", (void *)&global_x); return; }
 
-#line 207
+#line 211
+
+
+#line 212
 
 }
 	
 
-#line 207
+#line 212
 }
