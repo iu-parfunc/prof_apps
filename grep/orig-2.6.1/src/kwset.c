@@ -296,6 +296,8 @@ enqueue (struct tree *tree, struct trie **last)
   enqueue(tree->llink, last);
   enqueue(tree->rlink, last);
   (*last) = (*last)->next = tree->trie;
+
+  return;
 }
 
 /* Compute the Aho-Corasick failure function for the trie nodes referenced
@@ -332,6 +334,8 @@ treefails (struct tree const *tree, struct trie const *fail,
     }
 
   tree->trie->fail = recourse;
+
+  return;
 }
 
 /* Set delta entries for the links of the given tree such that
@@ -347,6 +351,8 @@ treedelta (struct tree const *tree,
   treedelta(tree->rlink, depth, delta);
   if (depth < delta[tree->label])
     delta[tree->label] = depth;
+
+  return;
 }
 
 /* Return true if A has every label in B. */
@@ -377,6 +383,8 @@ treenext (struct tree const *tree, struct trie *next[])
   treenext(tree->llink, next);
   treenext(tree->rlink, next);
   next[tree->label] = tree->trie;
+
+  return;
 }
 
 /* Compute the shift for each trie node, as well as the delta
@@ -776,4 +784,6 @@ kwsfree (kwset_t kws)
   kwset = (struct kwset *) kws;
   obstack_free(&kwset->obstack, NULL);
   free(kws);
+
+  return;
 }

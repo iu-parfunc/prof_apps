@@ -74,6 +74,8 @@ Fcompile (char const *pattern, size_t size)
 
   if ((err = kwsprep (kwset)) != NULL)
     error (EXIT_TROUBLE, 0, "%s", err);
+
+  return;
 }
 
 size_t

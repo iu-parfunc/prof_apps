@@ -1,5 +1,3 @@
-
-#line 1 "dfa.c"
 /* dfa.c - deterministic extended regexp routines for GNU
    Copyright (C) 1988, 1998, 2000, 2002, 2004, 2005, 2007-2010 Free Software
    Foundation, Inc.
@@ -74,7 +72,7 @@
 #define ISASCIIDIGIT(c) ((unsigned) (c) - '0' <= 9)
 
 /* gettext.h ensures that we don't use gettext if ENABLE_NLS is not defined */
-#include "../lib/gettext.h"
+#include "gettext.h"
 #define _(str) gettext (str)
 
 #include "mbsupport.h"  /* defines MBS_SUPPORT if appropriate */
@@ -85,10 +83,10 @@
 # include <langinfo.h>
 #endif
 
-#include "../lib/regex.h"
+#include "regex.h"
 #include "dfa.h"
-#include "../lib/hard-locale.h"
-#include "../lib/xalloc.h"
+#include "hard-locale.h"
+#include "xalloc.h"
 
 /* HPUX, define those as macros in sys/param.h */
 #ifdef setbit
@@ -100,8 +98,6 @@
 
 static void dfamust (struct dfa *dfa);
 static void regexp (int toplevel);
-
-int global_x;
 
 #define CALLOC(p, t, n) ((p) = xcalloc((size_t)(n), sizeof (t)))
 #define MALLOC(p, t, n) ((p) = xmalloc((n) * sizeof (t)))
@@ -156,6 +152,8 @@ prtok (token t)
 	}
       fprintf(stderr, "%s", s);
     }
+
+    return;
 }
 #endif /* DEBUG */
 
@@ -164,154 +162,56 @@ prtok (token t)
 static int
 tstbit (unsigned int b, charclass c)
 {
-
-#line 164
-
-__notify_intrinsic((void*)"int tstbit(unsigned int, int *) C_start", (void *)&global_x);
-
-#line 164
-{
-  
-#line 165
-{ int tau_ret_val =  c[b / INTBITS] & 1 << b % INTBITS; __notify_intrinsic((void*)"int tstbit(unsigned int, int *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 165
-
-
-#line 166
-
-}
-	
-
-#line 166
+  return c[b / INTBITS] & 1 << b % INTBITS;
 }
 
 static void
 setbit (unsigned int b, charclass c)
 {
-
-#line 170
-
-__notify_intrinsic((void*)"void setbit(unsigned int, int *) C_start", (void *)&global_x);
-
-#line 170
-{
   c[b / INTBITS] |= 1 << b % INTBITS;
-
-#line 172
-
-}
-	
-
-#line 172
+  
+  return;
 }
 
 static void
 clrbit (unsigned int b, charclass c)
 {
-
-#line 176
-
-__notify_intrinsic((void*)"void clrbit(unsigned int, int *) C_start", (void *)&global_x);
-
-#line 176
-{
   c[b / INTBITS] &= ~(1 << b % INTBITS);
-
-#line 178
-
-}
-	
-
-#line 178
+  
+  return;
 }
 
 static void
 copyset (charclass src, charclass dst)
 {
-
-#line 182
-
-__notify_intrinsic((void*)"void copyset(int *, int *) C_start", (void *)&global_x);
-
-#line 182
-{
   memcpy (dst, src, sizeof (charclass));
 
-#line 184
-
-}
-	
-
-#line 184
+  return;
 }
 
 static void
 zeroset (charclass s)
 {
-
-#line 188
-
-__notify_intrinsic((void*)"void zeroset(int *) C_start", (void *)&global_x);
-
-#line 188
-{
   memset (s, 0, sizeof (charclass));
-
-#line 190
-
-}
-	
-
-#line 190
+  
+  return;
 }
 
 static void
 notset (charclass s)
-{
-
-#line 194
-
-__notify_intrinsic((void*)"void notset(int *) C_start", (void *)&global_x);
-
-#line 194
 {
   int i;
 
   for (i = 0; i < CHARCLASS_INTS; ++i)
     s[i] = ~s[i];
 
-#line 199
-
-}
-	
-
-#line 199
+  return;
 }
 
 static int
 equal (charclass s1, charclass s2)
 {
-
-#line 203
-
-__notify_intrinsic((void*)"int equal(int *, int *) C_start", (void *)&global_x);
-
-#line 203
-{
-  
-#line 204
-{ int tau_ret_val =  memcmp (s1, s2, sizeof (charclass)) == 0; __notify_intrinsic((void*)"int equal(int *, int *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 204
-
-
-#line 205
-
-}
-	
-
-#line 205
+  return memcmp (s1, s2, sizeof (charclass)) == 0;
 }
 
 /* A pointer to the current dfa is kept here during parsing. */
@@ -321,39 +221,15 @@ static struct dfa *dfa;
 static int
 charclass_index (charclass s)
 {
-
-#line 213
-
-__notify_intrinsic((void*)"int charclass_index(int *) C_start", (void *)&global_x);
-
-#line 213
-{
   int i;
 
   for (i = 0; i < dfa->cindex; ++i)
     if (equal(s, dfa->charclasses[i]))
-      
-#line 218
-{ int tau_ret_val =  i; __notify_intrinsic((void*)"int charclass_index(int *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 218
-
+      return i;
   REALLOC_IF_NECESSARY(dfa->charclasses, charclass, dfa->calloc, dfa->cindex);
   ++dfa->cindex;
   copyset(s, dfa->charclasses[i]);
-  
-#line 222
-{ int tau_ret_val =  i; __notify_intrinsic((void*)"int charclass_index(int *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 222
-
-
-#line 223
-
-}
-	
-
-#line 223
+  return i;
 }
 
 /* Syntax bits controlling the behavior of the lexical analyzer. */
@@ -369,24 +245,12 @@ static unsigned char eolbyte;
 void
 dfasyntax (reg_syntax_t bits, int fold, unsigned char eol)
 {
-
-#line 237
-
-__notify_intrinsic((void*)"void dfasyntax(reg_syntax_t, int, unsigned char) C_start", (void *)&global_x);
-
-#line 237
-{
   syntax_bits_set = 1;
   syntax_bits = bits;
   case_fold = fold;
   eolbyte = eol;
 
-#line 242
-
-}
-	
-
-#line 242
+  return;
 }
 
 /* Like setbit, but if case is folded, set both cases of a letter.
@@ -400,13 +264,6 @@ setbit_case_fold (
                   unsigned int b,
 #endif
                   charclass c)
-{
-
-#line 255
-
-__notify_intrinsic((void*)"void setbit_case_fold(wint_t, int *) C_start", (void *)&global_x);
-
-#line 255
 {
   if (case_fold)
     {
@@ -438,12 +295,7 @@ __notify_intrinsic((void*)"void setbit_case_fold(wint_t, int *) C_start", (void 
         setbit (b, c);
     }
 
-#line 285
-
-}
-	
-
-#line 285
+    return;
 }
 
 
@@ -566,295 +418,26 @@ static unsigned char const *buf_end;	/* reference to end in dfaexec().  */
 static int
 in_coll_range (char ch, char from, char to)
 {
-
-#line 406
-
-__notify_intrinsic((void*)"int in_coll_range(char, char, char) C_start", (void *)&global_x);
-
-#line 406
-{
   char c[6] = { from, 0, ch, 0, to, 0 };
-  
-#line 408
-{ int tau_ret_val =  strcoll (&c[0], &c[2]) <= 0 && strcoll (&c[2], &c[4]) <= 0; __notify_intrinsic((void*)"int in_coll_range(char, char, char) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 408
-
-
-#line 409
-
-}
-	
-
-#line 409
+  return strcoll (&c[0], &c[2]) <= 0 && strcoll (&c[2], &c[4]) <= 0;
 }
 
-static int is_alpha(int c) {
-
-#line 411
-
-__notify_intrinsic((void*)"int is_alpha(int) C_start", (void *)&global_x);
-
-#line 411
-{ 
-
-#line 411
-{ int tau_ret_val =  ISALPHA(c); __notify_intrinsic((void*)"int is_alpha(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 411
- 
-
-#line 411
-
-}
-	
-
-#line 411
-}
-static int is_upper(int c) {
-
-#line 412
-
-__notify_intrinsic((void*)"int is_upper(int) C_start", (void *)&global_x);
-
-#line 412
-{ 
-
-#line 412
-{ int tau_ret_val =  ISUPPER(c); __notify_intrinsic((void*)"int is_upper(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 412
- 
-
-#line 412
-
-}
-	
-
-#line 412
-}
-static int is_lower(int c) {
-
-#line 413
-
-__notify_intrinsic((void*)"int is_lower(int) C_start", (void *)&global_x);
-
-#line 413
-{ 
-
-#line 413
-{ int tau_ret_val =  ISLOWER(c); __notify_intrinsic((void*)"int is_lower(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 413
- 
-
-#line 413
-
-}
-	
-
-#line 413
-}
-static int is_digit(int c) {
-
-#line 414
-
-__notify_intrinsic((void*)"int is_digit(int) C_start", (void *)&global_x);
-
-#line 414
-{ 
-
-#line 414
-{ int tau_ret_val =  ISDIGIT(c); __notify_intrinsic((void*)"int is_digit(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 414
- 
-
-#line 414
-
-}
-	
-
-#line 414
-}
-static int is_xdigit(int c) {
-
-#line 415
-
-__notify_intrinsic((void*)"int is_xdigit(int) C_start", (void *)&global_x);
-
-#line 415
-{ 
-
-#line 415
-{ int tau_ret_val =  ISXDIGIT(c); __notify_intrinsic((void*)"int is_xdigit(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 415
- 
-
-#line 415
-
-}
-	
-
-#line 415
-}
-static int is_space(int c) {
-
-#line 416
-
-__notify_intrinsic((void*)"int is_space(int) C_start", (void *)&global_x);
-
-#line 416
-{ 
-
-#line 416
-{ int tau_ret_val =  ISSPACE(c); __notify_intrinsic((void*)"int is_space(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 416
- 
-
-#line 416
-
-}
-	
-
-#line 416
-}
-static int is_punct(int c) {
-
-#line 417
-
-__notify_intrinsic((void*)"int is_punct(int) C_start", (void *)&global_x);
-
-#line 417
-{ 
-
-#line 417
-{ int tau_ret_val =  ISPUNCT(c); __notify_intrinsic((void*)"int is_punct(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 417
- 
-
-#line 417
-
-}
-	
-
-#line 417
-}
-static int is_alnum(int c) {
-
-#line 418
-
-__notify_intrinsic((void*)"int is_alnum(int) C_start", (void *)&global_x);
-
-#line 418
-{ 
-
-#line 418
-{ int tau_ret_val =  ISALNUM(c); __notify_intrinsic((void*)"int is_alnum(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 418
- 
-
-#line 418
-
-}
-	
-
-#line 418
-}
-static int is_print(int c) {
-
-#line 419
-
-__notify_intrinsic((void*)"int is_print(int) C_start", (void *)&global_x);
-
-#line 419
-{ 
-
-#line 419
-{ int tau_ret_val =  ISPRINT(c); __notify_intrinsic((void*)"int is_print(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 419
- 
-
-#line 419
-
-}
-	
-
-#line 419
-}
-static int is_graph(int c) {
-
-#line 420
-
-__notify_intrinsic((void*)"int is_graph(int) C_start", (void *)&global_x);
-
-#line 420
-{ 
-
-#line 420
-{ int tau_ret_val =  ISGRAPH(c); __notify_intrinsic((void*)"int is_graph(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 420
- 
-
-#line 420
-
-}
-	
-
-#line 420
-}
-static int is_cntrl(int c) {
-
-#line 421
-
-__notify_intrinsic((void*)"int is_cntrl(int) C_start", (void *)&global_x);
-
-#line 421
-{ 
-
-#line 421
-{ int tau_ret_val =  ISCNTRL(c); __notify_intrinsic((void*)"int is_cntrl(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 421
- 
-
-#line 421
-
-}
-	
-
-#line 421
-}
+static int is_alpha(int c) { return ISALPHA(c); }
+static int is_upper(int c) { return ISUPPER(c); }
+static int is_lower(int c) { return ISLOWER(c); }
+static int is_digit(int c) { return ISDIGIT(c); }
+static int is_xdigit(int c) { return ISXDIGIT(c); }
+static int is_space(int c) { return ISSPACE(c); }
+static int is_punct(int c) { return ISPUNCT(c); }
+static int is_alnum(int c) { return ISALNUM(c); }
+static int is_print(int c) { return ISPRINT(c); }
+static int is_graph(int c) { return ISGRAPH(c); }
+static int is_cntrl(int c) { return ISCNTRL(c); }
 
 static int
 is_blank (int c)
 {
-
-#line 425
-
-__notify_intrinsic((void*)"int is_blank(int) C_start", (void *)&global_x);
-
-#line 425
-{
-   
-#line 426
-{ int tau_ret_val =  (c == ' ' || c == '\t'); __notify_intrinsic((void*)"int is_blank(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 426
-
-
-#line 427
-
-}
-	
-
-#line 427
+   return (c == ' ' || c == '\t');
 }
 
 typedef int predicate (int);
@@ -884,31 +467,12 @@ static struct {
 static predicate *
 find_pred (const char *str)
 {
-
-#line 455
-
-__notify_intrinsic((void*)"predicate *find_pred(const char *) C_start", (void *)&global_x);
-
-#line 455
-{
   unsigned int i;
   for (i = 0; prednames[i].name; ++i)
     if (!strcmp(str, prednames[i].name))
       break;
 
-  
-#line 461
-{ predicate * tau_ret_val =  prednames[i].pred; __notify_intrinsic((void*)"predicate *find_pred(const char *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 461
-
-
-#line 462
-
-}
-	
-
-#line 462
+  return prednames[i].pred;
 }
 
 /* Multibyte character handling sub-routine for lex.
@@ -916,13 +480,6 @@ __notify_intrinsic((void*)"predicate *find_pred(const char *) C_start", (void *)
    mb_char_classes.  */
 static token
 parse_bracket_exp (void)
-{
-
-#line 469
-
-__notify_intrinsic((void*)"token parse_bracket_exp(void) C_start", (void *)&global_x);
-
-#line 469
 {
   int invert;
   int c, c1, c2;
@@ -1208,12 +765,7 @@ __notify_intrinsic((void*)"token parse_bracket_exp(void) C_start", (void *)&glob
       static charclass zeroclass;
       work_mbc->invert = invert;
       work_mbc->cset = equal(ccl, zeroclass) ? -1 : charclass_index(ccl);
-      
-#line 754
-{ token tau_ret_val =  MBCSET; __notify_intrinsic((void*)"token parse_bracket_exp(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 754
-
+      return MBCSET;
     }
 #endif
 
@@ -1227,19 +779,7 @@ __notify_intrinsic((void*)"token parse_bracket_exp(void) C_start", (void *)&glob
         clrbit(eolbyte, ccl);
     }
 
-  
-#line 768
-{ token tau_ret_val =  CSET + charclass_index(ccl); __notify_intrinsic((void*)"token parse_bracket_exp(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 768
-
-
-#line 769
-
-}
-	
-
-#line 769
+  return CSET + charclass_index(ccl);
 }
 
 /* Return non-zero if C is a `word-constituent' byte; zero otherwise.  */
@@ -1247,13 +787,6 @@ __notify_intrinsic((void*)"token parse_bracket_exp(void) C_start", (void *)&glob
 
 static token
 lex (void)
-{
-
-#line 776
-
-__notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
-
-#line 776
 {
   unsigned int c, c2;
   int backslash = 0;
@@ -1296,12 +829,7 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	      || lasttok == END
 	      || lasttok == LPAREN
 	      || lasttok == OR)
-	    
-#line 818
-{ token tau_ret_val =  lasttok = BEGLINE; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 818
-
+	    return lasttok = BEGLINE;
 	  goto normal_char;
 
 	case '$':
@@ -1317,12 +845,7 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 		  : lexleft > 1 && lexptr[0] == '\\' && lexptr[1] == '|')
 	      || ((syntax_bits & RE_NEWLINE_ALT)
 	          && lexleft > 0 && *lexptr == '\n'))
-	    
-#line 834
-{ token tau_ret_val =  lasttok = ENDLINE; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 834
-
+	    return lasttok = ENDLINE;
 	  goto normal_char;
 
 	case '1':
@@ -1337,73 +860,38 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	  if (backslash && !(syntax_bits & RE_NO_BK_REFS))
 	    {
 	      laststart = 0;
-	      
-#line 849
-{ token tau_ret_val =  lasttok = BACKREF; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 849
-
+	      return lasttok = BACKREF;
 	    }
 	  goto normal_char;
 
 	case '`':
 	  if (backslash && !(syntax_bits & RE_NO_GNU_OPS))
-	    
-#line 855
-{ token tau_ret_val =  lasttok = BEGLINE; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 855
-	/* FIXME: should be beginning of string */
+	    return lasttok = BEGLINE;	/* FIXME: should be beginning of string */
 	  goto normal_char;
 
 	case '\'':
 	  if (backslash && !(syntax_bits & RE_NO_GNU_OPS))
-	    
-#line 860
-{ token tau_ret_val =  lasttok = ENDLINE; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 860
-	/* FIXME: should be end of string */
+	    return lasttok = ENDLINE;	/* FIXME: should be end of string */
 	  goto normal_char;
 
 	case '<':
 	  if (backslash && !(syntax_bits & RE_NO_GNU_OPS))
-	    
-#line 865
-{ token tau_ret_val =  lasttok = BEGWORD; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 865
-
+	    return lasttok = BEGWORD;
 	  goto normal_char;
 
 	case '>':
 	  if (backslash && !(syntax_bits & RE_NO_GNU_OPS))
-	    
-#line 870
-{ token tau_ret_val =  lasttok = ENDWORD; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 870
-
+	    return lasttok = ENDWORD;
 	  goto normal_char;
 
 	case 'b':
 	  if (backslash && !(syntax_bits & RE_NO_GNU_OPS))
-	    
-#line 875
-{ token tau_ret_val =  lasttok = LIMWORD; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 875
-
+	    return lasttok = LIMWORD;
 	  goto normal_char;
 
 	case 'B':
 	  if (backslash && !(syntax_bits & RE_NO_GNU_OPS))
-	    
-#line 880
-{ token tau_ret_val =  lasttok = NOTLIMWORD; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 880
-
+	    return lasttok = NOTLIMWORD;
 	  goto normal_char;
 
 	case '?':
@@ -1413,24 +901,14 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	    goto normal_char;
 	  if (!(syntax_bits & RE_CONTEXT_INDEP_OPS) && laststart)
 	    goto normal_char;
-	  
-#line 890
-{ token tau_ret_val =  lasttok = QMARK; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 890
-
+	  return lasttok = QMARK;
 
 	case '*':
 	  if (backslash)
 	    goto normal_char;
 	  if (!(syntax_bits & RE_CONTEXT_INDEP_OPS) && laststart)
 	    goto normal_char;
-	  
-#line 897
-{ token tau_ret_val =  lasttok = STAR; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 897
-
+	  return lasttok = STAR;
 
 	case '+':
 	  if (syntax_bits & RE_LIMITED_OPS)
@@ -1439,12 +917,7 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	    goto normal_char;
 	  if (!(syntax_bits & RE_CONTEXT_INDEP_OPS) && laststart)
 	    goto normal_char;
-	  
-#line 906
-{ token tau_ret_val =  lasttok = PLUS; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 906
-
+	  return lasttok = PLUS;
 
 	case '{':
 	  if (!(syntax_bits & RE_INTERVALS))
@@ -1525,12 +998,7 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 #ifdef GAWK
 	  dfa->broken = (minrep == maxrep && minrep == 0);
 #endif
-	  
-#line 987
-{ token tau_ret_val =  lasttok = REPMN; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 987
-
+	  return lasttok = REPMN;
 
 	case '|':
 	  if (syntax_bits & RE_LIMITED_OPS)
@@ -1538,12 +1006,7 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	  if (backslash != ((syntax_bits & RE_NO_BK_VBAR) == 0))
 	    goto normal_char;
 	  laststart = 1;
-	  
-#line 995
-{ token tau_ret_val =  lasttok = OR; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 995
-
+	  return lasttok = OR;
 
 	case '\n':
 	  if (syntax_bits & RE_LIMITED_OPS
@@ -1551,24 +1014,14 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	      || !(syntax_bits & RE_NEWLINE_ALT))
 	    goto normal_char;
 	  laststart = 1;
-	  
-#line 1003
-{ token tau_ret_val =  lasttok = OR; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1003
-
+	  return lasttok = OR;
 
 	case '(':
 	  if (backslash != ((syntax_bits & RE_NO_BK_PARENS) == 0))
 	    goto normal_char;
 	  ++parens;
 	  laststart = 1;
-	  
-#line 1010
-{ token tau_ret_val =  lasttok = LPAREN; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1010
-
+	  return lasttok = LPAREN;
 
 	case ')':
 	  if (backslash != ((syntax_bits & RE_NO_BK_PARENS) == 0))
@@ -1577,12 +1030,7 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	    goto normal_char;
 	  --parens;
 	  laststart = 0;
-	  
-#line 1019
-{ token tau_ret_val =  lasttok = RPAREN; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1019
-
+	  return lasttok = RPAREN;
 
 	case '.':
 	  if (backslash)
@@ -1593,12 +1041,7 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	      /* In multibyte environment period must match with a single
 		 character not a byte.  So we use ANYCHAR.  */
 	      laststart = 0;
-	      
-#line 1030
-{ token tau_ret_val =  lasttok = ANYCHAR; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1030
-
+	      return lasttok = ANYCHAR;
 	    }
 #endif /* MBS_SUPPORT */
 	  zeroset(ccl);
@@ -1608,12 +1051,7 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	  if (syntax_bits & RE_DOT_NOT_NULL)
 	    clrbit('\0', ccl);
 	  laststart = 0;
-	  
-#line 1040
-{ token tau_ret_val =  lasttok = CSET + charclass_index(ccl); __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1040
-
+	  return lasttok = CSET + charclass_index(ccl);
 
 #ifndef GAWK
 	case 's':
@@ -1627,12 +1065,7 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	  if (c == 'S')
 	    notset(ccl);
 	  laststart = 0;
-	  
-#line 1054
-{ token tau_ret_val =  lasttok = CSET + charclass_index(ccl); __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1054
-
+	  return lasttok = CSET + charclass_index(ccl);
 #endif
 
 	case 'w':
@@ -1646,23 +1079,13 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	  if (c == 'W')
 	    notset(ccl);
 	  laststart = 0;
-	  
-#line 1068
-{ token tau_ret_val =  lasttok = CSET + charclass_index(ccl); __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1068
-
+	  return lasttok = CSET + charclass_index(ccl);
 
 	case '[':
 	  if (backslash)
 	    goto normal_char;
 	  laststart = 0;
-	  
-#line 1074
-{ token tau_ret_val =  lasttok = parse_bracket_exp(); __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1074
-
+	  return lasttok = parse_bracket_exp();
 
 	default:
 	normal_char:
@@ -1671,51 +1094,24 @@ __notify_intrinsic((void*)"token lex(void) C_start", (void *)&global_x);
 	  /* For multibyte character sets, folding is done in atom.  Always
              return WCHAR.  */
           if (MB_CUR_MAX > 1)
-            
-#line 1083
-{ token tau_ret_val =  lasttok = WCHAR; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1083
-
+            return lasttok = WCHAR;
 #endif
 
 	  if (case_fold && ISALPHA(c))
 	    {
 	      zeroset(ccl);
 	      setbit_case_fold (c, ccl);
-	      
-#line 1090
-{ token tau_ret_val =  lasttok = CSET + charclass_index(ccl); __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1090
-
+	      return lasttok = CSET + charclass_index(ccl);
 	    }
 
-	  
-#line 1093
-{ token tau_ret_val =  lasttok = c; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1093
-
+	  return lasttok = c;
 	}
     }
 
   /* The above loop should consume at most a backslash
      and some other character. */
   abort();
-  
-#line 1100
-{ token tau_ret_val =  END; __notify_intrinsic((void*)"token lex(void) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1100
-	/* keeps pedantic compilers happy. */
-
-#line 1101
-
-}
-	
-
-#line 1101
+  return END;	/* keeps pedantic compilers happy. */
 }
 
 /* Recursive descent parser for regular expressions. */
@@ -1729,13 +1125,6 @@ static int depth;		/* Current depth of a hypothetical stack
 
 static void
 addtok_mb (token t, int mbprop)
-{
-
-#line 1114
-
-__notify_intrinsic((void*)"void addtok_mb(token, int) C_start", (void *)&global_x);
-
-#line 1114
 {
 #ifdef MBS_SUPPORT
   if (MB_CUR_MAX > 1)
@@ -1773,12 +1162,7 @@ __notify_intrinsic((void*)"void addtok_mb(token, int) C_start", (void *)&global_
   if (depth > dfa->depth)
     dfa->depth = depth;
 
-#line 1150
-
-}
-	
-
-#line 1150
+  return;
 }
 
 /* Add the given token to the parse tree, maintaining the depth count and
@@ -1786,26 +1170,14 @@ __notify_intrinsic((void*)"void addtok_mb(token, int) C_start", (void *)&global_
 static void
 addtok (token t)
 {
-
-#line 1156
-
-__notify_intrinsic((void*)"void addtok(token) C_start", (void *)&global_x);
-
-#line 1156
-{
 #ifdef MBS_SUPPORT
   if (MB_CUR_MAX > 1 && t == MBCSET)
     addtok_mb (MBCSET, ((dfa->nmbcsets - 1) << 2) + 3);
   else
 #endif
     addtok_mb (t, 3);
-
-#line 1163
-
-}
-	
-
-#line 1163
+  
+  return;
 }
 
 #ifdef MBS_SUPPORT
@@ -1817,13 +1189,6 @@ __notify_intrinsic((void*)"void addtok(token) C_start", (void *)&global_x);
    <mb2(1st-byte)><mb2(2nd-byte)><CAT><mb2(3rd-byte)><CAT><CAT> */
 static void
 addtok_wc (wint_t wc)
-{
-
-#line 1174
-
-__notify_intrinsic((void*)"void addtok_wc(wint_t) C_start", (void *)&global_x);
-
-#line 1174
 {
   unsigned char buf[MB_LEN_MAX];
   mbstate_t s;
@@ -1837,12 +1202,7 @@ __notify_intrinsic((void*)"void addtok_wc(wint_t) C_start", (void *)&global_x);
       addtok(CAT);
     }
 
-#line 1186
-
-}
-	
-
-#line 1186
+  return;
 }
 #endif
 
@@ -1884,13 +1244,6 @@ __notify_intrinsic((void*)"void addtok_wc(wint_t) C_start", (void *)&global_x);
 static void
 atom (void)
 {
-
-#line 1226
-
-__notify_intrinsic((void*)"void atom(void) C_start", (void *)&global_x);
-
-#line 1226
-{
 #ifdef MBS_SUPPORT
   if (tok == WCHAR)
     {
@@ -1904,12 +1257,7 @@ __notify_intrinsic((void*)"void atom(void) C_start", (void *)&global_x);
 #endif
 
       tok = lex();
-      
-#line 1240
-{ __notify_intrinsic((void*)"void atom(void) C_end", (void *)&global_x); return; }
-
-#line 1240
-
+      return;
     }
 #endif /* MBS_SUPPORT  */
 
@@ -1934,75 +1282,36 @@ __notify_intrinsic((void*)"void atom(void) C_start", (void *)&global_x);
   else
     addtok(EMPTY);
 
-#line 1264
-
-}
-	
-
-#line 1264
+  return;
 }
 
 /* Return the number of tokens in the given subexpression. */
 static int
 nsubtoks (int tindex)
 {
-
-#line 1269
-
-__notify_intrinsic((void*)"int nsubtoks(int) C_start", (void *)&global_x);
-
-#line 1269
-{
   int ntoks1;
 
   switch (dfa->tokens[tindex - 1])
     {
     default:
-      
-#line 1275
-{ int tau_ret_val =  1; __notify_intrinsic((void*)"int nsubtoks(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1275
-
+      return 1;
     case QMARK:
     case STAR:
     case PLUS:
-      
-#line 1279
-{ int tau_ret_val =  1 + nsubtoks(tindex - 1); __notify_intrinsic((void*)"int nsubtoks(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1279
-
+      return 1 + nsubtoks(tindex - 1);
     case CAT:
     case OR:
     case ORTOP:
       ntoks1 = nsubtoks(tindex - 1);
-      
-#line 1284
-{ int tau_ret_val =  1 + ntoks1 + nsubtoks(tindex - 1 - ntoks1); __notify_intrinsic((void*)"int nsubtoks(int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1284
-
+      return 1 + ntoks1 + nsubtoks(tindex - 1 - ntoks1);
     }
 
-#line 1286
-
-}
-	
-
-#line 1286
+    return;
 }
 
 /* Copy the given subexpression to the top of the tree. */
 static void
 copytoks (int tindex, int ntokens)
-{
-
-#line 1291
-
-__notify_intrinsic((void*)"void copytoks(int, int) C_start", (void *)&global_x);
-
-#line 1291
 {
   int i;
 
@@ -2016,23 +1325,11 @@ __notify_intrinsic((void*)"void copytoks(int, int) C_start", (void *)&global_x);
 #endif
     }
 
-#line 1303
-
-}
-	
-
-#line 1303
+  return;
 }
 
 static void
 closure (void)
-{
-
-#line 1307
-
-__notify_intrinsic((void*)"void closure(void) C_start", (void *)&global_x);
-
-#line 1307
 {
   int tindex, ntokens, i;
 
@@ -2065,23 +1362,11 @@ __notify_intrinsic((void*)"void closure(void) C_start", (void *)&global_x);
 	tok = lex();
       }
 
-#line 1338
-
-}
-	
-
-#line 1338
+    return;
 }
 
 static void
 branch (void)
-{
-
-#line 1342
-
-__notify_intrinsic((void*)"void branch(void) C_start", (void *)&global_x);
-
-#line 1342
 {
   closure();
   while (tok != RPAREN && tok != OR && tok >= 0)
@@ -2090,23 +1375,11 @@ __notify_intrinsic((void*)"void branch(void) C_start", (void *)&global_x);
       addtok(CAT);
     }
 
-#line 1349
-
-}
-	
-
-#line 1349
+  return;
 }
 
 static void
 regexp (int toplevel)
-{
-
-#line 1353
-
-__notify_intrinsic((void*)"void regexp(int) C_start", (void *)&global_x);
-
-#line 1353
 {
   branch();
   while (tok == OR)
@@ -2119,12 +1392,7 @@ __notify_intrinsic((void*)"void regexp(int) C_start", (void *)&global_x);
 	addtok(OR);
     }
 
-#line 1364
-
-}
-	
-
-#line 1364
+   return;
 }
 
 /* Main entry point for the parser.  S is a string to be parsed, len is the
@@ -2132,13 +1400,6 @@ __notify_intrinsic((void*)"void regexp(int) C_start", (void *)&global_x);
    the struct dfa to parse into. */
 void
 dfaparse (char const *s, size_t len, struct dfa *d)
-{
-
-#line 1371
-
-__notify_intrinsic((void*)"void dfaparse(const char *, size_t, struct dfa *) C_start", (void *)&global_x);
-
-#line 1371
 {
   dfa = d;
   lexptr = s;
@@ -2176,12 +1437,7 @@ __notify_intrinsic((void*)"void dfaparse(const char *, size_t, struct dfa *) C_s
 
   ++d->nregexps;
 
-#line 1407
-
-}
-	
-
-#line 1407
+  return;
 }
 
 /* Some primitives for operating on sets of positions. */
@@ -2190,25 +1446,13 @@ __notify_intrinsic((void*)"void dfaparse(const char *, size_t, struct dfa *) C_s
 static void
 copy (position_set const *src, position_set *dst)
 {
-
-#line 1414
-
-__notify_intrinsic((void*)"void copy(const position_set *, position_set *) C_start", (void *)&global_x);
-
-#line 1414
-{
   int i;
 
   for (i = 0; i < src->nelem; ++i)
     dst->elems[i] = src->elems[i];
   dst->nelem = src->nelem;
 
-#line 1420
-
-}
-	
-
-#line 1420
+  return;
 }
 
 /* Insert a position in a set.  Position sets are maintained in sorted
@@ -2217,13 +1461,6 @@ __notify_intrinsic((void*)"void copy(const position_set *, position_set *) C_sta
    S->elems must point to an array large enough to hold the resulting set. */
 static void
 insert (position p, position_set *s)
-{
-
-#line 1428
-
-__notify_intrinsic((void*)"void insert(position, position_set *) C_start", (void *)&global_x);
-
-#line 1428
 {
   int count = s->nelem;
   int lo = 0, hi = count;
@@ -2247,25 +1484,13 @@ __notify_intrinsic((void*)"void insert(position, position_set *) C_start", (void
       ++s->nelem;
     }
 
-#line 1450
-
-}
-	
-
-#line 1450
+  return;
 }
 
 /* Merge two sets of positions into a third.  The result is exactly as if
    the positions of both sets were inserted into an initially empty set. */
 static void
 merge (position_set const *s1, position_set const *s2, position_set *m)
-{
-
-#line 1456
-
-__notify_intrinsic((void*)"void merge(const position_set *, const position_set *, position_set *) C_start", (void *)&global_x);
-
-#line 1456
 {
   int i = 0, j = 0;
 
@@ -2285,24 +1510,12 @@ __notify_intrinsic((void*)"void merge(const position_set *, const position_set *
   while (j < s2->nelem)
     m->elems[m->nelem++] = s2->elems[j++];
 
-#line 1474
-
-}
-	
-
-#line 1474
+  return;
 }
 
 /* Delete a position from a set. */
 static void
 delete (position p, position_set *s)
-{
-
-#line 1479
-
-__notify_intrinsic((void*)"void delete(position, position_set *) C_start", (void *)&global_x);
-
-#line 1479
 {
   int i;
 
@@ -2313,12 +1526,7 @@ __notify_intrinsic((void*)"void delete(position, position_set *) C_start", (void
     for (--s->nelem; i < s->nelem; ++i)
       s->elems[i] = s->elems[i + 1];
 
-#line 1488
-
-}
-	
-
-#line 1488
+  return;
 }
 
 /* Find the index of the state corresponding to the given position set with
@@ -2327,13 +1535,6 @@ __notify_intrinsic((void*)"void delete(position, position_set *) C_start", (void
    letter, respectively. */
 static int
 state_index (struct dfa *d, position_set const *s, int newline, int letter)
-{
-
-#line 1496
-
-__notify_intrinsic((void*)"int state_index(struct dfa *, const position_set *, int, int) C_start", (void *)&global_x);
-
-#line 1496
 {
   int hash = 0;
   int constraint;
@@ -2357,12 +1558,7 @@ __notify_intrinsic((void*)"int state_index(struct dfa *, const position_set *, i
 	    || s->elems[j].index != d->states[i].elems.elems[j].index)
 	  break;
       if (j == s->nelem)
-	
-#line 1519
-{ int tau_ret_val =  i; __notify_intrinsic((void*)"int state_index(struct dfa *, const position_set *, int, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1519
-
+	return i;
     }
 
   /* We'll have to create a new state. */
@@ -2399,19 +1595,7 @@ __notify_intrinsic((void*)"int state_index(struct dfa *, const position_set *, i
 
   ++d->sindex;
 
-  
-#line 1556
-{ int tau_ret_val =  i; __notify_intrinsic((void*)"int state_index(struct dfa *, const position_set *, int, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 1556
-
-
-#line 1557
-
-}
-	
-
-#line 1557
+  return i;
 }
 
 /* Find the epsilon closure of a set of positions.  If any position of the set
@@ -2421,13 +1605,6 @@ __notify_intrinsic((void*)"int state_index(struct dfa *, const position_set *, i
    S->elems must be large enough to hold the result. */
 static void
 epsclosure (position_set *s, struct dfa const *d)
-{
-
-#line 1566
-
-__notify_intrinsic((void*)"void epsclosure(position_set *, const struct dfa *) C_start", (void *)&global_x);
-
-#line 1566
 {
   int i, j;
   char *visited;	/* array of booleans, enough to use char, not int */
@@ -2487,12 +1664,7 @@ __notify_intrinsic((void*)"void epsclosure(position_set *, const struct dfa *) C
 
   free(visited);
 
-#line 1624
-
-}
-	
-
-#line 1624
+  return;
 }
 
 /* Perform bottom-up analysis on the parse tree, computing various functions.
@@ -2549,13 +1721,6 @@ __notify_intrinsic((void*)"void epsclosure(position_set *, const struct dfa *) C
    used to determine the address of a particular set's array. */
 void
 dfaanalyze (struct dfa *d, int searchflag)
-{
-
-#line 1680
-
-__notify_intrinsic((void*)"void dfaanalyze(struct dfa *, int) C_start", (void *)&global_x);
-
-#line 1680
 {
   int *nullable;		/* Nullable stack. */
   int *nfirstpos;		/* Element count stack for firstpos sets. */
@@ -2786,12 +1951,7 @@ __notify_intrinsic((void*)"void dfaanalyze(struct dfa *, int) C_start", (void *)
   free(nalloc);
   free(merged.elems);
 
-#line 1909
-
-}
-	
-
-#line 1909
+  return;
 }
 
 /* Find, for each character, the transition out of state s of d, and store
@@ -2826,13 +1986,6 @@ __notify_intrinsic((void*)"void dfaanalyze(struct dfa *, int) C_start", (void *)
    position in that group. */
 void
 dfastate (int s, struct dfa *d, int trans[])
-{
-
-#line 1943
-
-__notify_intrinsic((void*)"void dfastate(int, struct dfa *, int *) C_start", (void *)&global_x);
-
-#line 1943
 {
   position_set grps[NOTCHAR];	/* As many as will ever be needed. */
   charclass labels[NOTCHAR];	/* Labels corresponding to the groups. */
@@ -3121,13 +2274,8 @@ __notify_intrinsic((void*)"void dfastate(int, struct dfa *, int *) C_start", (vo
     free(grps[i].elems);
   free(follows.elems);
   free(tmp.elems);
-
-#line 2231
-
-}
-	
-
-#line 2231
+  
+  return;
 }
 
 /* Some routines for manipulating a compiled dfa's transition tables.
@@ -3139,13 +2287,6 @@ __notify_intrinsic((void*)"void dfastate(int, struct dfa *, int *) C_start", (vo
 
 static void
 build_state (int s, struct dfa *d)
-{
-
-#line 2242
-
-__notify_intrinsic((void*)"void build_state(int, struct dfa *) C_start", (void *)&global_x);
-
-#line 2242
 {
   int *trans;			/* The new transition table. */
   int i;
@@ -3213,24 +2354,12 @@ __notify_intrinsic((void*)"void build_state(int, struct dfa *) C_start", (void *
     d->fails[s] = trans;
   else
     d->trans[s] = trans;
-
-#line 2309
-
-}
-	
-
-#line 2309
+  
+  return;
 }
 
 static void
 build_state_zero (struct dfa *d)
-{
-
-#line 2313
-
-__notify_intrinsic((void*)"void build_state_zero(struct dfa *) C_start", (void *)&global_x);
-
-#line 2313
 {
   d->tralloc = 1;
   d->trcount = 0;
@@ -3241,12 +2370,7 @@ __notify_intrinsic((void*)"void build_state_zero(struct dfa *) C_start", (void *
   MALLOC(d->newlines, int, d->tralloc);
   build_state(0, d);
 
-#line 2322
-
-}
-	
-
-#line 2322
+  return;
 }
 
 #ifdef MBS_SUPPORT
@@ -3278,13 +2402,6 @@ __notify_intrinsic((void*)"void build_state_zero(struct dfa *) C_start", (void *
 static void
 realloc_trans_if_necessary(struct dfa *d, int new_state)
 {
-
-#line 2352
-
-__notify_intrinsic((void*)"void realloc_trans_if_necessary(struct dfa *, int) C_start", (void *)&global_x);
-
-#line 2352
-{
   /* Make sure that the trans and fail arrays are allocated large enough
      to hold a pointer for the new state. */
   if (new_state >= d->tralloc)
@@ -3305,12 +2422,7 @@ __notify_intrinsic((void*)"void realloc_trans_if_necessary(struct dfa *, int) C_
 	}
     }
 
-#line 2372
-
-}
-	
-
-#line 2372
+  return;
 }
 
 /* Return values of transit_state_singlebyte(), and
@@ -3329,13 +2441,6 @@ typedef enum
 static status_transit_state
 transit_state_singlebyte (struct dfa *d, int s, unsigned char const *p,
 				  int *next_state)
-{
-
-#line 2390
-
-__notify_intrinsic((void*)"status_transit_state transit_state_singlebyte(struct dfa *, int, const unsigned char *, int *) C_start", (void *)&global_x);
-
-#line 2390
 {
   int *t;
   int works = s;
@@ -3371,19 +2476,7 @@ __notify_intrinsic((void*)"status_transit_state transit_state_singlebyte(struct 
 	}
     }
   *next_state = works;
-  
-#line 2425
-{ status_transit_state tau_ret_val =  rval; __notify_intrinsic((void*)"status_transit_state transit_state_singlebyte(struct dfa *, int, const unsigned char *, int *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2425
-
-
-#line 2426
-
-}
-	
-
-#line 2426
+  return rval;
 }
 
 /* Check whether period can match or not in the current context.  If it can,
@@ -3393,13 +2486,6 @@ __notify_intrinsic((void*)"status_transit_state transit_state_singlebyte(struct 
    buf_begin, and it is the current position in the buffer.  */
 static int
 match_anychar (struct dfa *d, int s, position pos, int idx)
-{
-
-#line 2435
-
-__notify_intrinsic((void*)"int match_anychar(struct dfa *, int, position, int) C_start", (void *)&global_x);
-
-#line 2435
 {
   int newline = 0;
   int letter = 0;
@@ -3413,23 +2499,13 @@ __notify_intrinsic((void*)"int match_anychar(struct dfa *, int, position, int) C
   if (wc == (wchar_t)eolbyte)
     {
       if (!(syntax_bits & RE_DOT_NEWLINE))
-	
-#line 2448
-{ int tau_ret_val =  0; __notify_intrinsic((void*)"int match_anychar(struct dfa *, int, position, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2448
-
+	return 0;
       newline = 1;
     }
   else if (wc == (wchar_t)'\0')
     {
       if (syntax_bits & RE_DOT_NOT_NULL)
-	
-#line 2454
-{ int tau_ret_val =  0; __notify_intrinsic((void*)"int match_anychar(struct dfa *, int, position, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2454
-
+	return 0;
       newline = 1;
     }
 
@@ -3438,26 +2514,9 @@ __notify_intrinsic((void*)"int match_anychar(struct dfa *, int, position, int) C
 
   if (!SUCCEEDS_IN_CONTEXT(pos.constraint, d->states[s].newline,
 			   newline, d->states[s].letter, letter))
-    
-#line 2463
-{ int tau_ret_val =  0; __notify_intrinsic((void*)"int match_anychar(struct dfa *, int, position, int) C_end", (void *)&global_x); return (tau_ret_val); }
+    return 0;
 
-#line 2463
-
-
-  
-#line 2465
-{ int tau_ret_val =  mbclen; __notify_intrinsic((void*)"int match_anychar(struct dfa *, int, position, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2465
-
-
-#line 2466
-
-}
-	
-
-#line 2466
+  return mbclen;
 }
 
 /* Check whether bracket expression can match or not in the current context.
@@ -3467,13 +2526,6 @@ __notify_intrinsic((void*)"int match_anychar(struct dfa *, int, position, int) C
    from the buf_begin, and it is the current position in the buffer.  */
 static int
 match_mb_charset (struct dfa *d, int s, position pos, int idx)
-{
-
-#line 2475
-
-__notify_intrinsic((void*)"int match_mb_charset(struct dfa *, int, position, int) C_start", (void *)&global_x);
-
-#line 2475
 {
   int i;
   int match;		/* Flag which represent that matching succeed.  */
@@ -3496,35 +2548,20 @@ __notify_intrinsic((void*)"int match_mb_charset(struct dfa *, int, position, int
   if (wc == (wchar_t)eolbyte)
     {
       if (!(syntax_bits & RE_DOT_NEWLINE))
-	
-#line 2497
-{ int tau_ret_val =  0; __notify_intrinsic((void*)"int match_mb_charset(struct dfa *, int, position, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2497
-
+	return 0;
       newline = 1;
     }
   else if (wc == (wchar_t)'\0')
     {
       if (syntax_bits & RE_DOT_NOT_NULL)
-	
-#line 2503
-{ int tau_ret_val =  0; __notify_intrinsic((void*)"int match_mb_charset(struct dfa *, int, position, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2503
-
+	return 0;
       newline = 1;
     }
   if (iswalnum(wc) || wc == L'_')
     letter = 1;
   if (!SUCCEEDS_IN_CONTEXT(pos.constraint, d->states[s].newline,
 			   newline, d->states[s].letter, letter))
-    
-#line 2510
-{ int tau_ret_val =  0; __notify_intrinsic((void*)"int match_mb_charset(struct dfa *, int, position, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2510
-
+    return 0;
 
   /* Assign the current refering operator to work_mbc.  */
   work_mbc = &(d->mbcsets[(d->multibyte_prop[pos.index]) >> 2]);
@@ -3597,19 +2634,7 @@ __notify_intrinsic((void*)"int match_mb_charset(struct dfa *, int, position, int
   match = !match;
 
  charset_matched:
-  
-#line 2583
-{ int tau_ret_val =  match ? match_len : 0; __notify_intrinsic((void*)"int match_mb_charset(struct dfa *, int, position, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2583
-
-
-#line 2584
-
-}
-	
-
-#line 2584
+  return match ? match_len : 0;
 }
 
 /* Check each of `d->states[s].mbps.elem' can match or not. Then return the
@@ -3621,13 +2646,6 @@ __notify_intrinsic((void*)"int match_mb_charset(struct dfa *, int, position, int
    Caller MUST free the array which this function return.  */
 static int*
 check_matching_with_multibyte_ops (struct dfa *d, int s, int idx)
-{
-
-#line 2595
-
-__notify_intrinsic((void*)"int *check_matching_with_multibyte_ops(struct dfa *, int, int) C_start", (void *)&global_x);
-
-#line 2595
 {
   int i;
   int* rarray;
@@ -3648,19 +2666,7 @@ __notify_intrinsic((void*)"int *check_matching_with_multibyte_ops(struct dfa *, 
 	  break; /* can not happen.  */
 	}
     }
-  
-#line 2615
-{ int * tau_ret_val =  rarray; __notify_intrinsic((void*)"int *check_matching_with_multibyte_ops(struct dfa *, int, int) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2615
-
-
-#line 2616
-
-}
-	
-
-#line 2616
+  return rarray;
 }
 
 /* Consume a single character and enumerate all of the positions which can
@@ -3672,13 +2678,6 @@ __notify_intrinsic((void*)"int *check_matching_with_multibyte_ops(struct dfa *, 
 static status_transit_state
 transit_state_consume_1char (struct dfa *d, int s, unsigned char const **pp,
 			     int *match_lens, int *mbclen, position_set *pps)
-{
-
-#line 2627
-
-__notify_intrinsic((void*)"status_transit_state transit_state_consume_1char(struct dfa *, int, const unsigned char **, int *, int *, position_set *) C_start", (void *)&global_x);
-
-#line 2627
 {
   int i, j;
   int s1, s2;
@@ -3720,19 +2719,7 @@ __notify_intrinsic((void*)"status_transit_state transit_state_consume_1char(stru
 
   if (match_lens == NULL && work_mbls != NULL)
     free(work_mbls);
-  
-#line 2668
-{ status_transit_state tau_ret_val =  rs; __notify_intrinsic((void*)"status_transit_state transit_state_consume_1char(struct dfa *, int, const unsigned char **, int *, int *, position_set *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2668
-
-
-#line 2669
-
-}
-	
-
-#line 2669
+  return rs;
 }
 
 /* Transit state from s, then return new state and update the pointer of the
@@ -3740,13 +2727,6 @@ __notify_intrinsic((void*)"status_transit_state transit_state_consume_1char(stru
    byte character or a collating element (which may be multi characters).  */
 static int
 transit_state (struct dfa *d, int s, unsigned char const **pp)
-{
-
-#line 2676
-
-__notify_intrinsic((void*)"int transit_state(struct dfa *, int, const unsigned char **) C_start", (void *)&global_x);
-
-#line 2676
 {
   int s1;
   int mbclen;		/* The length of current input multibyte character. */
@@ -3786,12 +2766,7 @@ __notify_intrinsic((void*)"int transit_state(struct dfa *, int, const unsigned c
 	++*pp;
 
       free(match_lens);
-      
-#line 2715
-{ int tau_ret_val =  s1; __notify_intrinsic((void*)"int transit_state(struct dfa *, int, const unsigned char **) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2715
-
+      return s1;
     }
 
   /* This state has some operators which can match a multibyte character.  */
@@ -3828,19 +2803,7 @@ __notify_intrinsic((void*)"int transit_state(struct dfa *, int, const unsigned c
     }
   free(match_lens);
   free(follows.elems);
-  
-#line 2752
-{ int tau_ret_val =  s1; __notify_intrinsic((void*)"int transit_state(struct dfa *, int, const unsigned char **) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2752
-
-
-#line 2753
-
-}
-	
-
-#line 2753
+  return s1;
 }
 
 #endif /* MBS_SUPPORT */
@@ -3860,13 +2823,6 @@ __notify_intrinsic((void*)"int transit_state(struct dfa *, int, const unsigned c
 char *
 dfaexec (struct dfa *d, char const *begin, char *end,
 	 int newline, int *count, int *backref)
-{
-
-#line 2772
-
-__notify_intrinsic((void*)"char *dfaexec(struct dfa *, const char *, char *, int, int *, int *) C_start", (void *)&global_x);
-
-#line 2772
 {
   int s, s1, tmp;	/* Current state. */
   unsigned char const *p; /* Current input character. */
@@ -3985,12 +2941,7 @@ __notify_intrinsic((void*)"char *dfaexec(struct dfa *, const char *, char *, int
 		}
 #endif /* MBS_SUPPORT */
 	      *end = saved_end;
-	      
-#line 2890
-{ char * tau_ret_val =  (char *) p; __notify_intrinsic((void*)"char *dfaexec(struct dfa *, const char *, char *, int, int *, int *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2890
-
+	      return (char *) p;
 	    }
 
 	  s1 = s;
@@ -4023,12 +2974,7 @@ __notify_intrinsic((void*)"char *dfaexec(struct dfa *, const char *, char *, int
 	    }
 #endif /* MBS_SUPPORT */
 	  *end = saved_end;
-	  
-#line 2923
-{ char * tau_ret_val =  NULL; __notify_intrinsic((void*)"char *dfaexec(struct dfa *, const char *, char *, int, int *, int *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 2923
-
+	  return NULL;
 	}
 
       if (s >= 0)
@@ -4047,24 +2993,12 @@ __notify_intrinsic((void*)"char *dfaexec(struct dfa *, const char *, char *, int
       s = 0;
     }
 
-#line 2941
-
-}
-	
-
-#line 2941
+    return;
 }
 
 #ifdef MBS_SUPPORT
 static void
 free_mbdata (struct dfa *d)
-{
-
-#line 2946
-
-__notify_intrinsic((void*)"void free_mbdata(struct dfa *) C_start", (void *)&global_x);
-
-#line 2946
 {
   unsigned int i;
 
@@ -4092,13 +3026,8 @@ __notify_intrinsic((void*)"void free_mbdata(struct dfa *) C_start", (void *)&glo
   free(d->mbcsets);
   d->mbcsets = NULL;
   d->nmbcsets = 0;
-
-#line 2973
-
-}
-	
-
-#line 2973
+  
+  return;
 }
 #endif
 
@@ -4106,13 +3035,6 @@ __notify_intrinsic((void*)"void free_mbdata(struct dfa *) C_start", (void *)&glo
    initialize for themselves. */
 void
 dfainit (struct dfa *d)
-{
-
-#line 2980
-
-__notify_intrinsic((void*)"void dfainit(struct dfa *) C_start", (void *)&global_x);
-
-#line 2980
 {
   d->calloc = 1;
   MALLOC(d->charclasses, charclass, d->calloc);
@@ -4145,34 +3067,17 @@ __notify_intrinsic((void*)"void dfainit(struct dfa *) C_start", (void *)&global_
 #ifdef GAWK
   d->broken = 0;
 #endif
-
-#line 3012
-
-}
-	
-
-#line 3012
+ 
+  return;
 }
 
 #ifdef MBS_SUPPORT
 static void
 dfaoptimize (struct dfa *d)
 {
-
-#line 3017
-
-__notify_intrinsic((void*)"void dfaoptimize(struct dfa *) C_start", (void *)&global_x);
-
-#line 3017
-{
   unsigned int i;
   if (!using_utf8())
-    
-#line 3020
-{ __notify_intrinsic((void*)"void dfaoptimize(struct dfa *) C_end", (void *)&global_x); return; }
-
-#line 3020
-
+    return;
 
   for (i = 0; i < d->tindex; ++i)
     {
@@ -4181,12 +3086,7 @@ __notify_intrinsic((void*)"void dfaoptimize(struct dfa *) C_start", (void *)&glo
 	case ANYCHAR:
 	case MBCSET:
 	  /* Requires multi-byte algorithm.  */
-	  
-#line 3029
-{ __notify_intrinsic((void*)"void dfaoptimize(struct dfa *) C_end", (void *)&global_x); return; }
-
-#line 3029
-
+	  return;
 	default:
 	  break;
 	}
@@ -4194,26 +3094,14 @@ __notify_intrinsic((void*)"void dfaoptimize(struct dfa *) C_start", (void *)&glo
 
   free_mbdata (d);
   d->mb_cur_max = 1;
-
-#line 3037
-
-}
-	
-
-#line 3037
+  
+  return;
 }
 #endif
 
 /* Parse and analyze a single string of the given length. */
 void
 dfacomp (char const *s, size_t len, struct dfa *d, int searchflag)
-{
-
-#line 3043
-
-__notify_intrinsic((void*)"void dfacomp(const char *, size_t, struct dfa *, int) C_start", (void *)&global_x);
-
-#line 3043
 {
   dfainit(d);
   dfaparse(s, len, d);
@@ -4222,25 +3110,13 @@ __notify_intrinsic((void*)"void dfacomp(const char *, size_t, struct dfa *, int)
   dfaoptimize(d);
 #endif
   dfaanalyze(d, searchflag);
-
-#line 3051
-
-}
-	
-
-#line 3051
+  
+  return;
 }
 
 /* Free the storage held by the components of a dfa. */
 void
 dfafree (struct dfa *d)
-{
-
-#line 3056
-
-__notify_intrinsic((void*)"void dfafree(struct dfa *) C_start", (void *)&global_x);
-
-#line 3056
 {
   int i;
   struct dfamust *dm, *ndm;
@@ -4279,12 +3155,7 @@ __notify_intrinsic((void*)"void dfafree(struct dfa *) C_start", (void *)&global_
       free(dm);
     }
 
-#line 3093
-
-}
-	
-
-#line 3093
+  return;
 }
 
 /* Having found the postfix representation of the regular expression,
@@ -4374,13 +3245,6 @@ __notify_intrinsic((void*)"void dfafree(struct dfa *) C_start", (void *)&global_
 static char *
 icatalloc (char *old, char *new)
 {
-
-#line 3181
-
-__notify_intrinsic((void*)"char *icatalloc(char *, char *) C_start", (void *)&global_x);
-
-#line 3181
-{
   char *result;
   size_t oldsize, newsize;
 
@@ -4388,12 +3252,7 @@ __notify_intrinsic((void*)"char *icatalloc(char *, char *) C_start", (void *)&gl
   if (old == NULL)
     oldsize = 0;
   else if (newsize == 0)
-    
-#line 3189
-{ char * tau_ret_val =  old; __notify_intrinsic((void*)"char *icatalloc(char *, char *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3189
-
+    return old;
   else	oldsize = strlen(old);
   if (old == NULL)
     result = (char *) malloc(newsize + 1);
@@ -4401,55 +3260,17 @@ __notify_intrinsic((void*)"char *icatalloc(char *, char *) C_start", (void *)&gl
     result = (char *) realloc((void *) old, oldsize + newsize + 1);
   if (result != NULL && new != NULL)
     (void) strcpy(result + oldsize, new);
-  
-#line 3197
-{ char * tau_ret_val =  result; __notify_intrinsic((void*)"char *icatalloc(char *, char *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3197
-
-
-#line 3198
-
-}
-	
-
-#line 3198
+  return result;
 }
 
 static char *
 icpyalloc (char *string)
 {
-
-#line 3202
-
-__notify_intrinsic((void*)"char *icpyalloc(char *) C_start", (void *)&global_x);
-
-#line 3202
-{
-  
-#line 3203
-{ char * tau_ret_val =  icatalloc((char *) NULL, string); __notify_intrinsic((void*)"char *icpyalloc(char *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3203
-
-
-#line 3204
-
-}
-	
-
-#line 3204
+  return icatalloc((char *) NULL, string);
 }
 
 static char *
 istrstr (char *lookin, char *lookfor)
-{
-
-#line 3208
-
-__notify_intrinsic((void*)"char *istrstr(char *, char *) C_start", (void *)&global_x);
-
-#line 3208
 {
   char *cp;
   size_t len;
@@ -4457,88 +3278,37 @@ __notify_intrinsic((void*)"char *istrstr(char *, char *) C_start", (void *)&glob
   len = strlen(lookfor);
   for (cp = lookin; *cp != '\0'; ++cp)
     if (strncmp(cp, lookfor, len) == 0)
-      
-#line 3215
-{ char * tau_ret_val =  cp; __notify_intrinsic((void*)"char *istrstr(char *, char *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3215
-
-  
-#line 3216
-{ char * tau_ret_val =  NULL; __notify_intrinsic((void*)"char *istrstr(char *, char *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3216
-
-
-#line 3217
-
-}
-	
-
-#line 3217
+      return cp;
+  return NULL;
 }
 
 static void
 freelist (char **cpp)
 {
-
-#line 3221
-
-__notify_intrinsic((void*)"void freelist(char **) C_start", (void *)&global_x);
-
-#line 3221
-{
   int i;
 
   if (cpp == NULL)
-    
-#line 3225
-{ __notify_intrinsic((void*)"void freelist(char **) C_end", (void *)&global_x); return; }
-
-#line 3225
-
+    return;
   for (i = 0; cpp[i] != NULL; ++i)
     {
       free(cpp[i]);
       cpp[i] = NULL;
     }
 
-#line 3231
-
-}
-	
-
-#line 3231
+  return;
 }
 
 static char **
 enlist (char **cpp, char *new, size_t len)
 {
-
-#line 3235
-
-__notify_intrinsic((void*)"char **enlist(char **, char *, size_t) C_start", (void *)&global_x);
-
-#line 3235
-{
   int i, j;
 
   if (cpp == NULL)
-    
-#line 3239
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **enlist(char **, char *, size_t) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3239
-
+    return NULL;
   if ((new = icpyalloc(new)) == NULL)
     {
       freelist(cpp);
-      
-#line 3243
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **enlist(char **, char *, size_t) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3243
-
+      return NULL;
     }
   new[len] = '\0';
   /* Is there already something in the list that's new (or longer)? */
@@ -4546,12 +3316,7 @@ __notify_intrinsic((void*)"char **enlist(char **, char *, size_t) C_start", (voi
     if (istrstr(cpp[i], new) != NULL)
       {
 	free(new);
-	
-#line 3251
-{ char ** tau_ret_val =  cpp; __notify_intrinsic((void*)"char **enlist(char **, char *, size_t) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3251
-
+	return cpp;
       }
   /* Eliminate any obsoleted strings. */
   j = 0;
@@ -4569,27 +3334,10 @@ __notify_intrinsic((void*)"char **enlist(char **, char *, size_t) C_start", (voi
   /* Add the new string. */
   cpp = (char **) realloc((char *) cpp, (i + 2) * sizeof *cpp);
   if (cpp == NULL)
-    
-#line 3269
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **enlist(char **, char *, size_t) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3269
-
+    return NULL;
   cpp[i] = new;
   cpp[i + 1] = NULL;
-  
-#line 3272
-{ char ** tau_ret_val =  cpp; __notify_intrinsic((void*)"char **enlist(char **, char *, size_t) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3272
-
-
-#line 3273
-
-}
-	
-
-#line 3273
+  return cpp;
 }
 
 /* Given pointers to two strings, return a pointer to an allocated
@@ -4598,33 +3346,16 @@ __notify_intrinsic((void*)"char **enlist(char **, char *, size_t) C_start", (voi
 static char **
 comsubs (char *left, char *right)
 {
-
-#line 3280
-
-__notify_intrinsic((void*)"char **comsubs(char *, char *) C_start", (void *)&global_x);
-
-#line 3280
-{
   char **cpp;
   char *lcp;
   char *rcp;
   size_t i, len;
 
   if (left == NULL || right == NULL)
-    
-#line 3287
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **comsubs(char *, char *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3287
-
+    return NULL;
   cpp = (char **) malloc(sizeof *cpp);
   if (cpp == NULL)
-    
-#line 3290
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **comsubs(char *, char *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3290
-
+    return NULL;
   cpp[0] = NULL;
   for (lcp = left; *lcp != '\0'; ++lcp)
     {
@@ -4643,59 +3374,23 @@ __notify_intrinsic((void*)"char **comsubs(char *, char *) C_start", (void *)&glo
       if ((cpp = enlist(cpp, lcp, len)) == NULL)
 	break;
     }
-  
-#line 3309
-{ char ** tau_ret_val =  cpp; __notify_intrinsic((void*)"char **comsubs(char *, char *) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3309
-
-
-#line 3310
-
-}
-	
-
-#line 3310
+  return cpp;
 }
 
 static char **
 addlists (char **old, char **new)
 {
-
-#line 3314
-
-__notify_intrinsic((void*)"char **addlists(char **, char **) C_start", (void *)&global_x);
-
-#line 3314
-{
   int i;
 
   if (old == NULL || new == NULL)
-    
-#line 3318
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **addlists(char **, char **) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3318
-
+    return NULL;
   for (i = 0; new[i] != NULL; ++i)
     {
       old = enlist(old, new[i], strlen(new[i]));
       if (old == NULL)
 	break;
     }
-  
-#line 3325
-{ char ** tau_ret_val =  old; __notify_intrinsic((void*)"char **addlists(char **, char **) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3325
-
-
-#line 3326
-
-}
-	
-
-#line 3326
+  return old;
 }
 
 /* Given two lists of substrings, return a new list giving substrings
@@ -4703,32 +3398,15 @@ __notify_intrinsic((void*)"char **addlists(char **, char **) C_start", (void *)&
 static char **
 inboth (char **left, char **right)
 {
-
-#line 3332
-
-__notify_intrinsic((void*)"char **inboth(char **, char **) C_start", (void *)&global_x);
-
-#line 3332
-{
   char **both;
   char **temp;
   int lnum, rnum;
 
   if (left == NULL || right == NULL)
-    
-#line 3338
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **inboth(char **, char **) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3338
-
+    return NULL;
   both = (char **) malloc(sizeof *both);
   if (both == NULL)
-    
-#line 3341
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **inboth(char **, char **) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3341
-
+    return NULL;
   both[0] = NULL;
   for (lnum = 0; left[lnum] != NULL; ++lnum)
     {
@@ -4738,38 +3416,16 @@ __notify_intrinsic((void*)"char **inboth(char **, char **) C_start", (void *)&gl
 	  if (temp == NULL)
 	    {
 	      freelist(both);
-	      
-#line 3351
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **inboth(char **, char **) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3351
-
+	      return NULL;
 	    }
 	  both = addlists(both, temp);
 	  freelist(temp);
 	  free(temp);
 	  if (both == NULL)
-	    
-#line 3357
-{ char ** tau_ret_val =  NULL; __notify_intrinsic((void*)"char **inboth(char **, char **) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3357
-
+	    return NULL;
 	}
     }
-  
-#line 3360
-{ char ** tau_ret_val =  both; __notify_intrinsic((void*)"char **inboth(char **, char **) C_end", (void *)&global_x); return (tau_ret_val); }
-
-#line 3360
-
-
-#line 3361
-
-}
-	
-
-#line 3361
+  return both;
 }
 
 typedef struct
@@ -4783,33 +3439,14 @@ typedef struct
 static void
 resetmust (must *mp)
 {
-
-#line 3373
-
-__notify_intrinsic((void*)"void resetmust(must *) C_start", (void *)&global_x);
-
-#line 3373
-{
   mp->left[0] = mp->right[0] = mp->is[0] = '\0';
   freelist(mp->in);
 
-#line 3376
-
-}
-	
-
-#line 3376
+  return;
 }
 
 static void
 dfamust (struct dfa *d)
-{
-
-#line 3380
-
-__notify_intrinsic((void*)"void dfamust(struct dfa *) C_start", (void *)&global_x);
-
-#line 3380
 {
   must *musts;
   must *mp;
@@ -4826,12 +3463,7 @@ __notify_intrinsic((void*)"void dfamust(struct dfa *) C_start", (void *)&global_
   exact = 0;
   musts = (must *) malloc((d->tindex + 1) * sizeof *musts);
   if (musts == NULL)
-    
-#line 3396
-{ __notify_intrinsic((void*)"void dfamust(struct dfa *) C_end", (void *)&global_x); return; }
-
-#line 3396
-
+    return;
   mp = musts;
   for (i = 0; i <= d->tindex; ++i)
     mp[i] = must0;
@@ -5057,12 +3689,7 @@ __notify_intrinsic((void*)"void dfamust(struct dfa *) C_start", (void *)&global_
       free(mp[i].is);
     }
   free(mp);
-
-#line 3622
-
-}
-	
-
-#line 3622
+  
+  return;
 }
 /* vim:set shiftwidth=2: */

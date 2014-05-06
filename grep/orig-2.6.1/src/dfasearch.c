@@ -52,6 +52,8 @@ dfaerror (char const *mesg)
 
   /* notreached */
   /* Tell static analyzers that this function does not return.  */
+
+__notify_intrinsic((void*)"dfaerror:end", (void *)&global_x);
   abort ();
 }
 
@@ -112,6 +114,8 @@ kwsmusts (void)
       if ((err = kwsprep (kwset)) != NULL)
 	error (EXIT_TROUBLE, 0, "%s", err);
     }
+  
+  return;
 }
 
 void
@@ -196,6 +200,8 @@ GEAcompile (char const *pattern, size_t size, reg_syntax_t syntax_bits)
   kwsmusts ();
 
   free(motif);
+  
+  return;
 }
 
 size_t

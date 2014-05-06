@@ -5,6 +5,8 @@ static void
 Ecompile (char const *pattern, size_t size)
 {
   GEAcompile (pattern, size, RE_SYNTAX_POSIX_EGREP | RE_NO_EMPTY_RANGES);
+  
+  return;
 }
 
 struct matcher const matchers[] = {

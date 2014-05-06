@@ -8,18 +8,24 @@ Gcompile (char const *pattern, size_t size)
 	      RE_SYNTAX_GREP
 	      | RE_HAT_LISTS_NOT_NEWLINE
 	      | RE_NO_EMPTY_RANGES);
+
+  return;
 }
 
 static void
 Ecompile (char const *pattern, size_t size)
 {
   GEAcompile (pattern, size, RE_SYNTAX_POSIX_EGREP | RE_NO_EMPTY_RANGES);
+ 
+  return;
 }
 
 static void
 Acompile (char const *pattern, size_t size)
 {
   GEAcompile (pattern, size, RE_SYNTAX_AWK);
+
+  return;
 }
 
 struct matcher const matchers[] = {

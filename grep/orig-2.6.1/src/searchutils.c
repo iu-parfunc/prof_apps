@@ -43,6 +43,8 @@ kwsinit (kwset_t *kwset)
 
   if (!*kwset)
     xalloc_die ();
+
+  return;
 }
 
 #ifdef MBS_SUPPORT

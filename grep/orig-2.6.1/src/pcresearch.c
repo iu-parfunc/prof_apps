@@ -97,6 +97,8 @@ Pcompile (char const *pattern, size_t size)
 
   free (re);
 #endif
+  
+  return;
 }
 
 size_t
@@ -175,4 +177,6 @@ Pexecute (char const *buf, size_t size, size_t *match_size,
       return beg - buf;
     }
 #endif
+
+__notify_intrinsic((void*)"Pexecute:end", (void *)&global_x);
 }
