@@ -24,7 +24,7 @@
 srcdir = .
 VPATH = .
 
-CC = icc
+CC = icc 
 ASCPP = /lib/cpp -DNO_UNDERLINE
 
 INSTALL = /usr/bin/install -c
@@ -65,12 +65,12 @@ INSTALL_DATA = $(INSTALL) -m 644
 # -DNO_SIZE_CHECK       stat() does not give a reliable file size
 
 DEFS =  -DSTDC_HEADERS=1 -DHAVE_UNISTD_H=1 -DDIRENT=1
-LIBS = libdynprof.a libzca-toggle.a -lelf -lpthread
+LIBS = 	-lelf -lpthread libdynprof.a libzca-toggle.a 
 
 # additional assembly sources for particular systems may be required.
 OBJA = 
 
-SEDCMD = 1d
+SEDCMD = 
 
 CFLAGS = -O0
 # If you want debug on by default, use: CFLAGS="-g" ./configure
