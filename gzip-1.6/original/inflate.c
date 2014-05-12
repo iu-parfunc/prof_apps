@@ -115,7 +115,7 @@
       the two sets of lengths.
  */
 
-#include <config.h>
+#include "config.h"
 #include "tailor.h"
 
 #include <stdlib.h>

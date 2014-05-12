@@ -66,7 +66,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 #include <ctype.h>
 
 #include "tailor.h"

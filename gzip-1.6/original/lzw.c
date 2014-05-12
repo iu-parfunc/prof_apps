@@ -2,7 +2,7 @@
  * This is a dummy version avoiding patent problems.
  */
 
-#include <config.h>
+#include "config.h"
 #include "tailor.h"
 #include "gzip.h"
 #include "lzw.h"

@@ -1,0 +1,22 @@
+Prequisites
+===========
+
+--PDT--
+
+./configure -ICPC -prefix=${PDT_INSTALL_LOCATION}
+make 
+make install
+
+--TAU--
+./configure -c++=icpc -pdt_c++=icpc -prefix$={TAU_INSTALL_LOCATION} -pdt=${PDT_INSTALL_LOCATION}
+make install
+
+gzip
+====
+
+1. First do the configure under gzip-1.6/instrumented with optional prefix. (./configure CC=icc -prefix=${GZIP_INSTALL_LOCATION})
+2. Then do a make inside gzip-1.6 (This step is required other wise there will be errors in the next step)
+3. Now run gzip-1.6/instrument.sh
+4. Now do a second make with instrumented files.
+5. make install
+

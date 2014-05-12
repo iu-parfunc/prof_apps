@@ -7,7 +7,7 @@
  * to accommodate in-memory decompression.
  */
 
-#include <config.h>
+#include "config.h"
 #include "tailor.h"
 
 #include <unistd.h>

@@ -28,7 +28,7 @@
    either deflated or stored.
  */
 
-#include <config.h>
+#include "config.h"
 #include "tailor.h"
 #include "gzip.h"
 

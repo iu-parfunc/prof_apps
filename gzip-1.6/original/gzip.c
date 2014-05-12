@@ -54,7 +54,7 @@ static char const *const license_msg[] = {
  * For the meaning of all compilation flags, see comments in Makefile.in.
  */
 
-#include <config.h>
+#include "config.h"
 #include <ctype.h>
 #include <sys/types.h>
 #include <signal.h>
