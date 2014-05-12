@@ -69,12 +69,14 @@ static char const *const license_msg[] = {
 #include "revision.h"
 #include "timespec.h"
 
+#include "profiler.h"
 #include "fcntl-safer.h"
 #include "getopt.h"
 #include "ignore-value.h"
 #include "stat-time.h"
 #include "version.h"
 #include "yesno.h"
+
 
                 /* configuration */
 
