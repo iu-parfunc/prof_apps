@@ -2,7 +2,7 @@
 
 set -e
 # set -x
-ORIG=orig-2.6.1
+ORIG=sources
 PARSE=cparse
 INSTRUMENT=tau_instrumentor
 
