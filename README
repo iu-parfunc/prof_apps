@@ -1,22 +1,30 @@
+Running Benchmarks
+%%%%%%%%%%%%%%%%%%
+
 Prequisites
 ===========
 
 --PDT--
 
-./configure -ICPC -prefix=${PDT_INSTALL_LOCATION}
-make 
-make install
+ 1. Patch PDT
+ 2. ./configure -ICPC -prefix=${PDT_INSTALL_LOCATION}
+ 3. make 
+ 4. make install
 
 --TAU--
-./configure -c++=icpc -pdt_c++=icpc -prefix$={TAU_INSTALL_LOCATION} -pdt=${PDT_INSTALL_LOCATION}
-make install
+ 1. ./configure -c++=icpc -pdt_c++=icpc -prefix$={TAU_INSTALL_LOCATION} -pdt=${PDT_INSTALL_LOCATION}
+ 2. make install
 
-gzip
-====
+gzip (gzip-1.6)
+===============
 
-1. First do the configure under gzip-1.6/instrumented with optional prefix. (./configure CC=icc -prefix=${GZIP_INSTALL_LOCATION})
-2. Then do a make inside gzip-1.6 (This step is required other wise there will be errors in the next step)
-3. Now run gzip-1.6/instrument.sh
-4. Now do a second make with instrumented files.
-5. make install
+1. make ${BUILD_HOME}/zcatoggle/src. This will install the dynaprof libraries and headers to the benchmark application builds.
+2. cd ${BUILD_HOME}/benchmarks/gzip-1.6/instrumented
+3. If this is the first time the project is being built do 'autoreconf' to regenerate 'configure' file.
+4. Do the configure with optional prefix. 
+     ./configure CC=icc LIBS='libdynprof.a libzca-toggle.a -lelf' CFLAGS='-g -O0' --prefix=${GZIP_INSTALL_LOCATION}
+5. make (This step is required otherwise there will be errors in the next step)
+6. cd ..; ./instrument.sh
+7. cd instrumented; make (Now with instrumented files)
+8. make install
 
