@@ -8,7 +8,13 @@ INSTRUMENT=tau_instrumentor
 
 cd $ORIG/
 SRC=`find ./ -name "*.c"`
+HDRS=`find ./ -name "*.h"`
 cd ..
+
+for path in $HDRS; do
+  dirnm=`dirname $path`
+  cp -v ./$ORIG/$path ./instrumented/$dirnm/
+done
 
 for path in $SRC; do 
   dirnm=`dirname $path`
