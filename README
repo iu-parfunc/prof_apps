@@ -22,7 +22,7 @@ gzip (gzip-1.6)
 2. cd ${BUILD_HOME}/benchmarks/gzip-1.6/instrumented
 3. If this is the first time the project is being built do 'autoreconf' to regenerate 'configure' file.
 4. Do the configure with optional prefix. 
-     ./configure CC=icc LIBS='libdynprof.a libzca-toggle.a -lelf' CFLAGS='-g -O0' --prefix=${GZIP_INSTALL_LOCATION}
+     ./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CFLAGS='-g -O0' --prefix=${GZIP_INSTALL_LOCATION}
 5. make (This step is required otherwise there will be errors in the next step)
 6. cd ..; ./instrument.sh
 7. cd instrumented; make (Now with instrumented files)
@@ -34,7 +34,7 @@ grep (grep-2.6.1)
 1. make ${BUILD_HOME}/zcatoggle/src. This will install the dynaprof libraries and headers to the benchmark application builds.
 2. cd ${BUILD_HOME}/benchmarks/grep-2.6.1/instrumented
 3. Do the configure with optional prefix. 
-     ./configure CC=icc LIBS='libdynprof.a libzca-toggle.a -lelf -lpthread' CFLAGS='-g -O0' --prefix=${GREP_INSTALL_LOCATION}
+     ./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf -lpthread' CFLAGS='-g -O0' --prefix=${GREP_INSTALL_LOCATION}
 4. make (This step is required otherwise there will be errors in the next step)
 5. cd ..; ./instrument.sh
 6. cd instrumented; make (Now with instrumented files)
