@@ -98,6 +98,7 @@ void clear_bufs()
     outcnt = 0;
     insize = inptr = 0;
     bytes_in = bytes_out = 0L;
+    return;
 }
 
 /* ===========================================================================
@@ -186,6 +187,7 @@ void flush_outbuf()
     write_buf(ofd, (char *)outbuf, outcnt);
     bytes_out += (off_t)outcnt;
     outcnt = 0;
+    return;
 }
 
 /* ===========================================================================
@@ -202,6 +204,7 @@ void flush_window()
     }
     bytes_out += (off_t)outcnt;
     outcnt = 0;
+    return;
 }
 
 /* ===========================================================================
@@ -222,6 +225,7 @@ void write_buf(fd, buf, cnt)
         cnt -= n;
         buf = (voidp)((char*)buf+n);
     }
+    return;
 }
 
 /* ========================================================================
@@ -303,6 +307,7 @@ void make_simple_name(name)
     do {
         if (*--p == '.') *p = '_';
     } while (p != name);
+    return;
 }
 
 /* ========================================================================
@@ -373,6 +378,7 @@ void
 gzip_error (char const *m)
 {
     fprintf (stderr, "\n%s: %s: %s\n", program_name, ifname, m);
+    __notify_intrinsic((void*)"gzip_error:end", (void *)&global_x);
     abort_gzip();
 }
 
@@ -380,12 +386,14 @@ void
 xalloc_die ()
 {
   fprintf (stderr, "\n%s: memory_exhausted\n", program_name);
+  __notify_intrinsic((void*)"xalloc_die:end", (void *)&global_x);
   abort_gzip ();
 }
 
 void warning (char const *m)
 {
     WARN ((stderr, "%s: %s: warning: %s\n", program_name, ifname, m));
+    return;
 }
 
 void read_error()
@@ -398,6 +406,7 @@ void read_error()
     } else {
         fprintf(stderr, "%s: unexpected end of file\n", ifname);
     }
+     __notify_intrinsic((void*)"read_error:end", (void *)&global_x);
     abort_gzip();
 }
 
@@ -407,6 +416,7 @@ void write_error()
     fprintf (stderr, "\n%s: ", program_name);
     errno = e;
     perror(ofname);
+     __notify_intrinsic((void*)"write_error:end", (void *)&global_x);
     abort_gzip();
 }
 
@@ -419,6 +429,7 @@ void display_ratio(num, den, file)
     FILE *file;
 {
     fprintf(file, "%5.1f%%", den == 0 ? 0 : 100.0 * num / den);
+    return;
 }
 
 /* ========================================================================
@@ -452,6 +463,8 @@ void fprint_off(file, offset, width)
     }
     for (;  p < buf + sizeof buf;  p++)
         putc (*p, file);
+
+    return;
 }
 
 /* ========================================================================

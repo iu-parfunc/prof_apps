@@ -162,6 +162,7 @@ local void read_tree()
         }
     }
     leaves[max_len]++; /* Now include the EOB code in the Huffman tree */
+    return;
 }
 
 /* ===========================================================================
@@ -197,6 +198,7 @@ local void build_tree()
     }
     /* The length of all other codes is unknown: */
     while (prefixp > prefix_len) *--prefixp = 0;
+    return;
 }
 
 /* ===========================================================================

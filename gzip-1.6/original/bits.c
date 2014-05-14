@@ -119,6 +119,7 @@ void bi_init (zipfile)
     if (zfile != NO_FILE) {
         read_buf  = file_read;
     }
+    return;
 }
 
 /* ===========================================================================
@@ -147,6 +148,7 @@ void send_bits(value, length)
         bi_buf |= value << bi_valid;
         bi_valid += length;
     }
+    return;
 }
 
 /* ===========================================================================
@@ -181,6 +183,7 @@ void bi_windup()
 #ifdef DEBUG
     bits_sent = (bits_sent+7) & ~7;
 #endif
+    return;
 }
 
 /* ===========================================================================
@@ -211,4 +214,6 @@ void copy_block(buf, len, header)
 #endif
         put_byte(*buf++);
     }
+
+    return;
 }

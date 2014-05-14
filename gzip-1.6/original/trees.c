@@ -408,6 +408,7 @@ void ct_init(attr, methodp)
 
     /* Initialize the first block of the first file: */
     init_block();
+    return;
 }
 
 /* ===========================================================================
@@ -426,6 +427,7 @@ local void init_block()
     opt_len = static_len = 0L;
     last_lit = last_dist = last_flags = 0;
     flags = 0; flag_bit = 1;
+    return;
 }
 
 #define SMALLEST 1
@@ -477,6 +479,7 @@ local void pqdownheap(tree, k)
         j <<= 1;
     }
     heap[k] = v;
+    return;
 }
 
 /* ===========================================================================
@@ -564,6 +567,7 @@ local void gen_bitlen(desc)
             n--;
         }
     }
+    return;
 }
 
 /* ===========================================================================
@@ -605,6 +609,7 @@ local void gen_codes (tree, max_code)
         Tracec(tree != static_ltree, (stderr,"\nn %3d %c l %2d c %4x (%x) ",
              n, (isgraph(n) ? n : ' '), len, tree[n].Code, next_code[len]-1));
     }
+    return;
 }
 
 /* ===========================================================================
@@ -694,6 +699,7 @@ local void build_tree(desc)
 
     /* The field len is now set, we can generate the bit codes */
     gen_codes ((ct_data near *)tree, max_code);
+    return;
 }
 
 /* ===========================================================================
@@ -740,6 +746,7 @@ local void scan_tree (tree, max_code)
             max_count = 7, min_count = 4;
         }
     }
+    return;
 }
 
 /* ===========================================================================
@@ -790,6 +797,7 @@ local void send_tree (tree, max_code)
             max_count = 7, min_count = 4;
         }
     }
+    return;
 }
 
 /* ===========================================================================
@@ -849,6 +857,7 @@ local void send_all_trees(lcodes, dcodes, blcodes)
     send_tree((ct_data near *)dyn_ltree, lcodes-1); /* send the literal tree */
 
     send_tree((ct_data near *)dyn_dtree, dcodes-1); /* send the distance tree */
+    return;
 }
 
 /* ===========================================================================
@@ -1057,6 +1066,7 @@ local void compress_block(ltree, dtree)
     } while (lx < last_lit);
 
     send_code(END_BLOCK, ltree);
+    return;
 }
 
 /* ===========================================================================
@@ -1077,4 +1087,5 @@ local void set_file_type()
     if (*file_type == BINARY && translate_eol) {
         warning ("-l used on binary file");
     }
+    return;
 }

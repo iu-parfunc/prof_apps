@@ -318,6 +318,8 @@ try_help ()
 {
   fprintf (stderr, "Try `%s --help' for more information.\n",
            program_name);
+
+  __notify_intrinsic((void*)"try_help:end", (void *)&global_x);
   do_exit (ERROR);
 }
 
@@ -370,6 +372,7 @@ local void help()
 
     printf ("Usage: %s [OPTION]... [FILE]...\n", program_name);
     while (*p) printf ("%s\n", *p++);
+    return;
 }
 
 /* ======================================================================== */
@@ -379,14 +382,18 @@ local void license()
 
     printf ("%s %s\n", program_name, Version);
     while (*p) printf ("%s\n", *p++);
+    return;
 }
 
 /* ======================================================================== */
 local void version()
 {
+
+    __notify_intrinsic((void*)"version:end", (void *)&global_x);
     license ();
     printf ("\n");
     printf ("Written by Jean-loup Gailly.\n");
+    return;
 }
 
 local void progerror (char const *string)
@@ -396,11 +403,14 @@ local void progerror (char const *string)
     errno = e;
     perror(string);
     exit_code = ERROR;
+    return;
 }
 
 /* ======================================================================== */
 int main (int argc, char **argv)
 {
+    start_profiler();
+
     int file_count;     /* number of files to process */
     size_t proglen;     /* length of program_name */
     int optc;           /* current option */
@@ -576,6 +586,8 @@ int main (int argc, char **argv)
     if (list && !quiet && file_count > 1) {
         do_list(-1, -1); /* print totals */
     }
+    __notify_intrinsic((void*)"main:end", (void *)&global_x);
+
     do_exit(exit_code);
     return exit_code; /* just to avoid lint warning */
 }
@@ -699,6 +711,8 @@ local void treat_stdin()
 #endif
         }
     }
+    
+    return;
 }
 
 /* ========================================================================
@@ -905,6 +919,8 @@ local void treat_file(iname)
         }
         fprintf(stderr, "\n");
     }
+
+    return;
 }
 
 /* ========================================================================
@@ -1267,6 +1283,8 @@ discard_input_bytes (nbytes, flags)
       else if (! c)
         break;
     }
+
+  return;
 }
 
 /* ========================================================================
@@ -1604,6 +1622,7 @@ local void do_list(ifd, method)
     }
     display_ratio(bytes_out-(bytes_in-header_bytes), bytes_out, stdout);
     printf(" %s\n", ofname);
+    return;
 }
 
 /* ========================================================================
@@ -1668,6 +1687,7 @@ local void shorten_name(name)
         if (trunc[1] == '\0') trunc--; /* force truncation */
     }
     strcpy(trunc, z_suffix);
+    return;
 }
 
 /* ========================================================================
@@ -1759,6 +1779,7 @@ local void copy_stat(ifstat)
             perror(ofname);
         }
     }
+    return;
 }
 
 #if ! NO_DIR
@@ -1818,6 +1839,7 @@ local void treat_dir (fd, dir)
         }
     }
     free (entries);
+    return;
 }
 #endif /* ! NO_DIR */
 
@@ -1861,6 +1883,7 @@ install_signal_handlers ()
         siginterrupt (handled_sig[i], 1);
       }
 #endif
+  return;
 }
 
 /* ========================================================================
@@ -1887,6 +1910,8 @@ local void do_exit(exitcode)
     FREE(tab_prefix0);
     FREE(tab_prefix1);
 #endif
+
+    __notify_intrinsic((void*)"do_exit:end", (void *)&global_x);
     exit(exitcode);
 }
 
@@ -1908,6 +1933,7 @@ remove_output_file ()
       xunlink (ofname);
     }
   sigprocmask (SIG_SETMASK, &oldset, NULL);
+  return;
 }
 
 /* ========================================================================
@@ -1917,6 +1943,7 @@ void
 abort_gzip ()
 {
    remove_output_file ();
+    __notify_intrinsic((void*)"abort_gzip:end", (void *)&global_x);
    do_exit(ERROR);
 }
 
@@ -1933,5 +1960,6 @@ abort_gzip_signal (sig)
    if (sig == exiting_signal)
      _exit (WARNING);
    signal (sig, SIG_DFL);
+    __notify_intrinsic((void*)"abort_gzip_signal:end", (void *)&global_x);
    raise (sig);
 }

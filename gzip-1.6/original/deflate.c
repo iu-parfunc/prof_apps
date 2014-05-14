@@ -353,6 +353,7 @@ void lm_init (pack_level, flags)
     /* If lookahead < MIN_MATCH, ins_h is garbage, but this is
      * not important since only literal bytes will be emitted.
      */
+    return;
 }
 
 /* ===========================================================================
@@ -514,6 +515,7 @@ local void check_match(start, match, length)
         fprintf(stderr,"\\[%d,%d]", start-match, length);
         do { putc(window[start++], stderr); } while (--length != 0);
     }
+    return;
 }
 #else
 #  define check_match(start, match, length)
@@ -577,6 +579,7 @@ local void fill_window()
             lookahead += n;
         }
     }
+    return;
 }
 
 /* ===========================================================================
