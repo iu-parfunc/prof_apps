@@ -13,6 +13,7 @@ cp -R original/ instrumented/
 cd instrumented
 
 echo -e "Building gzip with instrumentation..."
+autoreconf
 ./configure CC=gcc
 make
 
@@ -51,10 +52,11 @@ cd ..; ./instrument.sh
 
 echo -e "Building gzip with instrumentation..."
 cd instrumented
+make clean
 make
 
 echo -e "Running instrumented binary..."
-time (./gzip -c ../../resources/a > a.gz) > ../dynaprof_time
+(time ./gzip -c ../../resources/a > a.gz) 2> ../dynaprof_time
 cp prof.out ..
 cd ..
 
@@ -71,11 +73,12 @@ cp -R original/ instrumented/
 cd instrumented
 
 echo -e "Building gzip with gprof enabled..."
+autoreconf
 ./configure CC=gcc CFLAGS='-pg'
 make
 
 echo -e "Running gzip..."
-time (./gzip -c ../../resources/a > a.gz) > ../gzip_time
+(time ./gzip -c ../../resources/a > a.gz) 2> ../gprof_time
 gprof gzip gmon.out > ../gprof.out
 cd ..
 
