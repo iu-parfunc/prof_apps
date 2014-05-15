@@ -32,7 +32,7 @@ echo -e "========================="
 
 cp -R original/ instrumented/
 
-echo -e "Building dynaprof..."
+echo -e "Building dynaprof...\n"
 cd $ZCA_SRC
 make clean
 make
