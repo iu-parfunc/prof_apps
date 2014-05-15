@@ -12,13 +12,13 @@ echo -e "========================="
 cp -R original/ instrumented/
 cd instrumented
 
-echo -e "Building gzip with instrumentation..."
+echo -e "Building gzip..."
 autoreconf
 ./configure CC=gcc
 make
 
-echo -e "Running gzip..."
-time (./gzip -c ../../resources/a > a.gz) > ../original_time
+echo -e "\nRunning gzip..."
+(time ./gzip -c ../../resources/a > a.gz) 2> ../original_time
 cd ..
 
 echo -e "Cleaning up..."
@@ -40,30 +40,30 @@ cd $DYN_SRC
 make clean
 make
 
-echo -e "Installed dynaprof..."
+echo -e "\nInstalled dynaprof..."
 cd $GZIP_HOME
 cd instrumented
 autoreconf
 ./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CFLAGS='-O0'
 make
 
-echo -e "Instrumenting gzip..."
+echo -e "\nInstrumenting gzip..."
 cd ..; ./instrument.sh
 
-echo -e "Building gzip with instrumentation..."
+echo -e "\nBuilding gzip with instrumentation..."
 cd instrumented
 make clean
 make
 
-echo -e "Running instrumented binary..."
+echo -e "\nRunning instrumented binary..."
 (time ./gzip -c ../../resources/a > a.gz) 2> ../dynaprof_time
 cp prof.out ..
 cd ..
 
-echo -e "Cleaning up..."
+echo -e "\nCleaning up..."
 rm -rf instrumented
 
-echo -e "Done..."
+echo -e "\nDone..."
 
 echo -e "\n========================="
 echo -e "Running with gprof       "
@@ -77,7 +77,7 @@ autoreconf
 ./configure CC=gcc CFLAGS='-pg'
 make
 
-echo -e "Running gzip..."
+echo -e "\nRunning gzip..."
 (time ./gzip -c ../../resources/a > a.gz) 2> ../gprof_time
 gprof gzip gmon.out > ../gprof.out
 cd ..
