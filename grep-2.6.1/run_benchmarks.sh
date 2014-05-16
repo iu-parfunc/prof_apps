@@ -18,8 +18,9 @@ autoreconf
 make
 
 echo -e "\nRunning grep..."
-(time ./grep -rl test . > /dev/null) 2> ../original_time
-cd ..
+cd src
+(time ./grep -rl test . > /dev/null) 2> ../../original_time
+cd ../..
 
 echo -e "Cleaning up..."
 rm -rf instrumented
@@ -56,9 +57,10 @@ make clean
 make
 
 echo -e "\nRunning instrumented binary..."
-(time ./grep -rl test . > /dev/null) 2> ../dynaprof_time
-cp prof.out ..
-cd ..
+cd src
+(time ./grep -rl test . > /dev/null) 2> ../../dynaprof_time
+cp prof.out ../..
+cd ../..
 
 echo -e "\nCleaning up..."
 rm -rf instrumented
@@ -78,9 +80,10 @@ autoreconf
 make
 
 echo -e "\nRunning grep..."
-(time ./grep -rl test . > /dev/null) 2> ../gprof_time
-gprof gzip gmon.out > ../gprof.out
-cd ..
+cd src
+(time ./grep -rl test . > /dev/null) 2> ../../gprof_time
+gprof grep gmon.out > ../../gprof.out
+cd ../..
 
 echo -e "Cleaning up..."
 rm -rf instrumented
