@@ -87,3 +87,5 @@ rm -rf instrumented
 
 echo -e "Done..."
 
+mkdir instrumented # This is to prevent errors when library artifacts being copied to other subsequent benchmarks
+
