@@ -1,8 +1,12 @@
 #!/bin/bash
 
+cp boostrap.txt a
+
 for i in {1..11}
 do
   cat a a > b
   cat b b > a
 done
+
+rm b
 
