@@ -9,6 +9,10 @@ echo -e "\n========================="
 echo -e "Running without profiling"
 echo -e "========================="
 
+if [ -d "instrumented" ]; then
+   rm -rf instrumented
+fi
+
 cp -R original/ instrumented/
 cd instrumented
 
