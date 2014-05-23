@@ -29,8 +29,9 @@ autoreconf
 make
 
 echo -e "\nRunning gzip..."
-(time ./gzip -c ../../resources/a > a.gz) 2> ../gprof_time
+(/usr/bin/time -f'SELFTIMED: %e' ./gzip -c ../../resources/a > a.gz) 2> ../gprof_time
 gprof gzip gmon.out > ../gprof.out
+cat ../gprof_time
 cd ..
 
 echo -e "Cleaning up..."
