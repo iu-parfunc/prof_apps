@@ -1,8 +1,9 @@
 #!/bin/bash
 
 BENCH_HOME=`pwd`
-ZCA_SRC='../../../zcatoggle/src'
-DYN_SRC='../../../dynaprof/src'
+BUILD_HOME=`pwd`/../../../
+ZCA_SRC=$BUILD_HOME/zcatoggle/src
+DYN_SRC=$BUILD_HOME/dynaprof/src
 
 if [ -d "../instrumented" ]; then
   rm -rf ../instrumented
