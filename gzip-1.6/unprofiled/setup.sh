@@ -8,7 +8,7 @@ if [ ! -e ../../resources/a ]; then
   cd ../../resources
   chmod u+x filegen
   ./filegen
-  cd ../gzip-1.6/gprof
+  cd ../gzip-1.6/unprofiled
 fi
 
 cp -R ../original/ ../instrumented/

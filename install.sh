@@ -4,6 +4,7 @@ ZCA_BUILD='../zcatoggle/build';
 DYN_BUILD='../dynaprof/build';
 GZIP_HOME='gzip-1.6';
 GREP_HOME='grep-2.18';
+PBZIP2_HOME='pbzip2-1.1.8';
 
 case "$1" in
 
@@ -20,6 +21,12 @@ case "$1" in
     cp $DYN_BUILD/../src/dynaprof.h $GREP_HOME/instrumented
     cp $DYN_BUILD/../src/dynaprof.h $GREP_HOME/instrumented/src
     ;;
+  pbzip2)  
+    cp $ZCA_BUILD/* $PBZIP2_HOME/instrumented
+    cp $DYN_BUILD/* $PBZIP2_HOME/instrumented
+    cp $DYN_BUILD/../src/dynaprof.h $PBZIP2_HOME/instrumented
+    ;;
+
   *) echo "Unknown benchmark"
     ;;
 esac

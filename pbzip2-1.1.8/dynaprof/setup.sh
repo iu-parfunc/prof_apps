@@ -27,7 +27,7 @@ cd $BENCH_HOME
 cp -R ../original ../instrumented
 chmod u+x ../../install.sh
 cd ../../
-./install.sh gzip
+./install.sh pbzip2
 
 echo -e "\nInstalled dynaprof..."
 
