@@ -14,7 +14,8 @@ build :
 
 run: build
 	cd ../instrumented;\
-	(time ./gzip -c ../../resources/a > a.gz) 2> ../original_time
+	/usr/bin/time -f "SELF_TIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz
+#	(time ./gzip -c ../../resources/a > a.gz) 2> ../original_time
 #	echo -e "\nRunning gzip..."
 
 clean:

@@ -14,8 +14,9 @@ build :
 
 run: build
 	cd ../instrumented;\
-	(time ./gzip -c ../../resources/a > a.gz) 2> ../gprof_time;\
+	/usr/bin/time -f "SELF_TIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz;\
 	gprof gzip gmon.out > ../gprof.out
+#	(time ./gzip -c ../../resources/a > a.gz) 2> ../gprof_time;
 #	echo -e "\nRunning gzip..."
 # ./run_benchmarks.sh
 #	echo -e "Done.."

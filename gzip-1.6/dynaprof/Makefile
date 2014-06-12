@@ -19,8 +19,9 @@ build:
 
 run: build
 	cd ../instrumented;\
-	(time ./gzip -c ../../resources/a > a.gz) 2> ../dynaprof_time;\
+	/usr/bin/time -f "SELF_TIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz;\
 	cp prof.out ..
+#	(time ./gzip -c ../../resources/a > a.gz);
 # echo -e "\nRunning instrumented binary..."
 #	./run_benchmarks.sh
 
