@@ -19,7 +19,7 @@ build:
 
 run: build
 	cd ../instrumented;\
-	/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz;\
+  (/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz) 2>&1 ;\
 	cp prof.out ..
 #	(time ./gzip -c ../../resources/a > a.gz);
 # echo -e "\nRunning instrumented binary..."
