@@ -38,7 +38,7 @@ CFLAGS += -pthread
 
 # External libraries
 LDFLAGS = -lbz2
-LDFLAGS += -lpthread -lelf libzca-toggle.a libdynaprof.a
+LDFLAGS += -lpthread -lelf libdynaprof.a libzca-toggle.a 
 
 # Where you want pbzip2 installed when you do 'make install'
 PREFIX = /usr

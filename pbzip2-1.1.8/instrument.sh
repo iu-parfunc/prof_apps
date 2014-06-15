@@ -21,7 +21,7 @@ for path in $SRC; do
   filenm=`basename $path`
   fn="${filenm%.*}"
   cp -v ./$ORIG/$path ./instrumented/$dirnm/
-  $PARSE ./instrumented/$path -I./instrumented/lib/ -o ./instrumented/$dirnm/$fn.pdb   
+  $PARSE ./instrumented/$path -o ./instrumented/$dirnm/$fn.pdb   
   $INSTRUMENT ./instrumented/$dirnm/$fn.pdb ./instrumented/$path -l -o ./instrumented/$dirnm/$fn.tau.c \
                -c -spec ./TAUINST.SPEC
   mv ./instrumented/$dirnm/$fn.tau.c ./instrumented/$path
