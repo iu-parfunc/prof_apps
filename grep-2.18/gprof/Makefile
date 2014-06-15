@@ -13,7 +13,7 @@ build:
 
 run: build
 	cd ../instrumented/src;\
-	(time ./grep -rl test ../../../.. > /dev/null) 2> ../../gprof_time;\
+	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./grep -rl test ../../../.. > /dev/null) 2>&1;\
 	gprof grep gmon.out > ../../gprof.out
 
 clean:

@@ -13,6 +13,6 @@ build:
 
 run: build
 	cd ../instrumented/src;\
-	(time ./grep -rl test ../../../.. > /dev/null) 2> ../../original_time
+	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./grep -rl test ../../../.. > /dev/null) 2>&1
 
 clean:
