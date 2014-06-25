@@ -9,7 +9,7 @@ build :
 	echo -e "Building gzip..."
 	cd ../instrumented;\
 	autoreconf;\
-	./configure CC=gcc;\
+	./configure CC=icc CFLAGS='-O2';\
 	make;\
 
 run: build

@@ -8,7 +8,7 @@ build:
 	./setup.sh
 	cd ../instrumented;\
 	autoreconf;\
-	./configure CC=gcc;\
+	./configure CC=gcc CFLAGS=-O2;\
 	make
 
 run: build

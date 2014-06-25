@@ -8,7 +8,7 @@ build:
 	./setup.sh
 	cd ../instrumented; \
 	autoreconf; \
-	./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CFLAGS='-O0';\
+	./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CLFAGS='-O2';\
 	make;\
 	echo -e "\nInstrumenting gzip...";
 	cd ..; ./instrument.sh;\

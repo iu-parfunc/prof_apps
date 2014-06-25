@@ -8,7 +8,7 @@ build:
 	./setup.sh
 	cd ../instrumented;\
 	autoreconf;\
-	./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf -lpthread' CFLAGS='-O0';\
+	./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf -lpthread' CFLAGS='-O2';\
 	make
 	cd ..;\
 	./instrument.sh
