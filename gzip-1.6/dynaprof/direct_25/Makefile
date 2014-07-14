@@ -4,21 +4,22 @@
 all: clean run	
 
 build:
-	chmod u+x setup.sh
-	./setup.sh direct_10
-	cd ../instrumented; \
+	chmod u+x ../setup.sh
+	cd ..;\
+	./setup.sh direct_25
+	cd ../../instrumented; \
 	autoreconf; \
 	./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CLFAGS='-O2';\
 	make;\
 	echo -e "\nInstrumenting gzip...";
-	cd ..; ./instrument.sh;\
+	cd ../..; ./instrument.sh;\
 	echo -e "\nBuilding gzip with instrumentation...";
-	cd ../instrumented;\
+	cd ../../instrumented;\
 	make clean;\
 	make
 
 run: build
-	cd ../instrumented;\
+	cd ../../instrumented;\
   (/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz) 2>&1 ;\
 	cp prof.out ..
 #	(time ./gzip -c ../../resources/a > a.gz);

@@ -21,7 +21,25 @@ make clean
 make
 cd $DYN_SRC
 make clean
-make
+case "$1" in
+
+  direct_05)
+    make OVERHEAD="-DOVERHEAD_5" STRATEGY="-DDIRECT_UPDATE_STRATEGY"
+    ;;
+  direct_10)
+    make OVERHEAD="-DOVERHEAD_10" STRATEGY="-DDIRECT_UPDATE_STRATEGY"
+    ;;
+  direct_25)
+    make OVERHEAD="-DOVERHEAD_25" STRATEGY="-DDIRECT_UPDATE_STRATEGY"
+    ;;
+  direct_50)
+    make OVERHEAD="-DOVERHEAD_50" STRATEGY="-DDIRECT_UPDATE_STRATEGY"
+    ;;
+  empty)
+    make STRATEGY="-DEMPTY_STRATEGY"
+    ;;
+  *);;
+esac
 
 cd $BENCH_HOME
 cp -R ../original ../instrumented

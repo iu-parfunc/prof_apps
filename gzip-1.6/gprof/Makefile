@@ -9,7 +9,7 @@ build :
 	cd ../instrumented;\
 	echo -e "Building gzip with gprof enabled...";\
 	autoreconf;\
-	./configure CC=gcc CFLAGS='-pg';\
+	./configure CC=icc CFLAGS='-O2 -pg';\
 	make
 
 run: build

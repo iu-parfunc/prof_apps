@@ -313,6 +313,16 @@ local void treat_dir    (int fd, char *dir);
 
 #define strequ(s1, s2) (strcmp((s1),(s2)) == 0)
 
+__attribute__((noinline)) void empty_function();
+
+void empty_function() { 
+ 
+  __notify_intrinsic((void*)"empty_function:start", (void *)&global_x);
+
+  __notify_intrinsic((void*)"empty_function:end", (void *)&global_x);
+
+}
+
 static void
 try_help ()
 {
