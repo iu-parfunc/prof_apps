@@ -478,6 +478,7 @@ int main(int argc,char **argv)
   FreeNalPayloadBuffer();
   FreeParameterSets();
 
+  fprintf(stderr, "\n");
   fprintf(stderr, "FINAL_OVERHEAD %.03f\n", overhead);
   return 0;                         //encode JM73_FME version
 }
