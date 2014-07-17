@@ -44,7 +44,7 @@ case "$1" in
   h264)
     cp $ZCA_BUILD/* $H264_HOME/instrumented
     cp $DYN_BUILD/* $H264_HOME/instrumented
-    cp $DYN_BUILD/../src/dynaprof.h $H264_HOME/instrumented 
+    cp $DYN_BUILD/../src/dynaprof.h $H264_HOME/instrumented
     ;;
 
   *) echo "Unknown benchmark"

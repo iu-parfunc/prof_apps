@@ -5,7 +5,7 @@ all: clean run
 
 build:
 	chmod u+x setup.sh
-	./setup.sh direct_05
+	./setup.sh 
 	cd ../instrumented;\
 	make clean;\
 	make
