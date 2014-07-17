@@ -1482,3 +1482,5 @@ void store_coding_state_cs_cm();
 void reset_coding_state_cs_cm();
 
 int global_x;
+
+extern double overhead;
