@@ -1,14 +1,11 @@
 
-DYN_STRATEGY := "FIXED_BACKOFF"
-DYN_SAMPLE_SIZE := "10000"
-
 .PHONY: all clean run
 
 all: clean run	
 
 build:
 	chmod u+x ../setup.sh
-	cd ..;./setup.sh 
+	cd ..;./setup.sh fixed_backoff_10000 
 	echo -e "\nInstrumenting h264...";
 	cd ../..; ./instrument.sh;\
 	echo -e "\nBuilding h264 with instrumentation...";

@@ -1,14 +1,11 @@
 
-# DYN_STRATEGY := "COUNT_ONLY"
-# DYN_SAMPLE_SIZE := "1000000"
-						
 .PHONY: all clean run
 
 all: clean run	
 
 build:
 	chmod u+x ../setup.sh
-	cd ..;./setup.sh 
+	cd ..;./setup.sh count_only
 	echo -e "\nInstrumenting h264...";
 	cd ../..; ./instrument.sh;\
 	echo -e "\nBuilding h264 with instrumentation...";

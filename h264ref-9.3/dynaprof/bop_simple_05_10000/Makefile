@@ -1,7 +1,3 @@
-
-DYN_OVERHEAD := "0.05"
-DYN_STRATEGY := "BOP_SIMPLE"
-DYN_SAMPLE_SIZE := "10000"
 						
 .PHONY: all clean run
 
@@ -9,7 +5,7 @@ all: clean run
 
 build:
 	chmod u+x ../setup.sh
-	cd ..;./setup.sh 
+	cd ..;./setup.sh bop_simple_05_10000
 	echo -e "\nInstrumenting h264...";
 	cd ../..; ./instrument.sh;\
 	echo -e "\nBuilding h264 with instrumentation...";
