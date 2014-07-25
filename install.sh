@@ -8,6 +8,7 @@ PBZIP2_HOME='pbzip2-1.1.8';
 MCF_HOME='mcf-1.3'
 PERL_HOME='perl-5.8.7'
 H264_HOME='h264ref-9.3'
+BZIP2_HOME='bzip-1.0.3'
 
 case "$1" in
 
@@ -45,6 +46,12 @@ case "$1" in
     cp $ZCA_BUILD/* $H264_HOME/instrumented
     cp $DYN_BUILD/* $H264_HOME/instrumented
     cp $DYN_BUILD/../src/dynaprof.h $H264_HOME/instrumented
+    ;;
+
+  bzip2)
+    cp $ZCA_BUILD/* $BZIP2_HOME/instrumented
+    cp $DYN_BUILD/* $BZIP2_HOME/instrumented
+    cp $DYN_BUILD/../src/dynaprof.h $BZIP2_HOME/instrumented
     ;;
 
   *) echo "Unknown benchmark"

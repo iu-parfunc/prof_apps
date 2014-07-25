@@ -5,7 +5,7 @@ all: clean run
 
 build:
 	chmod u+x setup.sh
-	./setup.sh empty 
+	./setup.sh 
 	cd ..; ./instrument.sh
 	cd ../instrumented;\
 	make clean;\
