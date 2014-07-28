@@ -1,3 +1,6 @@
 [submodule "raxml/original"]
 	path = raxml/original
 	url = git@github.com:stamatak/standard-RAxML.git
+[submodule "mothur/original"]
+	path = mothur/original
+	url = git@github.com:mothur/mothur.git
