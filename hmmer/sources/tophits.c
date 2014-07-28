@@ -92,6 +92,7 @@ GrowTophits(struct tophit_s *h)
 {
   h->unsrt = ReallocOrDie(h->unsrt,(h->alloc + h->lump) * sizeof(struct hit_s));
   h->alloc += h->lump;
+  return;
 }
 void
 FreeTophits(struct tophit_s *h)
@@ -107,6 +108,7 @@ FreeTophits(struct tophit_s *h)
   free(h->unsrt);
   if (h->hit != NULL) free(h->hit);
   free(h);
+  return;
 }
 
 struct fancyali_s *
@@ -133,6 +135,7 @@ FreeFancyAli(struct fancyali_s *ali)
     if (ali->target != NULL) free(ali->target);
     free(ali);
   }
+  return;
 }
     
 /* Function: RegisterHit()
@@ -242,6 +245,7 @@ GetRankedHit(struct tophit_s *h, int rank,
   if (r_domidx  != NULL) *r_domidx  = h->hit[rank]->domidx;
   if (r_ndom    != NULL) *r_ndom    = h->hit[rank]->ndom;
   if (r_ali     != NULL) *r_ali     = h->hit[rank]->ali;
+  return;
 }
 
 /* Function: TophitsMaxName()
@@ -305,6 +309,7 @@ FullSortTophits(struct tophit_s *h)
    */
   if (h->num > 1)
     specqsort(h->hit, h->num, sizeof(struct hit_s *), hit_comparison);
+  return;
 }
 
 
@@ -377,4 +382,5 @@ TophitsReport(struct tophit_s *h, double E, int nseq)
   printf("     Total hits:           %d\n", h->num);
   printf("     Satisfying E cutoff:  %d\n", n);
   printf("     Total memory:         %dK\n", memused / 1000);
+  return;
 }

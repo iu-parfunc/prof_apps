@@ -59,6 +59,7 @@ HMMERBanner(FILE *fp, char *banner)
   fprintf(fp, "%s\n", PACKAGE_COPYRIGHT);
   fprintf(fp, "%s\n", PACKAGE_LICENSE);
   fprintf(fp, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+  return;
 }
 
 

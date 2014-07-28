@@ -338,11 +338,13 @@ HMMFileClose(HMMFILE *hmmfp)
   if (hmmfp->f   != NULL)  fclose(hmmfp->f);      
   if (hmmfp->ssi != NULL)  SSIClose(hmmfp->ssi);
   free(hmmfp);
+  return;
 }
 void 
 HMMFileRewind(HMMFILE *hmmfp)
 {
   rewind(hmmfp->f);
+  return;
 }
 int
 HMMFilePositionByName(HMMFILE *hmmfp, char *name)
@@ -474,6 +476,7 @@ WriteAscHMM(FILE *fp, struct plan7_s *hmm)
       fputs("\n", fp);
     }
   fputs("//\n", fp);
+  return;
 }
 
 /* Function: WriteBinHMM()
@@ -544,6 +547,7 @@ WriteBinHMM(FILE *fp, struct plan7_s *hmm)
     fwrite((char *) hmm->ins[k], sizeof(float), Alphabet_size, fp);
   for (k = 1; k < hmm->M; k++)
     fwrite((char *) hmm->t[k], sizeof(float), 7, fp);
+  return;
 }
 
 
@@ -1321,6 +1325,7 @@ byteswap(char *swap, int nbytes)
       swap[nbytes - x - 1] = swap[x];
       swap[x] = byte;
     }
+  return;
 }
 
 /* Function: write_bin_string()
@@ -1345,6 +1350,7 @@ write_bin_string(FILE *fp, char *s)
       len = 0;
       fwrite((char *) &len, sizeof(int), 1, fp);
     }
+  return;
 }
 
 /* Function: read_bin_string()
@@ -1414,6 +1420,7 @@ multiline(FILE *fp, char *pfx, char *s)
       sptr = strtok(NULL, "\n");
     }
   free(buf);
+  return;
 }
 
 

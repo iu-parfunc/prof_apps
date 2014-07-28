@@ -150,6 +150,7 @@ GKIFree(GKI *hash)
       }
   free(hash->table);
   free(hash);
+  return;
 }
 
 /* Function: GKIStoreKey()
@@ -266,6 +267,7 @@ GKIStatus(GKI *hash)
   printf("Unoccupied slots:  %d\n", nempty);
   printf("Most in one slot:  %d\n", maxkeys);
   printf("Least in one slot: %d\n", minkeys);
+  return;
   
 }
 

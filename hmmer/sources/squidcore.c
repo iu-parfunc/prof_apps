@@ -50,6 +50,7 @@ SqdBanner(FILE *fp, char *banner)
   fprintf(fp, "%s\n", SQUID_COPYRIGHT);
   fprintf(fp, "%s\n", SQUID_LICENSE);
   fprintf(fp, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+  return;
 }
 
 

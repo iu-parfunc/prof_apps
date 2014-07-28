@@ -152,6 +152,7 @@ init_ilogsum(void)
   for (i = 0; i < LOGSUM_TBL; i++) 
     ilogsum_lookup[i] = (int) (INTSCALE * 1.44269504 * 
 	   (log(1.+exp(0.69314718 * (float) -i/INTSCALE))));
+  return;
 }
 int 
 ILogsum(int p1, int p2)
@@ -198,6 +199,7 @@ LogNorm(float *vec, int n)
       vec[x] = exp(vec[x] - max) / denom;
     else
       vec[x] = 0.0;
+  return;
 }
   
 
@@ -261,6 +263,7 @@ SampleDirichlet(float *alpha, int n, float *p)
   for (x = 0; x < n; x++)
     p[x] = SampleGamma(alpha[x]);
   FNorm(p, n);
+  return;
 }
   
 
@@ -334,6 +337,7 @@ SampleCountvector(float *p, int n, int c, float *cvec)
   FSet(cvec, n, 0.0);
   for (i = 0; i < c; i++)
     cvec[FChoose(p,n)] += 1.0;
+  return;
 }
 
 

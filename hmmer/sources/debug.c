@@ -157,6 +157,8 @@ P7PrintTrace(FILE *fp, struct p7trace_s *tr, struct plan7_s *hmm, char *dsq)
     fprintf(fp, "                 ------- --------\n");
     fprintf(fp, "           total: %6d\n\n", sc);
   }
+
+  return;
 }
 
 /* Function: P7PrintPrior()
@@ -207,6 +209,8 @@ P7PrintPrior(FILE *fp, struct p7prior_s *pri)
 	fprintf(fp, "%.4f ", pri->i[q][x]);
       fputs("\n", fp);
     }
+
+  return;
 }
 
 /* Function: TraceVerify()

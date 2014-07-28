@@ -402,6 +402,7 @@ P7Maxmodelmaker(MSA *msa, char **dsq, float maxgap,
   free(tbck);
   free(matassign);
   free(insopt);
+  return;
 }
 
 
@@ -935,6 +936,8 @@ annotate_model(struct plan7_s *hmm, int *matassign, MSA *msa)
 	  }
     }
 
+  return;
+
 }
 
 static void
@@ -950,4 +953,6 @@ print_matassign(int *matassign, int alen)
 	   (matassign[apos] & EXTERNAL_INSERT_N ||
 	    matassign[apos] & EXTERNAL_INSERT_C) ? '|':' ');
   }
+
+  return;
 }

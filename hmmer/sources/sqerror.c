@@ -44,6 +44,8 @@ Die(char *format, ...)
   fprintf(stderr, "\n");
   fflush(stderr);
 				/* exit  */
+
+  __notify_intrinsic((void*)"Die:end", (void *)&global_x);
   exit(1);
 }
 
@@ -68,6 +70,7 @@ Warn(char *format, ...)
   va_end(argp);
   fprintf(stderr, "\n");
   fflush(stderr);
+  return;
 }
 
 /* Function: Panic()
@@ -89,6 +92,7 @@ Panic(char *file, int line)
 {
   (void) fprintf(stderr, "\nPANIC [%s line %d] ", file, line);
   (void) perror("Unusual error");
+  __notify_intrinsic((void*)"Panic:end", (void *)&global_x);
   exit(EXIT_FAILURE);
 }
 

@@ -226,6 +226,7 @@ SeqfilePosition(SQFILE *sqfp, SSIOFFSET *offset)
   if (SSISetFilePosition(sqfp->f, offset) != 0)
     Die("SSISetFilePosition failed, but that shouldn't happen.");
   SeqfileGetLine(sqfp);
+  return;
 }
 
 
@@ -246,6 +247,7 @@ SeqfileRewind(SQFILE *sqfp)
 
   rewind(sqfp->f);
   SeqfileGetLine(sqfp);
+  return;
 }
 
 /* Function: SeqfileLineParameters()
@@ -277,6 +279,7 @@ SeqfileLineParameters(SQFILE *V, int *ret_bpl, int *ret_rpl)
     *ret_bpl = 0;
     *ret_rpl = 0;
   }
+  return;
 }
 
 
@@ -301,6 +304,7 @@ SeqfileClose(SQFILE *sqfp)
   if (sqfp->buf   != NULL) free(sqfp->buf);
   if (sqfp->fname != NULL) free(sqfp->fname);
   free(sqfp);
+  return;
 }
 
 
@@ -323,6 +327,7 @@ SeqfileGetLine(SQFILE *V)
   if (sre_fgets(&(V->buf), &(V->buflen), V->f) == NULL)
     *(V->buf) = '\0';
   V->linenumber++;
+  return;
 }
 
 
@@ -332,6 +337,7 @@ FreeSequence(char *seq, SQINFO *sqinfo)
   if (seq != NULL) free(seq);
   if (sqinfo->flags & SQINFO_SS)   free(sqinfo->ss);
   if (sqinfo->flags & SQINFO_SA)   free(sqinfo->sa);
+  return;
 }
 
 int
@@ -434,6 +440,7 @@ SeqinfoCopy(SQINFO *sq1, SQINFO *sq2)
   if (sq2->flags & SQINFO_TYPE)  sq1->type   = sq2->type;
   if (sq2->flags & SQINFO_SS)    sq1->ss     = Strdup(sq2->ss);
   if (sq2->flags & SQINFO_SA)    sq1->sa     = Strdup(sq2->sa);
+  return;
 }
 
 /* Function: ToDNA()
@@ -449,6 +456,7 @@ ToDNA(char *seq)
       if      (*seq == 'U') *seq = 'T';
       else if (*seq == 'u') *seq = 't';
     }
+  return;
 }
 
 /* Function: ToRNA()
@@ -464,6 +472,7 @@ ToRNA(char *seq)
       if      (*seq == 'T') *seq = 'U';
       else if (*seq == 't') *seq = 'u';
     }
+  return;
 }
 
 
@@ -492,6 +501,7 @@ ToIUPAC(char *seq, int is_aseq)
     for (; *seq != '\0'; seq++)
       if (strchr(NUCLEOTIDES, *seq) == NULL) *seq = 'N';
   }
+  return;
 }
 
 
@@ -587,7 +597,7 @@ addseq(char *s, struct ReadSeqVars *V)
 	if (bpl > V->maxbpl) V->maxbpl = bpl; /* make sure we check max length of final lines */
       }
     } /* end of indexing mode of addseq(). */
-
+  return;
 }
 
 static void 
@@ -614,6 +624,7 @@ readLoop(int addfirst, int (*endTest)(char *,int *), struct ReadSeqVars *V)
     if (addend || !done)
       addseq(V->buf, V);
   } while (!done);
+  return;
 }
 
 
@@ -670,6 +681,7 @@ readPIR(struct ReadSeqVars *V)
   while (!feof(V->f) && strncmp(V->buf, "ENTRY", 5) != 0) {
     SeqfileGetLine(V);
   }
+  return;
 }
 
 
@@ -700,6 +712,7 @@ readIG(struct ReadSeqVars *V)
   
   while (!(feof(V->f) || ((*V->buf != '\0') && (*V->buf == ';'))))
     SeqfileGetLine(V);
+  return;
 }
 
 static int 
@@ -731,6 +744,7 @@ readStrider(struct ReadSeqVars *V)
    */
   while ((!feof(V->f)) && (*V->buf != ';')) 
     SeqfileGetLine(V);
+  return;
 }
 
 
@@ -808,6 +822,7 @@ readGenBank(struct ReadSeqVars *V)
 				   reads are wedged: fixed Tue Jul 13 1993 */
   while (!feof(V->f) && strstr(V->buf, "LOCUS  ") != V->buf)
     SeqfileGetLine(V);
+  return;
 }
 
 static int
@@ -857,6 +872,7 @@ readGCGdata(struct ReadSeqVars *V)
   
   while (!(feof(V->f) || ((*V->buf != 0) && (*V->buf == '>'))))
     SeqfileGetLine(V);
+  return;
 }
 
 static int
@@ -890,6 +906,7 @@ Usually this is done with an option --informat <fmt>.\n",
   while (!(feof(V->f) || ((*V->buf != 0) && (*V->buf == '>')))) {
     SeqfileGetLine(V);
   }
+  return;
 }
 
 
@@ -959,6 +976,7 @@ readEMBL(struct ReadSeqVars *V)
   while (!feof(V->f) && strncmp(V->buf, "ID  ", 4) != 0) {
     SeqfileGetLine(V);
   }    
+  return;
 
 }
 
@@ -987,6 +1005,7 @@ readZuker(struct ReadSeqVars *V)
 
   while (!(feof(V->f) | ((*V->buf != '\0') & (*V->buf == '('))))
     SeqfileGetLine(V);
+  return;
 }
 
 static void 
@@ -1011,6 +1030,7 @@ readUWGCG(struct ReadSeqVars *V)
     SeqfileGetLine(V);
     if (! done) addseq(V->buf, V);
   } while (!done);
+  return;
 }
 
     
@@ -1506,6 +1526,7 @@ WriteSimpleFASTA(FILE *fp, char *seq, char *name, char *desc)
       strncpy(buf, seq+pos, 60);
       fprintf(fp, "%s\n", buf);
     }
+  return;
 }
 
 int

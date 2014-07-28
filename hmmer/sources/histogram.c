@@ -92,6 +92,7 @@ FreeHistogram(struct histogram_s *h)
   free(h->histogram);
   if (h->expect != NULL) free(h->expect);
   free(h);
+  return;
 } 
 
 /* Function: UnfitHistogram()
@@ -104,6 +105,7 @@ UnfitHistogram(struct histogram_s *h)
   if (h->expect != NULL) free(h->expect);
   h->expect   = NULL;
   h->fit_type = HISTFIT_NONE;
+  return;
 }
 
 
@@ -371,6 +373,7 @@ PrintXMGRHistogram(FILE *fp, struct histogram_s *h)
 	  }
 	fprintf(fp, "&\n");
     }
+  return;
 }
 
 /* Function: PrintXMGRDistribution()
@@ -410,6 +413,7 @@ PrintXMGRDistribution(FILE *fp, struct histogram_s *h)
 	}
       fprintf(fp, "&\n");
     }
+  return;
 }
 
 /* Function: PrintXMGRRegressionLine()
@@ -451,6 +455,7 @@ PrintXMGRRegressionLine(FILE *fp, struct histogram_s *h)
 	}
       fprintf(fp, "&\n");
     }
+  return;
 }
 
 /* Function: EVDBasicFit()
@@ -726,6 +731,7 @@ ExtremeValueSetHistogram(struct histogram_s *h, float mu, float lambda,
 				      (double) h->chisq/2.);
   else
     h->chip = 0.;		
+  return;
 }
 
 
@@ -876,6 +882,7 @@ GaussianSetHistogram(struct histogram_s *h, float mean, float sd)
 				      (double) h->chisq/2.);
   else
     h->chip = 0.;		
+  return;
 }
 
 

@@ -42,6 +42,7 @@ P7AllocTrace(int tlen, struct p7trace_s **ret_tr)
   tr->nodeidx   = MallocOrDie (sizeof(int)  * tlen);
   tr->pos       = MallocOrDie (sizeof(int)  * tlen);
   *ret_tr = tr;
+  return;
 }
 void
 P7ReallocTrace(struct p7trace_s *tr, int tlen)
@@ -49,6 +50,7 @@ P7ReallocTrace(struct p7trace_s *tr, int tlen)
   tr->statetype = ReallocOrDie (tr->statetype, tlen * sizeof(char));
   tr->nodeidx   = ReallocOrDie (tr->nodeidx,   tlen * sizeof(int));
   tr->pos       = ReallocOrDie (tr->pos,       tlen * sizeof(int));
+  return;
 }
 void 
 P7FreeTrace(struct p7trace_s *tr)
@@ -58,6 +60,7 @@ P7FreeTrace(struct p7trace_s *tr)
   free(tr->nodeidx);
   free(tr->statetype);
   free(tr);
+  return;
 }
 
 /* Function: TraceSet()
@@ -81,6 +84,7 @@ TraceSet(struct p7trace_s *tr, int tpos, char type, int idx, int pos)
   tr->statetype[tpos] = type;
   tr->nodeidx[tpos]   = idx;
   tr->pos[tpos]       = pos;
+  return;
 }
 
 
@@ -167,6 +171,7 @@ P7ReverseTrace(struct p7trace_s *tr)
   tr->statetype = statetype;
   tr->nodeidx   = nodeidx;
   tr->pos       = pos;
+  return;
 }
 
 
@@ -296,6 +301,7 @@ P7TraceCount(struct plan7_s *hmm, char *dsq, float wt, struct p7trace_s *tr)
 	    Statetype(tr->statetype[tpos]));
       }
     }
+  return;
 }
 
 
@@ -1010,6 +1016,7 @@ TraceSimpleBounds(struct p7trace_s *tr, int *ret_i1, int *ret_i2,
   *ret_i1 = i1;
   *ret_k2 = k2;
   *ret_i2 = i2;
+  return;
 }
 
 
@@ -1182,6 +1189,7 @@ ImposeMasterTrace(char **aseq, int nseq, struct p7trace_s *mtr, struct p7trace_s
       tr[idx]->tlen = tpos;
     }	  
   *ret_tr = tr;
+  return;
 }
 
 
@@ -1207,6 +1215,7 @@ rightjustify(char *s, int n)
   }
   while (npos >= 0) 
     s[npos--] = '.';
+  return;
 }
 
 

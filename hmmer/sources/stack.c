@@ -54,6 +54,7 @@ PushIntStack(struct intstack_s *stack, int data)
 
   new->nxt     = stack->nxt;
   stack->nxt   = new;
+  return;
 }
 
 int
@@ -86,6 +87,7 @@ ReverseIntStack(struct intstack_s *stack)
       new->nxt   = stack->nxt;  /* push it onto new stack */
       stack->nxt = new;
     }
+  return;
 }
 
 int

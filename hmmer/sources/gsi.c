@@ -172,6 +172,7 @@ GSIClose(GSIFILE *gsi)
 {
   fclose(gsi->gsifp);
   free(gsi);
+  return;
 }
 
 
@@ -214,6 +215,7 @@ GSIFreeIndex(struct gsiindex_s *g)
   free(g->fmt);
   free(g->elems);
   free(g);
+  return;
 }
 void
 GSIAddFileToIndex(struct gsiindex_s *g, char *filename, int fmt)
@@ -229,6 +231,7 @@ GSIAddFileToIndex(struct gsiindex_s *g, char *filename, int fmt)
     g->filenames = ReallocOrDie(g->filenames, sizeof(char *) * (g->nfiles + 10)); 
     g->fmt       = ReallocOrDie(g->fmt,       sizeof(int)    * (g->nfiles + 10)); 
   }
+  return;
 }
 void
 GSIAddKeyToIndex(struct gsiindex_s *g, char *key, int filenum, long offset)
@@ -245,6 +248,7 @@ GSIAddKeyToIndex(struct gsiindex_s *g, char *key, int filenum, long offset)
 
   if (g->nkeys % 100 == 0)
     g->elems = ReallocOrDie(g->elems, sizeof(struct gsikey_s) * (g->nkeys + 100));
+  return;
 }
 static int 
 gsi_keysorter(const void *k1, const void *k2)
@@ -259,6 +263,7 @@ void
 GSISortIndex(struct gsiindex_s *g)
 {
   specqsort((void *) g->elems, g->nkeys, sizeof(struct gsikey_s), gsi_keysorter); 
+  return;
 }
 void
 GSIWriteIndex(FILE *fp, struct gsiindex_s *g)
@@ -275,6 +280,7 @@ GSIWriteIndex(FILE *fp, struct gsiindex_s *g)
     GSIWriteFileRecord(fp, g->filenames[i], i+1, g->fmt[i]);
   for (i = 0; i < g->nkeys; i++)
     GSIWriteKeyRecord(fp, g->elems[i].key, g->elems[i].filenum, g->elems[i].offset);
+  return;
 }
 
 
@@ -314,6 +320,7 @@ GSIWriteHeader(FILE *fp, int nfiles, long nkeys)
   if (fwrite(key,   1, GSI_KEYSIZE, fp) < GSI_KEYSIZE) PANIC;
   if (fwrite(&f1,   2,  1, fp) < 1)  PANIC;
   if (fwrite(&f2,   4,  1, fp) < 1)  PANIC;
+  return;
 }
 
 

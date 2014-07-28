@@ -201,6 +201,7 @@ FreePlan7(struct plan7_s *hmm)
   if (hmm->dnam    != NULL) free(hmm->dnam);
   if (hmm->dnai    != NULL) free(hmm->dnai);
   free(hmm);
+  return;
 }
 
 /* Function: ZeroPlan7()
@@ -226,6 +227,7 @@ ZeroPlan7(struct plan7_s *hmm)
     FSet(hmm->xt[k], 2, 0.);
   hmm->flags &= ~PLAN7_HASBITS;	/* invalidates scores */
   hmm->flags &= ~PLAN7_HASPROB;	/* invalidates probabilities */
+  return;
 }
 
 
@@ -241,6 +243,7 @@ Plan7SetName(struct plan7_s *hmm, char *name)
   if (hmm->name != NULL) free(hmm->name);
   hmm->name = Strdup(name);
   StringChop(hmm->name);
+  return;
 }
 /* Function: Plan7SetAccession()
  * 
@@ -255,6 +258,7 @@ Plan7SetAccession(struct plan7_s *hmm, char *acc)
   hmm->acc = Strdup(acc);
   StringChop(hmm->acc);
   hmm->flags |= PLAN7_ACC;
+  return;
 }
 
 /* Function: Plan7SetDescription()
@@ -270,6 +274,7 @@ Plan7SetDescription(struct plan7_s *hmm, char *desc)
   hmm->desc = Strdup(desc);
   StringChop(hmm->desc); 
   hmm->flags |= PLAN7_DESC;
+  return;
 }
 
 /* Function: Plan7ComlogAppend()
@@ -308,6 +313,7 @@ Plan7ComlogAppend(struct plan7_s *hmm, int argc, char **argv)
       strcat(hmm->comlog, argv[i]);
       if (i < argc-1) strcat(hmm->comlog, " ");
     }
+  return;
 }
 
 /* Function: Plan7SetCtime()
@@ -322,6 +328,7 @@ Plan7SetCtime(struct plan7_s *hmm)
   if (hmm->ctime != NULL) free(hmm->ctime);
   hmm->ctime = Strdup(ctime(&date));
   StringChop(hmm->ctime);
+  return;
 }
 
 
@@ -337,6 +344,7 @@ Plan7SetNullModel(struct plan7_s *hmm, float null[MAXABET], float p1)
   for (x = 0; x < Alphabet_size; x++)
     hmm->null[x] = null[x];
   hmm->p1 = p1;
+  return;
 }
 
 
@@ -510,6 +518,7 @@ P7Logoddsify(struct plan7_s *hmm, int viterbi_mode)
   hmm->xsc[XTJ][MOVE] = Prob2Score(hmm->xt[XTJ][MOVE], 1.0);
 
   hmm->flags |= PLAN7_HASBITS;	/* raise the log-odds ready flag */
+  return;
 }
 
 
@@ -563,6 +572,7 @@ Plan7Renormalize(struct plan7_s *hmm)
 
   hmm->flags &= ~PLAN7_HASBITS;	/* clear the log-odds ready flag */
   hmm->flags |= PLAN7_HASPROB;	/* set the probabilities OK flag */
+  return;
 }
   
 
@@ -588,6 +598,7 @@ Plan7RenormalizeExits(struct plan7_s *hmm)
       d = FSum(hmm->t[k], 3);
       FScale(hmm->t[k], 3, 1./(d + d*hmm->end[k]));
     }
+  return;
 }
 
 
@@ -646,6 +657,7 @@ Plan7NakedConfig(struct plan7_s *hmm)
   hmm->end[hmm->M] = 1.;
   Plan7RenormalizeExits(hmm);
   hmm->flags       &= ~PLAN7_HASBITS; /* reconfig invalidates log-odds scores */
+  return;
 }
    
 /* Function: Plan7GlobalConfig()
@@ -679,6 +691,7 @@ Plan7GlobalConfig(struct plan7_s *hmm)
   hmm->end[hmm->M] = 1.;
   Plan7RenormalizeExits(hmm);
   hmm->flags       &= ~PLAN7_HASBITS; /* reconfig invalidates log-odds scores */
+  return;
 }
    
 /* Function: Plan7LSConfig()
@@ -708,6 +721,7 @@ Plan7LSConfig(struct plan7_s *hmm)
   hmm->end[hmm->M] = 1.;
   Plan7RenormalizeExits(hmm);
   hmm->flags       &= ~PLAN7_HASBITS; /* reconfig invalidates log-odds scores */
+  return;
 }  
                              
 
@@ -766,6 +780,7 @@ Plan7SWConfig(struct plan7_s *hmm, float pentry, float pexit)
     hmm->end[k] = basep / (1. - basep * (float) (k-1));
   Plan7RenormalizeExits(hmm);
   hmm->flags       &= ~PLAN7_HASBITS; /* reconfig invalidates log-odds scores */
+  return;
 }
 
 /* Function: Plan7FSConfig()
@@ -816,6 +831,7 @@ Plan7FSConfig(struct plan7_s *hmm, float pentry, float pexit)
     hmm->end[k] = basep / (1. - basep * (float) (k-1));
   Plan7RenormalizeExits(hmm);
   hmm->flags       &= ~PLAN7_HASBITS; /* reconfig invalidates log-odds scores */
+  return;
 }
 
 
@@ -875,6 +891,7 @@ Plan7ESTConfig(struct plan7_s *hmm, int *aacode, float **estmodel,
       hmm->dna2 = Prob2Score(dna2, 1.);
       hmm->dna4 = Prob2Score(dna4, 1.);
     }
+  return;
 }
 	  
 /* Function: PrintPlan7Stats()
@@ -925,6 +942,7 @@ PrintPlan7Stats(FILE *fp, struct plan7_s *hmm, char **dsq, int nseq,
   fprintf(fp, "Minimum score:  %10.2f bits\n", worst);
   fprintf(fp, "Maximum score:  %10.2f bits\n", best);
   fprintf(fp, "Std. deviation: %10.2f bits\n", stddev);
+  return;
 }
 
 /* Function: DegenerateSymbolScore()
@@ -1052,6 +1070,7 @@ Plan9toPlan7(struct plan9_s *hmm, struct plan7_s **ret_plan7)
   plan7->flags |= PLAN7_HASPROB;	/* probabilities are valid */
   plan7->flags &= ~PLAN7_HASBITS;	/* scores are not valid    */
   *ret_plan7 = plan7;
+  return;
 }
 
 

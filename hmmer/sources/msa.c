@@ -286,6 +286,7 @@ MSAFree(MSA *msa)
   GKIFree(msa->gr_idx);
 
   free(msa);
+  return;
 }
 
 
@@ -312,6 +313,7 @@ MSASetSeqAccession(MSA *msa, int seqidx, char *acc)
       msa->sqacc[x] = NULL;
   }
   msa->sqacc[seqidx] = sre_strdup(acc, -1);
+  return;
 }
 
 /* Function: MSASetSeqDescription()
@@ -337,6 +339,7 @@ MSASetSeqDescription(MSA *msa, int seqidx, char *desc)
       msa->sqdesc[x] = NULL;
   }
   msa->sqdesc[seqidx] = sre_strdup(desc, -1);
+  return;
 }
 
 
@@ -949,6 +952,7 @@ MSAFileClose(MSAFILE *afp)
   if (afp->ssi  != NULL) SSIClose(afp->ssi);
   if (afp->fname != NULL) free(afp->fname);
   free(afp);
+  return;
 }
 
 char *
@@ -977,6 +981,7 @@ MSAFileWrite(FILE *fp, MSA *msa, int outfmt, int do_oneline)
   default:
     Die("can't write. no such alignment format %d\n", outfmt);
   }
+  return;
 }
 
 /* Function: MSAGetSeqidx()

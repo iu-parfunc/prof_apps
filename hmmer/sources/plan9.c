@@ -86,6 +86,7 @@ P9ZeroHMM(struct plan9_s *hmm)
 	  hmm->del[k].p[idx]   = 0.0;
 	}
     }
+  return;
 }
 
 
@@ -115,6 +116,7 @@ P9Renormalize(struct plan9_s *hmm)
       if (k > 0) FNorm(hmm->mat[k].p, Alphabet_size);
       FNorm(hmm->ins[k].p, Alphabet_size);
     }
+  return;
 }
 
 /* Function: P9DefaultNullModel()
@@ -136,4 +138,5 @@ P9DefaultNullModel(float *null)
       null[x] = 0.25;
   else
     Die("No support for non-protein, non-nucleic acid alphabets.");
+  return;
 }

@@ -120,6 +120,7 @@ sre_srandom(int seed)
   if (seed < 0)  seed = -1 * seed;
   if (seed == 0) seed = 42;
   sre_randseed = seed;
+  return;
 }
 
 /* Function: sre_random_positive()

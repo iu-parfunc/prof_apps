@@ -62,6 +62,7 @@ AllocAlignment(int nseq, int alen, char ***ret_aseq, AINFO *ainfo)
     ainfo->sqinfo[idx].flags = 0;
 
   *ret_aseq = aseq;
+  return;
 }
  
 
@@ -90,6 +91,7 @@ InitAinfo(AINFO *ainfo)
   ainfo->tc1  = ainfo->tc2 = 0.0;
   ainfo->nc1  = ainfo->nc2 = 0.0;
   ainfo->ga1  = ainfo->ga2 = 0.0;
+  return;
 }
 
 
@@ -121,6 +123,7 @@ FreeAlignment(char **aseqs, AINFO *ainfo)
   free(ainfo->sqinfo);
   free(ainfo->wgt);
   Free2DArray((void **) aseqs, ainfo->nseq);
+  return;
 }
 
 
@@ -166,6 +169,7 @@ SAMizeAlignment(char **aseq, int nseq, int alen)
       for (i = 0; i < nseq; i++)
 	if (isgap(aseq[i][col])) aseq[i][col] = gapchar;
     }
+  return;
 }
 
 
@@ -214,6 +218,7 @@ SAMizeAlignmentByGapFrac(char **aseq, int nseq, int alen, float maxgap)
 	    else aseq[idx][apos] = (char) toupper((int) aseq[idx][apos]);
 	}
     }
+  return;
 }
 
 
@@ -639,4 +644,5 @@ AlignmentHomogenousGapsym(char **aseq, int nseq, int alen, char gapsym)
   for (i = 0; i < nseq; i++)
     for (apos = 0; apos < alen; apos++)
       if (isgap(aseq[i][apos])) aseq[i][apos] = gapsym;
+  return;
 }
