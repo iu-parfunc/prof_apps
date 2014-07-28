@@ -2,6 +2,8 @@
 
 set -xe
 
+echo "Starting instrumentation, current dir `pwd`."
+
 ORIG=sources
 PARSE=cparse
 INSTRUMENT=tau_instrumentor
