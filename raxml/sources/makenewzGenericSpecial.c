@@ -1,0 +1,1 @@
+../original/makenewzGenericSpecial.c
