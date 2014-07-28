@@ -1,13 +1,15 @@
 
-.PHONY: all clean run
+.PHONY: default clean run
 
-all: clean run	
+# all: clean run	
+default: 
+	echo "postponing to run"
 
 build:
 	chmod u+x setup.sh
 	./setup.sh 
 	echo -e "\nInstrumenting h264...";
-	cd ..; ./instrument.sh;\
+	cd ..; ./instrument-org.sh;\
 	echo -e "\nBuilding h264 with instrumentation...";
 	cd ../instrumented;\
 	make clean;\
