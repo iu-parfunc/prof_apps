@@ -37,7 +37,7 @@ P7AllocPrior(void)
 { return (struct p7prior_s *) MallocOrDie (sizeof(struct p7prior_s)); }
 void
 P7FreePrior(struct p7prior_s *pri)
-{ free(pri); }
+{ free(pri); return; }
 
 
 /* Function: P7LaplacePrior()
@@ -265,6 +265,8 @@ PAMPrior(char *pamfile, struct p7prior_s *pri, float wt)
     }
 
   Free2DArray((void **)pam,27);
+
+  return;
 }
 
 
@@ -288,6 +290,8 @@ P7DefaultNullModel(float *null, float *ret_p1)
       null[x] = 1.0 / (float) Alphabet_size;
     *ret_p1 = 1000./1001.;	/* rationale: approx inter-Alu distance. */
   }
+
+  return;
 }
 
 void
@@ -417,6 +421,8 @@ P7PriorifyHMM(struct plan7_s *hmm, struct p7prior_s *pri)
   /* Now we're done. Convert the counts-based HMM to probabilities.
    */
   Plan7Renormalize(hmm);
+
+  return;
 }
 
 
@@ -496,6 +502,8 @@ P7PriorifyEmissionVector(float *vec, struct p7prior_s *pri,
   if (ret_mix != NULL)
     for (q = 0; q < num; q++)
       ret_mix[q] = mix[q];
+
+  return;
 }
 
 
@@ -568,6 +576,8 @@ P7PriorifyTransitionVector(float *t, struct p7prior_s *prior,
   FNorm(t,   3);		/* match  */
   FNorm(t+3, 2);		/* insert */
   FNorm(t+5, 2);		/* delete */
+
+  return;
 }
 
 

@@ -364,6 +364,7 @@ FreePhylo(struct phylo_s *tree, int N)
   for (idx = 0; idx < N-1; idx++)
     free(tree[idx].is_in);
   free(tree);
+  return;
 }
 
 
@@ -536,6 +537,7 @@ PrintPhylo(FILE *fp, AINFO *ainfo, struct phylo_s *tree, int N)
       fprintf(fp, "\tHeight:  %f\n", tree[idx].diff);
       fprintf(fp, "\tIncludes:%d seqs\n", tree[idx].incnum);
     }
+  return;
 }
       
 

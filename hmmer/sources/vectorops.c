@@ -34,6 +34,7 @@ DSet(double *vec, int n, double value)
 {
   int x; 
   for (x = 0; x < n; x++) vec[x] = value;
+  return;
 }
 
 void
@@ -41,6 +42,7 @@ FSet(float *vec, int n, float value)
 {
   int x; 
   for (x = 0; x < n; x++) vec[x] = value;
+  return;
 }
 
 void
@@ -48,6 +50,7 @@ DScale(double *vec, int n, double scale)
 {
   int x;
   for (x = 0; x < n; x++) vec[x] *= scale;
+  return;
 }
 
 void
@@ -55,6 +58,7 @@ FScale(float *vec, int n, float scale)
 {
   int x;
   for (x = 0; x < n; x++) vec[x] *= scale;
+  return;
 }
 
 double 
@@ -80,6 +84,7 @@ DAdd(double *vec1, double *vec2, int n)
 {
   int x;
   for (x = 0; x < n; x++) vec1[x] += vec2[x];
+  return;
 }
 
 void
@@ -87,6 +92,7 @@ FAdd(float *vec1, float *vec2, int n)
 {
   int x;
   for (x = 0; x < n; x++) vec1[x] += vec2[x];
+  return;
 }
 
 void
@@ -94,6 +100,7 @@ DCopy(double *vec1, double *vec2, int n)
 {
   int x;
   for (x = 0; x < n; x++) vec1[x] = vec2[x];
+  return;
 }
 
 void
@@ -101,6 +108,7 @@ FCopy(float *vec1, float *vec2, int n)
 {
   int x;
   for (x = 0; x < n; x++) vec1[x] = vec2[x];
+  return;
 }
 
 double
@@ -221,6 +229,7 @@ DNorm(double *vec, int n)
   sum = DSum(vec, n);
   if (sum != 0.0) for (x = 0; x < n; x++) vec[x] /= sum;
   else            for (x = 0; x < n; x++) vec[x] = 1. / (double) n;
+  return;
 }
 
 void
@@ -232,6 +241,7 @@ FNorm(float *vec, int n)
   sum = FSum(vec, n);
   if (sum != 0.0) for (x = 0; x < n; x++) vec[x] /= sum;
   else            for (x = 0; x < n; x++) vec[x] = 1. / (float) n;
+  return;
 }
 
 void
@@ -241,6 +251,7 @@ DLog(double *vec, int n)
   for (x = 0; x < n; x++) 
     if (vec[x] > 0.) vec[x] = log(vec[x]);
     else vec[x] = -DBL_MAX;
+  return;
 }
 
 void
@@ -250,6 +261,7 @@ FLog(float *vec, int n)
   for (x = 0; x < n; x++) 
     if (vec[x] > 0.) vec[x] = log(vec[x]);
     else vec[x] = -FLT_MAX;
+  return;
 }
 
 void
@@ -257,6 +269,7 @@ DExp(double *vec, int n)
 {
   int x;
   for (x = 0; x < n; x++) vec[x] = exp(vec[x]);
+  return;
 }
 
 void
@@ -264,6 +277,7 @@ FExp(float *vec, int n)
 {
   int x;
   for (x = 0; x < n; x++) vec[x] = exp(vec[x]);
+  return;
 }
 
 double

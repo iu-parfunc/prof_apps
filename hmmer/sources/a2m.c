@@ -112,4 +112,6 @@ WriteA2M(FILE *fp, MSA *msa)
 	  fprintf(fp, "%s\n", buf);
 	}
     }
+
+  return;
 }

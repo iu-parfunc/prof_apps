@@ -141,6 +141,7 @@ Byteswap(char *swap, int nbytes)
       swap[nbytes - x - 1] = swap[x];
       swap[x] = byte;
     }
+  return;
 }
 
 

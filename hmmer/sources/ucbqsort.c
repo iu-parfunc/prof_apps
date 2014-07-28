@@ -87,6 +87,7 @@ void specqsort(base, n, size, compar)
 			}
 		}
 	}
+  return;
 }
 
 /*
@@ -201,4 +202,5 @@ qst(char *base, char* max)                 /* changed Kaivalya/RRH 8/19/03 */
 			max = j;
 		}
 	} while (lo >= thresh);
+  return;
 }

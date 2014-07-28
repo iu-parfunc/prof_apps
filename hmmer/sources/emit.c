@@ -259,6 +259,7 @@ EmitBestSequence(struct plan7_s *hmm, char **ret_dsq, int *ret_L, struct p7trace
 	imx[k+1] += log(hmm->ins[k+1][x]);
       }
     }
+  return;
 }
 #endif /* SRE_REMOVED */
 
@@ -380,6 +381,7 @@ EmitConsensusSequence(struct plan7_s *hmm, char **ret_seq, char **ret_dsq, int *
   if (ret_dsq != NULL) *ret_dsq = dsq; else free(dsq);
   if (ret_L   != NULL) *ret_L   = i;   
   if (ret_tr  != NULL) *ret_tr  = tr;  else P7FreeTrace(tr);
+  return;
 }
 
 
@@ -454,4 +456,5 @@ StateOccupancy(struct plan7_s *hmm, float **ret_mp, float **ret_ip, float **ret_
   *ret_mp = fmp;
   *ret_dp = fdp;
   *ret_ip = fip;
+  return;
 }

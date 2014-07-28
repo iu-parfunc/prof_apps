@@ -107,6 +107,7 @@ WeightedLinefit(float *x, float *y, float *var, int N, float *ret_m, float *ret_
 
   *ret_m = m;
   *ret_b = b;
+  return;
 }
   
 
@@ -180,6 +181,7 @@ FMX2Free(float **mx)
 {
   free(mx[0]);
   free(mx);
+  return;
 }
 double **
 DMX2Alloc(int rows, int cols)
@@ -198,6 +200,7 @@ DMX2Free(double **mx)
 {
   free(mx[0]);
   free(mx);
+  return;
 }
 /* Function: FMX2Multiply()
  * 
@@ -219,6 +222,7 @@ FMX2Multiply(float **A, float **B, float **C, int m, int p, int n)
 	for (k = 0; k < p; k++)
 	  C[i][j] += A[i][p] * B[p][j];
       }
+  return;
 }
 
 

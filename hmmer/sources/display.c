@@ -69,6 +69,7 @@ void DisplayPlan7Posteriors(int L, struct plan7_s *hmm,
   alignment[0] = viterbi;
   alignment[1] = optacc;
   DisplayPlan7PostAlign (L, hmm, forward, backward, alignment, 2);
+  return;
 }
 
 
@@ -272,6 +273,7 @@ void DisplayPlan7PostAlign(int L, struct plan7_s *hmm,
   free (min);
   free (max);
   free (on);
+  return;
 
 }
 
@@ -325,6 +327,7 @@ DisplayPlan7Matrix(char *dsq, int L, struct plan7_s *hmm, struct dpmatrix_s *mx)
     for (i=0;i<=L;i++) PrintIscore(mx->dmx[i][k]);
   }
   printf("\n\n");  
+  return;
 }
 
 
@@ -335,6 +338,7 @@ void PrintIscore(int sc) {
   div = INTSCALE / 0.693147180559945;   /* == INTSCALE / log(2) */
   dsc = dsc / div;
   printf("%- #11.3e",dsc);
+  return;
 }
 
 
@@ -444,6 +448,7 @@ void PrintTransition(char src,
   }
 
   printf ("\n");
+  return;
 
 }
 

@@ -128,6 +128,7 @@ writehash(Hashseq   hashseq)
       else
         putchar(iupac[idx].sym);
     }
+  return;
 }
 
 #endif

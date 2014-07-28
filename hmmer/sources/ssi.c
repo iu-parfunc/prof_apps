@@ -440,6 +440,7 @@ SSIClose(SSIFILE *sfp)
     if (sfp->fp       != NULL) fclose(sfp->fp);
     free(sfp);
   }
+  return;
 }  
 /* clear_ssifile(): free the innards of SSIFILE, without 
  * destroying the structure or closing the stream.
@@ -458,6 +459,7 @@ clear_ssifile(SSIFILE *sfp)
   if (sfp->fileflags    != NULL) free(sfp->fileflags);
   if (sfp->bpl          != NULL) free(sfp->bpl);
   if (sfp->rpl          != NULL) free(sfp->rpl);
+  return;
 }
   
 
@@ -1096,6 +1098,7 @@ SSIFreeIndex(SSIINDEX *g)
       if (g->rpl         != NULL)         free(g->rpl);       
       free(g);
     }
+  return;
 }
 
 
@@ -1436,6 +1439,7 @@ void
 SSIForceExternalSort(SSIINDEX *g)
 {
   if (activate_external_sort(g) != 0)
+    __notify_intrinsic((void*)"SSIForceExternalSort:end", (void *)&global_x);
     Die("failed to turn external sorting on.");
 }
 

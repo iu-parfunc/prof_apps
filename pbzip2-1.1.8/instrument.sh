@@ -7,6 +7,7 @@ PARSE=cparse
 INSTRUMENT=tau_instrumentor
 
 cd $ORIG/
+# SRC=`find . -name "*.cpp" -o -name "*.c"`
 SRC=`find ./ -name "*.c"`
 HDRS=`find ./ -name "*.h"`
 cd ..

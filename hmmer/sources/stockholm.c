@@ -177,6 +177,7 @@ void
 WriteStockholm(FILE *fp, MSA *msa)
 {
   actually_write_stockholm(fp, msa, 50); /* 50 char per block */
+  return;
 }
 
 /* Function: WriteStockholmOneBlock()
@@ -195,6 +196,7 @@ void
 WriteStockholmOneBlock(FILE *fp, MSA *msa)
 {
   actually_write_stockholm(fp, msa, msa->alen); /* one big block */
+  return;
 }
 
 
@@ -386,6 +388,7 @@ actually_write_stockholm(FILE *fp, MSA *msa, int cpl)
     }
   fprintf(fp, "//\n");
   free(buf);
+  return;
 }
 
 

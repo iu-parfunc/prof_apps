@@ -76,6 +76,7 @@ DetermineAlphabet(char **rseqs, int  nseq)
   /* Now set up the alphabet.
    */
   SetAlphabet(type);
+  return;
 }
 
 
@@ -171,6 +172,7 @@ SetAlphabet(int type)
   if ((rtn = pthread_mutex_unlock(&alphabet_lock)) != 0)
     Die("pthread_mutex_unlock failure: %s\n", strerror(rtn));
 #endif
+  return;
 }
 
 /* Function: SymbolIndex()
@@ -274,6 +276,7 @@ DigitizeAlignment(MSA *msa, char ***ret_dsqs)
     dsq[idx][dpos] = (char) Alphabet_iupac; /* sentinel byte at end */
   }
   *ret_dsqs = dsq;
+  return;
 }
 
 
@@ -301,6 +304,7 @@ P7CountSymbol(float *counters, char symidx, float wt)
       if (Degenerate[(int) symidx][x])
 	counters[x] += wt / (float) DegenCount[(int) symidx];
     }
+  return;
 }
 
 
@@ -325,6 +329,7 @@ DefaultGeneticCode(int *aacode)
     if (*(stdcode1[x]) == '*') aacode[x] = -1;
     else                       aacode[x] = SYMIDX(*(stdcode1[x]));
   }
+  return;
 }
 
 
@@ -406,6 +411,7 @@ DefaultCodonBias(float *codebias)
   codebias[61] = 1./2.;	/* UUC Phe 2 */
   codebias[62] = 1./6.; /* UUG Leu 6 */
   codebias[63] = 1./2.;	/* UUU Phe 2 */
+  return;
 }
 
 
@@ -424,4 +430,5 @@ set_degenerate(char iupac, char *syms)
               [strchr(Alphabet,*syms)-Alphabet] = 1;
     syms++;
   }
+  return;
 }

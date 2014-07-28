@@ -270,7 +270,6 @@
 #include "pbzip2.h"
 #include "BZ2StreamScanner.h"
 #include "ErrorContext.h"
-#include "dynaprof.h"
 
 #include <vector>
 #include <algorithm>
@@ -3549,8 +3548,6 @@ void usage(char* progname, const char *reason)
  */
 int main(int argc, char* argv[])
 {
-
-  start_profiler();
 
 	queue *fifo;
 	pthread_t output;

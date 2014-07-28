@@ -530,6 +530,7 @@ void
 WriteSELEX(FILE *fp, MSA *msa)
 {
   actually_write_selex(fp, msa, 50); /* 50 char per block */
+  return;
 }
 
 /* Function: WriteSELEXOneBlock()
@@ -547,6 +548,7 @@ void
 WriteSELEXOneBlock(FILE *fp, MSA *msa)
 {
   actually_write_selex(fp, msa, msa->alen); /* one big block */
+  return;
 }
 
 
@@ -661,6 +663,7 @@ actually_write_selex(FILE *fp, MSA *msa, int cpl)
 	}
     }
   free(buf);
+  return;
 }
 
 

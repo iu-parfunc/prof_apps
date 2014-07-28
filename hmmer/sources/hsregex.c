@@ -149,6 +149,7 @@ SqdClean(void)
       free(sqd_parse[i]);
       sqd_parse[i] = NULL;
     }
+  return;
 }
 
 
@@ -742,6 +743,7 @@ char b;
 		*cp->regcode++ = b;
 	else
 		cp->regsize++;
+  return;
 }
 
 /*
@@ -1315,6 +1317,7 @@ char *dest;
 		}
 	}
 	*dst++ = '\0';
+  return;
 }
 
 
@@ -1323,6 +1326,7 @@ sqd_regerror(s)
 char *s;
 {
   fprintf(stderr, "regexp(3): %s\n", s);
+  __notify_intrinsic((void*)"sqd_regerror:end", (void *)&global_x);
   exit(EXIT_FAILURE);
   /* NOTREACHED */
 }

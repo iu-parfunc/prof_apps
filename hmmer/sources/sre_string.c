@@ -55,6 +55,7 @@ StringChop(char *s)
   i = strlen(s) - 1;		         /* set i at last char in string     */
   while (i >= 0 && isspace((int) s[i])) i--;   /* i now at last non-whitespace char, or -1 */
   s[i+1] = '\0';
+  return;
 }
 
 int
@@ -95,6 +96,7 @@ s2lower(char *s)
 {
   for (; *s != '\0'; s++)
     *s = sre_tolower((int) *s);
+  return;
 }
 
 void
@@ -102,6 +104,7 @@ s2upper(char *s)
 {
   for (; *s != '\0'; s++)
     *s = sre_toupper((int) *s);
+  return;
 }
 
 
@@ -158,6 +161,7 @@ Free2DArray(void **p, int dim1)
       if (p[i] != NULL) free(p[i]);
     free(p);
   }
+  return;
 }
 void
 Free3DArray(void ***p, int dim1, int dim2)
@@ -173,6 +177,7 @@ Free3DArray(void ***p, int dim1, int dim2)
       }
     free(p);
   }
+  return;
 }
 
 

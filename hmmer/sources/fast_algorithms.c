@@ -431,6 +431,7 @@ ResizePlan7Matrix(struct dpmatrix_s *mx, int N, int M,
   if (mmx != NULL) *mmx = mx->mmx;
   if (imx != NULL) *imx = mx->imx;
   if (dmx != NULL) *dmx = mx->dmx;
+  return;
 }
 
 
@@ -459,6 +460,7 @@ void printivec(vector signed int z)
     ivector q;
     q.v=z;
     printf("%d  %d  %d  %d\n",q.i[0],q.i[1],q.i[2],q.i[3]);
+    return;
 }
 float
 P7Viterbi(char *dsq, int L, struct plan7_s *hmm, struct dpmatrix_s *mx, struct p7trace_s **ret_tr) 

@@ -294,6 +294,7 @@ P7EmitterPosterior(int L,
       mx->imx[i][hmm->M] = mx->dmx[i][hmm->M] = mx->dmx[i][0] = -INFTY;
       
     }
+  return;
 }
 
 
@@ -645,6 +646,7 @@ P7OptimalAccuracyTrace(int L,
   tr->tlen = tpos;
   P7ReverseTrace(tr);
   *ret_tr = tr;
+  return;
 
 }
 

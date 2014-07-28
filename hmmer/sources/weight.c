@@ -90,6 +90,7 @@ GSCWeights(char **aseq, int nseq, int alen, float *wgt)
   FMX2Free(dmx);
   FreePhylo(tree, nseq);
   free(lwt); free(rwt); free(fwt);
+  return;
 }
 
 static void 
@@ -103,6 +104,7 @@ upweight(struct phylo_s *tree, int nseq, float *lwt, float *rwt, int node)
   if (rd >= nseq) upweight(tree, nseq, lwt, rwt, rd);
   lwt[node] = lwt[ld] + rwt[ld] + tree[node-nseq].lblen;
   rwt[node] = lwt[rd] + rwt[rd] + tree[node-nseq].rblen;
+  return;
 }
 
 
@@ -129,6 +131,7 @@ downweight(struct phylo_s *tree, int nseq, float *lwt, float *rwt, float *fwt, i
 
   if (ld >= nseq) downweight(tree, nseq, lwt, rwt, fwt, ld);
   if (rd >= nseq) downweight(tree, nseq, lwt, rwt, fwt, rd);
+  return;
 }
 
 
@@ -303,6 +306,7 @@ VoronoiWeights(char **aseq, int nseq, int alen, float *wgt)
   free(nsym);
   free(halfmin);
   Free2DArray((void **) psym, alen);
+  return;
 }
 
 

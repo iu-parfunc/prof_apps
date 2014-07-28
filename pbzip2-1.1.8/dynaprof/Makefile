@@ -18,6 +18,6 @@ build:
 
 run: build
 	cd ../instrumented;\
-	(time ./pbzip2 -c ../../resources/a > a.bz2) 2> ../dynaprof_time;\
+	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./pbzip2 -c ../../resources/a > a.bz2) 2>&1 ;\
 	cp prof.out ..
 

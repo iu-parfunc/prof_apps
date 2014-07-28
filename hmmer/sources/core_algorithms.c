@@ -164,6 +164,7 @@ ResizePlan7Matrix(struct dpmatrix_s *mx, int N, int M,
   if (mmx != NULL) *mmx = mx->mmx;
   if (imx != NULL) *imx = mx->imx;
   if (dmx != NULL) *dmx = mx->dmx;
+  return;
 }
 #endif /*ALTIVEC*/
 
@@ -219,6 +220,7 @@ FreePlan7Matrix(struct dpmatrix_s *mx)
   free (mx->imx);
   free (mx->dmx);
   free (mx);
+  return;
 }
 
 /* Function: AllocShadowMatrix()
@@ -285,6 +287,7 @@ FreeShadowMatrix(struct dpshadow_s *tb)
   free (tb->itb);
   free (tb->dtb);
   free (tb);
+  return;
 }
 
 /* Function: P7ViterbiSize()
@@ -865,6 +868,7 @@ P7ViterbiTrace(struct plan7_s *hmm, char *dsq, int N,
   tr->tlen = tpos;
   P7ReverseTrace(tr);
   *ret_tr = tr;
+  return;
 }
 
 

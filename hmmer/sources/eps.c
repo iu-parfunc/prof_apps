@@ -113,6 +113,7 @@ EPSWriteSmallMSA(FILE *fp, MSA *msa)
     }
 
   free(font);
+  return;
 }
 
 
