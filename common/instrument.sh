@@ -8,8 +8,8 @@ INSTRUMENT=tau_instrumentor
 OPTS='-Wall -Winline -DSPEC_CPU -DPERL_CORE -DSPEC_CPU_LP64 -DSPEC_CPU_LINUX_X64'
 
 cd $ORIG/
-SRC=`find ./ -name "*.c"`
-HDRS=`find ./ -name "*.h" -o -name "*.hin"`
+SRC=`find ./ -name "*.c" -o -name "*.cpp"`
+HDRS=`find ./ -name "*.h" -o -name "*.hpp" -o -name "*.hin"`
 cd ..
 
 for path in $HDRS; do
