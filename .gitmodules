@@ -4,3 +4,6 @@
 [submodule "mothur/original"]
 	path = mothur/original
 	url = git@github.com:mothur/mothur.git
+[submodule "abyss/original"]
+	path = abyss/original
+	url = git@github.com:bcgsc/abyss.git
