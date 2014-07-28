@@ -1,22 +1,46 @@
-Running Benchmarks
-%%%%%%%%%%%%%%%%%%
+
+
+
+
+What is this?
+-------------
+
+This directory contains application benchmarks that run with DynaProf
+and other profiling modes.
+
+Protocol for all benchmarks
+---------------------------
+
+ * Each subdirectory, bench/variant, supports:
+  - `make clean`: 
+  - `make`: build the benchmark
+  - `make run`: run the benchmark (use RUN_ARGS for cmd line args if necessary)
+
+ * Variants of one benchmark cannot be built concurrently, they munge
+   shared files in each per-benchmark directory.
+
+
+
+OLD Running Benchmarks Instructions
+===================================
 
 Prequisites
-===========
+-----------
 
---PDT--
+### PDT
 
  1. Patch PDT
  2. ./configure -ICPC -prefix=${PDT_INSTALL_LOCATION}
  3. make 
  4. make install
 
---TAU--
+### TAU
+
  1. ./configure -c++=icpc -pdt_c++=icpc -prefix$={TAU_INSTALL_LOCATION} -pdt=${PDT_INSTALL_LOCATION}
  2. make install
 
 gzip (gzip-1.6)
-===============
+---------------
 
 1. make ${BUILD_HOME}/zcatoggle/src. This will install the dynaprof libraries and headers to the benchmark application builds.
 2. cd ${BUILD_HOME}/benchmarks/gzip-1.6/instrumented
@@ -29,7 +53,7 @@ gzip (gzip-1.6)
 8. make install
 
 grep (grep-2.6.1)
-=================
+-----------------
 
 1. make ${BUILD_HOME}/zcatoggle/src. This will install the dynaprof libraries and headers to the benchmark application builds.
 2. cd ${BUILD_HOME}/benchmarks/grep-2.6.1/instrumented
