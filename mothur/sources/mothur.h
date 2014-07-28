@@ -1,0 +1,1 @@
+../original/mothur.h
