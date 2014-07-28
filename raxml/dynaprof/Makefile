@@ -13,6 +13,6 @@ run:
 	rm -rf ../instrumented
 	cp -R ../original ../instrumented
 	(cd ../../; ./install.sh raxml)
-	(cd ..; ./instrument.sh)
+	(cd ..; pwd; ./instrument.sh)
 	$(MAKE) MORELIBS="-lelf $(DYNAPROF_ROOT)/libdynaprof.a $(DYNAPROF_ROOT)/libzca-toggle.a " build-plain
 	$(MAKE) run-common
