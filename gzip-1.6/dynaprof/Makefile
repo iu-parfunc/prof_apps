@@ -1,7 +1,9 @@
 
-.PHONY: all clean run
+.PHONY: default clean run
 
-all: clean run	
+# all: clean run	
+default: 
+	echo "Not doing anything until run phase."
 
 build:
 	chmod u+x setup.sh
