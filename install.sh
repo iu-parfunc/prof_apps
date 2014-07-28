@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copy the built zcatoggle/dynaprof libs into each individual
+# benchmark directory.
+
 ZCA_BUILD='../zcatoggle/build';
 DYN_BUILD='../dynaprof/build';
 GZIP_HOME='gzip-1.6';
@@ -59,6 +62,12 @@ case "$1" in
     cp $ZCA_BUILD/* $HMMER_HOME/instrumented
     cp $DYN_BUILD/* $HMMER_HOME/instrumented
     cp $DYN_BUILD/../src/dynaprof.h $HMMER_HOME/instrumented
+    ;;
+
+  raxml)
+    cp $ZCA_BUILD/* ./raxml/instrumented
+    cp $DYN_BUILD/* ./raxml/instrumented
+    cp $DYN_BUILD/../src/dynaprof.h ./raxml/instrumented
     ;;
 
   *) echo "Unknown benchmark"

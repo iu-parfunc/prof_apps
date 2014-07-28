@@ -1,7 +1,7 @@
 #!/bin/bash
 
-set -e
-# set -x
+set -xe
+
 ORIG=sources
 PARSE=cparse
 INSTRUMENT=tau_instrumentor
@@ -28,4 +28,4 @@ for path in $SRC; do
   mv ./instrumented/$dirnm/$fn.tau.c ./instrumented/$path
 done
 
-rm ./instrumented/$dirnm/*.pdb
+rm -f ./instrumented/$dirnm/*.pdb

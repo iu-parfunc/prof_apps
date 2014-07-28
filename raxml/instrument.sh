@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-set -x
+set -xe
 ORIG=sources
 PARSE=cparse
 INSTRUMENT=tau_instrumentor
