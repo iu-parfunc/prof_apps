@@ -1,7 +1,8 @@
 
 .PHONY: all clean run
 
-all: clean run	
+default: 
+	echo "Douing nothing during 'build' phase... procrastinating until run."
 
 build : 
 	chmod u+x setup.sh
