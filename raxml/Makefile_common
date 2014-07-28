@@ -1,0 +1,36 @@
+
+# These are written from the perspective of one of the per-variant
+# subdirs of this directory.
+
+.PHONY: default clean run
+
+MAKEIT= make -f Makefile.SSE3.PTHREADS.gcc
+
+default: 
+	$(MAKEIT) 
+	echo "ERROR: should not see this.  Need a different build target."
+
+# Build with icc and profiling:
+build-prof:
+	echo -e "Building RAxML with gprof enabled..."
+	$(MAKE) CFLAGS='-O2 -pg' build-shared
+
+build-plain:
+	$(MAKE) CFLAGS='-O2' build-shared
+
+build-shared:
+	./setup.sh
+	cd ../instrumented;\
+	autoreconf;\
+	time ./configure CC=icc CFLAGS="$(CFLAGS)";\
+	time make
+
+run-common: 
+	echo -e "\nRunning RAxML..."
+#	cd ../instrumented;\
+#	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz) 2>&1 
+
+# We don't really need to clean, because we do a fresh "configure" on each build.
+clean:
+	cd ../instrumented;\
+	$(MAKEIT) clean
