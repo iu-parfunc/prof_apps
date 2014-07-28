@@ -9,6 +9,7 @@ MCF_HOME='mcf-1.3'
 PERL_HOME='perl-5.8.7'
 H264_HOME='h264ref-9.3'
 BZIP2_HOME='bzip-1.0.3'
+HMMER_HOME="hmmer"
 
 case "$1" in
 
@@ -52,6 +53,12 @@ case "$1" in
     cp $ZCA_BUILD/* $BZIP2_HOME/instrumented
     cp $DYN_BUILD/* $BZIP2_HOME/instrumented
     cp $DYN_BUILD/../src/dynaprof.h $BZIP2_HOME/instrumented
+    ;;
+
+  hmmer)
+    cp $ZCA_BUILD/* $HMMER_HOME/instrumented
+    cp $DYN_BUILD/* $HMMER_HOME/instrumented
+    cp $DYN_BUILD/../src/dynaprof.h $HMMER_HOME/instrumented
     ;;
 
   *) echo "Unknown benchmark"
