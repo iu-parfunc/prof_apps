@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Copy the built zcatoggle/dynaprof libs into each individual
 # benchmark directory.
 
