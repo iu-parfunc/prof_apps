@@ -4,7 +4,7 @@ SHELL=/bin/sh
 CC=icc
 AR=ar
 RANLIB=ranlib
-LDFLAGS=libdynaprof.a libzca-toggle.a -lm -lelf -lpthread -lrt  
+LDFLAGS=-lm  
 
 CFLAGS=-Wall -Winline -O2 -DSPEC_CPU -DPERL_CORE -DSPEC_CPU_LP64 -DSPEC_CPU_LINUX_X64 
 

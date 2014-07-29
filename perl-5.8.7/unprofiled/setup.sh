@@ -5,4 +5,3 @@ if [ -d "../instrumented" ]; then
 fi
 
 cp -R ../original ../instrumented
-cp make ../instrumented/Makefile
