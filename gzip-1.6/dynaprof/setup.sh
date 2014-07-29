@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 BENCH_HOME=`pwd`
 BUILD_HOME=`pwd`/../../../
 ZCA_SRC=$BUILD_HOME/zcatoggle/src
