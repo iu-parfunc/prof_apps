@@ -9,7 +9,7 @@ build:
 	chmod u+x setup.sh
 	./setup.sh 
 	echo -e "\nInstrumenting h264...";
-	cd ..; ./instrument.sh;\
+	cd ..; ./instrument-org.sh;\
 	echo -e "\nBuilding h264 with instrumentation...";
 	cd ../instrumented;\
 	make clean;\
