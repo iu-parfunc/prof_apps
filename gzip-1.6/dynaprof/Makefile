@@ -1,9 +1,7 @@
 
 .PHONY: default clean run
 
-# all: clean run	
-default: 
-	echo "Not doing anything until run phase."
+default: build
 
 build:
 	chmod u+x setup.sh
@@ -19,7 +17,7 @@ build:
 	make clean;\
 	make
 
-run: build
+run: 
 	cd ../instrumented;\
   (/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz) 2>&1 ;\
 	cp prof.out ..
