@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xe
+set -e
 
 echo "Starting instrumentation, current dir `pwd`."
 
