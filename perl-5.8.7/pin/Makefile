@@ -13,7 +13,7 @@ build:
 
 run: build
 	cd ../instrumented;\
-	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" pin -t ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1 ;\ 
+	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" pin -t ../../resources/fcount.so -- ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1 ;\ 
 	cp prof.out ../pin.out 
 
 clean:
