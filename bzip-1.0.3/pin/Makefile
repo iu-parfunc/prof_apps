@@ -14,7 +14,7 @@ build :
 
 run: build
 	cd ../instrumented;\
-	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" pin -t ../../resources/fcount.so -- ./bzip2 test/input/input.source) 2>&1 ;\ 
+	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" pin -t ../../resources/fcount.so -- ./bzip2 test/input/input.source) 2>&1;\ 
 	cp prof.out ../pin.out 
 
 clean:
