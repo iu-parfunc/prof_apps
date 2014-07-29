@@ -4,9 +4,9 @@ SHELL=/bin/sh
 CC=icc
 AR=ar
 RANLIB=ranlib
-LDFLAGS=libdynaprof.a libzca-toggle.a -lm -lrt -lelf -lpthread
+LDFLAGS=-lm
 
-CFLAGS=-Wall -Winline -O2 -DSPEC_CPU
+CFLAGS=-Wall -Winline -O2 -DSPEC_CPU 
 
 # Where you want it installed when you do 'make install'
 PREFIX=/usr/local
