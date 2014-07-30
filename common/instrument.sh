@@ -35,7 +35,7 @@ for path in $SRC; do
   $INSTRUMENT $DEST/$dirnm/$fn.pdb $DEST/$path -l -o $DEST/$dirnm/$fn.tau.c \
                -c -spec ./TAUINST.SPEC
   mv $DEST/$dirnm/$fn.tau.c $DEST/$path
-  set +xy
+  set +x
 done
 
 rm -f $DEST/$dirnm/*.pdb
