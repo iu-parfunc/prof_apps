@@ -16,6 +16,9 @@ SRC=`find ./ -name "*.c" -o -name "*.cpp"`
 HDRS=`find ./ -name "*.h" -o -name "*.hpp" -o -name "*.hin"`
 cd $ROOT
 
+# echo "Instrumenting SRC: $SRC"
+# echo "Instrumenting with HDRS: $HDRS"
+
 for path in $HDRS; do
   dirnm=`dirname $path`
   cp -v $ORIG/$path $DEST/$dirnm/
@@ -27,10 +30,12 @@ for path in $SRC; do
   fn="${filenm%.*}"
   pwd
   cp -v $ORIG/$path $DEST/$dirnm/
+  set -x 
   $PARSE $DEST/$path -I$DEST $OPTS -o $DEST/$dirnm/$fn.pdb   
   $INSTRUMENT $DEST/$dirnm/$fn.pdb $DEST/$path -l -o $DEST/$dirnm/$fn.tau.c \
                -c -spec ./TAUINST.SPEC
   mv $DEST/$dirnm/$fn.tau.c $DEST/$path
+  set +x
 done
 
 rm -f $DEST/$dirnm/*.pdb
