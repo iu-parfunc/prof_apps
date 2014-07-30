@@ -14,16 +14,14 @@ build-prof:
 
 build-dynaprof:
 	cd ..; ./setup.sh dynaprof 
-	cd ../instrumented; \
-		autoreconf; \
-		./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CLFAGS='-O2';\
-		make;\
-		echo -e "\nInstrumenting gzip...";
-	cd ..; ./instrument.sh;\
-		echo -e "\nBuilding gzip with instrumentation...";
-	cd ../instrumented;\
-		make clean;\
-		make
+# Buddhika says this extra autoreconf is necessary [2014.07.30]: 
+	(cd ../instrumented;  autoreconf) 
+	(cd ../instrumented;  ./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CLFAGS='-O2';) > /dev/null
+	(cd ../instrumented;  make -j) > /dev/null
+	echo -e "\nInstrumenting gzip..."
+	(cd ..; ./instrument.sh)
+	echo -e "\nBuilding gzip with instrumentation..."
+	(cd ../instrumented; make clean && make)
 
 build-plain:
 	$(MAKE) CFLAGS='-O2' build-shared
@@ -31,10 +29,9 @@ build-plain:
 build-shared:
 #	chmod u+x setup.sh
 	cd ..; ./setup.sh
-	cd ../instrumented;\
-		autoreconf;\
-		time ./configure CC=icc CFLAGS="$(CFLAGS)";\
-		time make
+	(cd ../instrumented;  autoreconf)
+	(cd ../instrumented;  time ./configure CC=icc CFLAGS="$(CFLAGS)") > /dev/null
+	(cd ../instrumented;  time make) > /dev/null
 
 run-common: 
 	cd ../instrumented;\

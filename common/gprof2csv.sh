@@ -1,5 +1,9 @@
 #!/bin/bash 
 
+# currently outputs incorrect result when the gprof output 
+# does not have a value noted for each field. 
+# find a work around. 
+
 set -e
 
 old_IFS=$IFS
@@ -12,13 +16,14 @@ output=$2
 lines=($(cat $input)) 
 
 header="timesecondssecondscallss/calls/callname"
-# header="timesecondssecondscallsms/callms/callname"
+header2="timesecondssecondscallsms/callms/callname"    
+
 data_done="Indexbyfunctionname"
 data_done2="%thepercentageofthetotalrunningtimeofthe"
 
 l=$(echo ${lines[0]}  | tr -d ' '); 
 counter=0 
-while [ "$l" != "$header" ] 
+while [ "$l" != "$header" -a "$l" != "$header2" ] 
 do 
   counter=$((counter + 1));
   l=$(echo ${lines[$counter]}  | tr -d ' '); 
