@@ -4,9 +4,9 @@ SHELL=/bin/sh
 CC=icc
 AR=ar
 RANLIB=ranlib
-LDFLAGS=-lm
 
-CFLAGS=-Wall -Winline -O2 -DSPEC_CPU 
+# override LDFLAGS=-lm
+override CFLAGS += -Wall -Winline -DSPEC_CPU 
 
 # Where you want it installed when you do 'make install'
 PREFIX=/usr/local

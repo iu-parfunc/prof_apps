@@ -14,31 +14,24 @@ build-prof:
 
 build-dynaprof:
 	cd ..; ./setup.sh dynaprof 
-	cd ../instrumented; \
-		autoreconf; \
-		./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CLFAGS='-O2';\
-		make;\
-		echo -e "\nInstrumenting gzip...";
-	cd ..; ./instrument.sh;\
-		echo -e "\nBuilding gzip with instrumentation...";
+	echo -e "\nInstrumenting h264..."
+	cd ..; ./instrument.sh
+	echo -e "\nBuilding gzip with instrumentation...";
 	cd ../instrumented;\
 		make clean;\
-		make
+		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
 
 build-plain:
 	$(MAKE) CFLAGS='-O2' build-shared
 
 build-shared:
-	#	chmod u+x setup.sh
 	cd ..; ./setup.sh
 	cd ../instrumented;\
-		autoreconf;\
-		time ./configure CC=icc CFLAGS="$(CFLAGS)";\
-		time make
+		time make CFLAGS="$(CFLAGS)"
 
 run-common: 
 	cd ../instrumented;\
-		(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz) 2>&1 
+	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:

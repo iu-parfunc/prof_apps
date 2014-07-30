@@ -1,18 +1,8 @@
 
-.PHONY: all clean run
+include ../Makefile_common
 
-all: clean run	
-
-build:
-	chmod u+x setup.sh
-	./setup.sh 
-	cd ../instrumented;\
-	make clean;\
-	make
-
-run: build
-	cd ../instrumented;\
-  (/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1 ;\
-	gprof perlbench gmon.out > ../gprof.out
+run: build-prof
+	$(MAKE) run-common
+	(cd ../instrumented; gprof perlbench gmon.out | tee ../gprof.out)
 
 clean:
