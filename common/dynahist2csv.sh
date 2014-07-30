@@ -65,19 +65,24 @@ s=$(echo  $t| tr -s ' ');
 #echo $s;
    
 fun_name=$(echo $s | cut -d' ' -f1);
-rate_hist+=$(echo $s | cut -d' ' -f3); 
-time_hist+=$(echo $s | cut -d' ' -f5);
+rt=$(echo $s | cut -d' ' -f2); 
+rate_hist+=$(echo $rt | cut -d':' -f2);
+tt=$(echo $s | cut -d' ' -f3);
+time_hist+=$(echo $tt | cut -d':' -f2);
 
 #parse the rest of the histograms 
 for ix in `seq 2 11`;
 do 
     t=$(echo ${arr[$ix]} | sed -e 's/^ *//' -e 's/ *$//');
     s=$(echo  $t| tr -s ' ');
-#   echo $s;
+    # echo $s;
     
-    val=$(echo $s | cut -d' ' -f2);
+    
+    val_tmp=$(echo $s | cut -d' ' -f1);
+    val=$(echo $val_tmp |  cut -d':' -f2); 
     rate_hist+=,$val;
-    val=$(echo $s | cut -d' ' -f4);
+    val_tmp=$(echo $s | cut -d' ' -f2);
+    val=$(echo $val_tmp |  cut -d':' -f2); 
     time_hist+=,$val;
 
 done 
@@ -99,6 +104,7 @@ while [ $counter -le $tot ]
 do 
     extractHist "${lines[@]:$counter}";
     counter=$((counter+11));  
+    printf "*"; 
 done; 
 # for some reason outputs one line too many. 
 
