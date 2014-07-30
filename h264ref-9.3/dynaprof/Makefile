@@ -1,10 +1,11 @@
 
-include ../Makefile_common
-
 build: build-dynaprof
+
+include ../Makefile_common
 
 run: 
 	$(MAKE) run-common
-	cd ../instrumented; cat prof.out; cp prof.out ..
+	(cd ../instrumented; head -n40 prof.out)
+        (cd ../instrumented; cp prof.out ..)
 
 clean:

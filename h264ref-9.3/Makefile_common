@@ -25,7 +25,7 @@ build-plain:
 	$(MAKE) CFLAGS='-O2' build-shared
 
 build-shared:
-	#	chmod u+x setup.sh
+#	chmod u+x setup.sh
 	cd ..; ./setup.sh
 	cd ../instrumented;\
 		time make CFLAGS="$(CFLAGS)"
