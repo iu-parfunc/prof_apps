@@ -1,7 +1,9 @@
 
 include ../Makefile_common
 
-run: build-dynaprof
+build: build-dynaprof
+
+run: 
 	$(MAKE) run-common
 	cd ../instrumented; cat prof.out; cp prof.out ..
 
