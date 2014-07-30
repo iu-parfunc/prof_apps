@@ -1,18 +1,8 @@
 
-.PHONY: all clean run
+include ../Makefile_common
 
-all: clean run	
-
-build:
-	chmod u+x setup.sh
-	./setup.sh 
-	cd ../instrumented;\
-	make clean;\
-	make
-
-run: build
-	cd ../instrumented;\
-  (/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./bzip2 test/input/input.source) 2>&1 ;\
-	gprof bzip2 gmon.out > ../gprof.out
+run: build-prof
+	$(MAKE) run-common
+	(cd ../instrumented; gprof bzip2 gmon.out | tee ../gprof.out)
 
 clean:
