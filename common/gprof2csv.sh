@@ -50,12 +50,25 @@ do
     # squeeze whitespaces 
     trimmed=$(echo $data | sed -e 's/^ *//' -e 's/ *$//');
     squeezed=$(echo $trimmed | tr -s ' ');
-
-    # parse the data 
-    # 7 fields separated by whitespace. 
-    tmp=$(echo $squeezed | tr ' ' ','); 
-    echo $(echo $tmp | cut -d',' -f1,2,3,4,5,6,7) >> $output;
     
+    # switch to commas
+    tmp=$(echo $squeezed | tr ' ' ','); 
+    
+    # numcommas
+    nc=$(echo $tmp | tr -cd , | wc -c)
+    
+    
+    # parse the data 
+    # 7 fields separated by comma. 
+    if [ $nc -eq 6 ] ;
+    then
+	echo $(echo $tmp | cut -d',' -f1,2,3,4,5,6,7) >> $output;
+    elif [ $nc -eq 3 ]; 
+    then 
+        fields=$(echo $tmp | cut -d',' -f1,2,3)
+	name=$(echo $tmp | cut -d',' -f4)
+	echo $fields,,,$name >> $output;
+    fi 
     printf "*" 
   
    
