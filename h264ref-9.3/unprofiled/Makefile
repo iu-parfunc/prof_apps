@@ -1,17 +1,7 @@
 
 .PHONY: default clean run
 
-#all: clean run	
-default: 
-	echo "Not doing anything until run phase."
-
-
-build:
-	chmod u+x setup.sh
-	./setup.sh 
-	cd ../instrumented;\
-	make clean;\
-	make
+build: build-plain
 
 include ../Makefile_common
 
