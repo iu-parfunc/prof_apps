@@ -25,14 +25,13 @@ build-plain:
 	$(MAKE) CFLAGS='-O2' build-shared
 
 build-shared:
-#	chmod u+x setup.sh
-	cd ..; ./setup.sh
-	cd ../instrumented;\
-		time make CFLAGS="$(CFLAGS)"
+	(cd ..; ./setup.sh)
+	(cd ../instrumented; make clean)
+	(cd ../instrumented; time make CFLAGS="$(CFLAGS)")
 
 run-common: 
-	cd ../instrumented;\
-		(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) 2>&1
+#	(cd ../instrumented; /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) 2>&1
+	(cd ../instrumented; ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) | head -n40
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:
