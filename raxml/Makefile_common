@@ -4,30 +4,48 @@
 
 .PHONY: default clean run
 
-# MAKEIT= make -f Makefile.SSE3.PTHREADS.gcc
-MAKEIT= $(MAKE)
+ifeq ($(THREADS),)
+  THREADS=8
+endif
 
-default: 
-	echo "Doing nothing during 'compile' phase, procrastinating till run."
+ifeq ($(DYNAPROF_ROOT),)
+  DYNAPROF_ROOT=$(shell pwd)/../../../
+endif
 
-# Build with icc and profiling:
+default: build
+
+build-plain:
+	$(MAKE) build-shared
+
+# Build with icc and profiling enabled:
 build-prof:
 	echo -e "Building RAxML with gprof enabled..."
 	$(MAKE) MORECFLAGS='-pg' build-shared
 
-build-plain:
-	$(MAKE) build-shared
+build-dynaprof:
+	(cd $(DYNAPROF_ROOT) && make lib)
+	make clean
+	cp -R ../original ../instrumented
+	(cd .. && ./instrument.sh)
+	echo -e "\nBuilding instrumented RAxML..."
+	(cd ../instrumented && time make -j MORELIBS="-lelf $(DYNAPROF_ROOT)/libdynaprof.a $(DYNAPROF_ROOT)/libzca-toggle.a " )
+	echo -e "\nDone building RAxML with dynaprof linked."
 
 build-shared:
 	rm -rf ../instrumented
 	cp -R ../original ../instrumented
 	echo -e "\nBuilding RAxML..."
-	(cd ../instrumented; time $(MAKEIT) -j)
+	(cd ../instrumented; time make -j)
 
 run-common: 
 	echo -e "\nRunning RAxML..."
-#	cd ../instrumented;\
-#	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./gzip -c ../../resources/a > a.gz) 2>&1 
+	rm -f ../*.foo
+	cd ../ && \
+         ./instrumented/raxmlHPC-PTHREADS -T$(THREADS) -s ./data/10.phylip -m GTRCAT -n foo -p 9829265386
+
+#	./original/raxmlHPC-PTHREADS -T10 -s prefix_align.phylip -m GTRCAT -n foo -p 9829265386
+# ./original/raxmlHPC-PTHREADS -T10 -s alignment_for_ryan.phylip -m GTRCAT -n foo -p 9829265386
 
 clean:
+	rm -rf ../instrumented/; mkdir ../instrumented
 #	(cd ../instrumented; $(MAKEIT) clean)

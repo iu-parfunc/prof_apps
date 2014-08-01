@@ -3,6 +3,6 @@ include ../Makefile_common
 
 build: build-prof
 
-run: build-prof
+run: 
 	${MAKE} run-common
-#	(cd ../instrumented; gprof gzip gmon.out | tee ../gprof.out)
+	(cd ../instrumented; gprof raxmlHPC-PTHREADS gmon.out | tee ../gprof.out) | head -n40
