@@ -22,13 +22,16 @@ build-prof:
 	echo -e "Building RAxML with gprof enabled..."
 	$(MAKE) MORECFLAGS='-pg' build-shared
 
+DPLIBS = $(DYNAPROF_ROOT)/dynaprof/build/libdynaprof.a \
+         $(DYNAPROF_ROOT)/zcatoggle/build/libzca-toggle.a
+
 build-dynaprof:
 	(cd $(DYNAPROF_ROOT) && make lib)
 	make clean
-	cp -R ../original ../instrumented
+	rm -rf ../instrumented && cp -R ../original ../instrumented
 	(cd .. && ./instrument.sh)
 	echo -e "\nBuilding instrumented RAxML..."
-	(cd ../instrumented && time make -j MORELIBS="-lelf $(DYNAPROF_ROOT)/libdynaprof.a $(DYNAPROF_ROOT)/libzca-toggle.a " )
+	(cd ../instrumented && time make -j MORELIBS="-lelf $(DPLIBS) " )
 	echo -e "\nDone building RAxML with dynaprof linked."
 
 build-shared:
