@@ -1,4 +1,6 @@
 
+build: build-plain
+
 include ../Makefile_common
 
-run: build-plain run-common
+run: run-common
