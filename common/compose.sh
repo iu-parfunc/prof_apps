@@ -27,7 +27,7 @@ echo $inputGprof
 
 linesDyna=($(cat $inputDyna))
 
-printf "%-40s%-15s%-4s\n" "Function" "dynaprof" "gprof";
+printf "%-40s%-15s%-15s%s\n" "Function" "dynaprof" "gprof" "gprof - dyna";
 
 for l in "${linesDyna[@]}"; 
 do 
@@ -52,7 +52,7 @@ do
     
     gp_fn_count=$(echo $gp_squeezed | cut -d',' -f4)
     
-    printf "%-40s%-15s%-4s\n" "$fn_name" "$fn_count" "$gp_fn_count";
+    printf "%-40s%-15s%-15s%d\n" "$fn_name" "$fn_count" "$gp_fn_count" $(($gp_fn_count - $fn_count));
 
 
 done 
