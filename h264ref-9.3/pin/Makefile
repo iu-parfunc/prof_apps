@@ -15,6 +15,6 @@ build :
 run: build
 	cd ../instrumented;\
 	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" pin -t ../../resources/fcount.so -- ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) 2>&1 ;\ 
-	cp prof.out ../pin.out 
+	cp pin.out ../pin.out 
 
 clean:
