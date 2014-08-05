@@ -1,0 +1,99 @@
+       FmoSliceGroupCompletelyCoded,200
+               intrapred_luma_16x16,369
+                    init_out_buffer,-68
+                     free_colocated, 17
+                dec_ref_pic_marking, 74
+               terminate_macroblock,1767
+                       ParseContent,  7
+               store_picture_in_dpb,1808
+                        GetStrength,949
+                     FmoGetNextMBNr,184
+                  init_orig_buffers, 71
+                     dct_luma_16x16,340
+                           EdgeLoop,612
+                 LumaResidualCoding,535
+                    FmoStartPicture,2599
+              insert_picture_in_dpb,1812
+                       ReadOneFrame,  0
+               writeMotionVector8x8,491
+                ChromaPrediction4x4,171
+                writeCoeff4x4_CAVLC,135
+                   free_orig_planes,  0
+                 terminate_sequence, -3
+     GeneratePic_parameter_set_NALU,196
+                   encode_one_frame,522
+               writeCBPandLumaCoeff,275
+                   CloseSEIMessages,  2
+                            FmoInit, 58
+               RDCost_for_8x8blocks,278
+                       writeMBLayer, 47
+                   start_macroblock,149
+     GeneratePic_parameter_set_rbsp,450
+                         RBSPtoNALU,566
+       GenerateSequenceParameterSet, 86
+           SetMotionVectorPredictor,892
+   Mode_Decision_for_4x4IntraBlocks,264
+   sliding_window_memory_management,-17
+           writeChromaIntraPredMode,443
+                      UMVLine16Y_11,  0
+                         init_frame, 92
+                  LumaPrediction4x4,833
+                        FastPelY_14,  6
+             RDCost_for_macroblocks,167
+                            buf2img,  0
+         Clear_Motion_Search_Module,-33
+            ref_pic_list_reordering,-18
+              idr_memory_management, 12
+                  BlockMotionSearch,185
+              LumaResidualCoding8x8,745
+                          flush_dpb, 35
+                       free_picture,  6
+                     find_sad_16x16,173
+                  writeLumaCoeff8x8,503
+              GenerateParameterSets,101
+                         dct_chroma,  0
+            SubPelBlockMotionSearch,490
+               write_one_macroblock, 74
+                          Configure,256
+                   encode_one_slice,284
+                delete_coding_state,160
+                        clear_rdopt, 34
+                          DeblockMb,532
+           FindSkipModeMotionVector,  4
+                free_global_buffers,  2
+                     FastLine16Y_11,  0
+              IntraChromaPrediction,151
+          output_one_frame_from_dpb,155
+                         init_rdopt, 70
+                    RandomIntraInit,555
+                               sign, -6
+          FmoGetFirstMBOfSliceGroup, 57
+                           free_dpb, 23
+          Init_Motion_Search_Module, 60
+                     intrapred_luma,612
+   set_stored_macroblock_parameters, 19
+               ChromaResidualCoding, 62
+                  FreeParameterSets, -9
+                init_global_buffers, 68
+              AllocNalPayloadBuffer, 28
+               unmark_for_reference,-11
+                    alloc_colocated, 82
+                     start_sequence,  3
+     GenerateSeq_parameter_set_NALU,137
+                           free_img, 30
+              PartitionMotionSearch,655
+                           PatchInp,494
+              encode_one_macroblock,260
+                           dct_luma,  0
+      GenerateFullPelRepresentation,1988
+Mode_Decision_for_Intra4x4Macroblock,279
+                           init_img, 87
+                        SliceHeader,417
+     GenerateSeq_parameter_set_rbsp,214
+             alloc_storable_picture, 18
+                 FmoGetPreviousMBNr,350
+                writeReferenceFrame,  5
+                       DeblockFrame,623
+                writeMotionInfo2NAL, 16
+      OneComponentLumaPrediction4x4,1010
+                   writeChromaCoeff,  5
