@@ -9,6 +9,8 @@ func_overhead = dict()
 overhead_histogram = dict()
 result = dict()
 
+compensate = None 
+
 # User arguments
 metric = "MIN"
 outputfile = "results.txt"
@@ -16,23 +18,33 @@ outputfile = "results.txt"
 def read_data(file, raw_data):
   for line in open(file):
     print ".",
-    tokens = line.split(',',4) # tokens[0] = 'name' tokens[1] = 'min' tokens[2] = 'max' tokens[3] = 'Avg'
+    tokens = line.split(',',4) 
+    # tokens[0] = 'name' tokens[1] = 'count' tokens[2] = 'min' tokens[3] = 'max' tokens[4] = 'Avg'
+    # tokens[5] = 'leaf_prolog_count' tokens[6] = 'leaf_epilog_count'
     if tokens[0].rstrip() in raw_data:
       func_data = raw_data[tokens[0].rstrip()]
       min_data = func_data[0]
-      min_data.append(tokens[1].rstrip())
+      min_data.append(tokens[2].rstrip())
       max_data = func_data[1]
-      max_data.append(tokens[2].rstrip())
+      max_data.append(tokens[3].rstrip())
       avg_data = func_data[2]
-      avg_data.append(tokens[3].rstrip())
+      avg_data.append(tokens[4].rstrip())
+      prolog_leaf_data = func_data[3]
+      prolog_leaf_data.append(tokens[5].rstrip())
+      epilog_leaf_data = func_data[4]
+      epilog_leaf_data.append(tokens[6].rstrip())
     else:
       arr = []
       arr.append([])
       arr.append([])
       arr.append([])
-      arr[0].append(tokens[1].rstrip())
-      arr[1].append(tokens[2].rstrip())
-      arr[2].append(tokens[3].rstrip())
+      arr.append([])
+      arr.append([])
+      arr[0].append(tokens[2].rstrip())
+      arr[1].append(tokens[3].rstrip())
+      arr[2].append(tokens[4].rstrip())
+      arr[3].append(tokens[5].rstrip())
+      arr[4].append(tokens[6].rstrip())
       raw_data[tokens[0].rstrip()] = arr
 
 def munge(raw_data, stats):
@@ -41,15 +53,19 @@ def munge(raw_data, stats):
     min_list = value[0];
     max_list = value[1];
     avg_list = value[2];
+    epilog_leaf_list = value[3];
+    prolog_leaf_list = value[4];
+
+    new_min_list = list(min_list)
   
     min_list.sort()
     max_list.sort()
     avg_list.sort()
 
-    min = 0
     max = 0
     sum = 0
     min_stats = []
+    min_idx = 0
     if len(min_list) >= 3:
       median = int(min_list[len(min_list)/2])
       for i in range(len(min_list)):
@@ -57,18 +73,25 @@ def munge(raw_data, stats):
         sum += val 
         if min == 0 or min > val:
           min = val 
+          min_idx = i
         if max < val:
           max =  val
+        if new_min_list[i] == median:
+          min_idx = i
+
       avg = sum / len(min_list)
       min_stats.append(min)
       min_stats.append(max)
       min_stats.append(avg)
       min_stats.append(median)
+      min_stats.append(prolog_leaf_list[min_idx])
+      min_stats.append(epilog_leaf_list[min_idx])
 
     min = 0
     max = 0
     sum = 0
     max_stats = []
+    min_idx = 0
     if len(max_list) >= 3:
       median = int(max_list[len(max_list)/2])
       for i in range(len(max_list)):
@@ -115,6 +138,15 @@ def crunch(data_set_1, data_set_2):
     if metric == "MIN":
       set_1_min_stats = set_1_value[1]
       set_1_min_median = set_1_min_stats[3]
+      set_1_prolog_leaf_count = set_1_min_stats[4]
+      set_1_epilog_leaf_count = set_1_min_stats[5]
+      overhead = set_1_prolog_leaf_count * 200 + set_1_epilog_leaf_count * 450
+
+      if compensate:
+        print "Compensating values.."
+        if set_1_min_median - overhead > 0:
+          set_1_min_median = set_1_min_median -overhead
+
       set_2_value = data_set_2.get(key,0)
       if set_2_value != 0:
         set_2_min_stats = set_2_value[1]
