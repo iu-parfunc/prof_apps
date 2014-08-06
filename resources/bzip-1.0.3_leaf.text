@@ -1,0 +1,15 @@
+spec_init                               
+debug_time                              
+spec_load                               
+spec_reset                              
+spec_rewind                             
+spec_fread                              
+spec_getc                               
+spec_ungetc                             
+spec_fwrite                             
+bz_config_ok                            
+copy_output_until_stop                  
+isempty_RL                              
+unRLE_obuf_to_output_FAST               
+default_bzalloc                         
+mmed3                                   
