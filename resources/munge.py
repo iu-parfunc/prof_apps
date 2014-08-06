@@ -9,7 +9,7 @@ func_overhead = dict()
 overhead_histogram = dict()
 result = dict()
 
-compensate = None 
+compensate = True
 
 # User arguments
 metric = "MIN"
@@ -18,7 +18,7 @@ outputfile = "results.txt"
 def read_data(file, raw_data):
   for line in open(file):
     print ".",
-    tokens = line.split(',',4) 
+    tokens = line.split(',',7) 
     # tokens[0] = 'name' tokens[1] = 'count' tokens[2] = 'min' tokens[3] = 'max' tokens[4] = 'Avg'
     # tokens[5] = 'leaf_prolog_count' tokens[6] = 'leaf_epilog_count'
     if tokens[0].rstrip() in raw_data:
@@ -64,6 +64,7 @@ def munge(raw_data, stats):
 
     max = 0
     sum = 0
+    min = 0
     min_stats = []
     min_idx = 0
     if len(min_list) >= 3:
@@ -84,8 +85,8 @@ def munge(raw_data, stats):
       min_stats.append(max)
       min_stats.append(avg)
       min_stats.append(median)
-      min_stats.append(prolog_leaf_list[min_idx])
-      min_stats.append(epilog_leaf_list[min_idx])
+      min_stats.append(int(prolog_leaf_list[min_idx]))
+      min_stats.append(int(epilog_leaf_list[min_idx]))
 
     min = 0
     max = 0
@@ -142,13 +143,14 @@ def crunch(data_set_1, data_set_2):
       set_1_epilog_leaf_count = set_1_min_stats[5]
       overhead = set_1_prolog_leaf_count * 200 + set_1_epilog_leaf_count * 450
 
-      if compensate:
-        print "Compensating values.."
-        if set_1_min_median - overhead > 0:
-          set_1_min_median = set_1_min_median -overhead
 
       set_2_value = data_set_2.get(key,0)
       if set_2_value != 0:
+        if compensate:
+          if set_1_min_median - overhead > 0:
+            print "Compensating by %d" % overhead
+            set_1_min_median = set_1_min_median -overhead
+
         set_2_min_stats = set_2_value[1]
         set_2_min_median = set_2_min_stats[3]
         difference = (set_1_min_median-set_2_min_median) * 100/float(set_2_min_median)
