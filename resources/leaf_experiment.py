@@ -5,7 +5,7 @@ import sys
 import shutil
 
 FNULL = open(os.devnull, 'w')
-os.environ["DYN_STRATEGY"] = "SAMPLING"
+os.environ["DYN_STRATEGY"] = "NO_BACKOFF"
 os.environ["DYN_OUTPUT_TYPE"] = "STRIPPED"
 
 # Warmup run
