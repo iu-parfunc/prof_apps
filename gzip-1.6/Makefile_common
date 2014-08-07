@@ -18,7 +18,7 @@ build-dynaprof:
 	which autoreconf
 	autoreconf --version
 	(cd ../instrumented &&  autoreconf) 
-	(cd ../instrumented &&  ./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CLFAGS='-O2';) > /dev/null
+	(cd ../instrumented &&  ./configure CC=icc LIBS='libdynaprof.a libzca-toggle.a -lelf' CLFAGS='-O2 -DDYNAPROF';) > /dev/null
 	(cd ../instrumented &&  make -j) > /dev/null
 	echo -e "\nInstrumenting gzip..."
 	(cd .. && ./instrument.sh)

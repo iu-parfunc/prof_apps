@@ -1921,6 +1921,10 @@ local void do_exit(exitcode)
     FREE(tab_prefix1);
 #endif
 
+    // dynaprof cleaup:
+    printf("[gzip-hacked] calling dynaprof cleanup...\n");
+    cleanup();
+
     __notify_intrinsic((void*)"do_exit:end", (void *)&global_x);
     exit(exitcode);
 }

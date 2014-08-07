@@ -1885,6 +1885,7 @@ local void do_exit(exitcode)
     FREE(tab_prefix0);
     FREE(tab_prefix1);
 #endif
+
     exit(exitcode);
 }
 
