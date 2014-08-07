@@ -30,7 +30,7 @@ build-shared:
 		time make CFLAGS="$(CFLAGS)"
 
 run-common: 
-	(./bzip2 test/input/input.source) 2>&1
+	(cd ../instrumented && ./bzip2 test/input/input.source) 2>&1
 #	cd ../instrumented;\
 		(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./bzip2 test/input/input.source) 2>&1 
 
