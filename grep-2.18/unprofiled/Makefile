@@ -1,9 +1,7 @@
 
 .PHONY: all clean run
 
-all: clean run	
-
-build:
+build: clean
 	chmod u+x setup.sh
 	./setup.sh
 	cd ../instrumented;\
