@@ -14,9 +14,3 @@ BZ2_bzDecompressInit
 BZ2_bzRead                              
 BZ2_bzDecompress                        
 BZ2_decompress                          
-mainSort                                
-mainQSort3                              
-mainSimpleSort                          
-mainGtU                                 
-fallbackSort                            
-fallbackSimpleSort                      
