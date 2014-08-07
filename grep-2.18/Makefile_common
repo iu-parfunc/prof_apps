@@ -28,13 +28,13 @@ build-plain:
 
 build-shared:
 #	chmod u+x setup.sh
-	cd ..; ./setup.sh
-	(cd ../instrumented;  autoreconf)
-	(cd ../instrumented;  time ./configure CC=icc CFLAGS="$(CFLAGS)") # > /dev/null
-	(cd ../instrumented;  time make) > /dev/null
+	(cd ..; ./setup.sh)
+	(cd ../instrumented &&  autoreconf)
+	(cd ../instrumented &&  time ./configure CC=icc CFLAGS="$(CFLAGS)") # > /dev/null
+	(cd ../instrumented &&  time make) > /dev/null
 
 run-common: 
-	(./grep -rl test ../../../../ > /dev/null) 2>&1
+	(cd ../instrumented/src && ./grep -rl test ../../../../ > /dev/null) 2>&1
 #	cd ../instrumented/src;\
 		(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./grep -rl test ../../../../ > /dev/null) 2>&1 
 # We don't really need to clean, because we do a fresh "configure" on each build.
