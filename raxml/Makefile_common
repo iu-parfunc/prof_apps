@@ -12,6 +12,14 @@ ifeq ($(DYNAPROF_ROOT),)
   DYNAPROF_ROOT=$(shell pwd)/../../../
 endif
 
+ifeq ($(DYN_STRATEGY),)
+  DYN_STRATEGY=FIXED_BACKOFF
+endif
+ifeq ($(DYN_SAMPLE_SIZE),)
+  DYN_SAMPLE_SIZE=10
+endif
+
+
 default: build
 
 build-plain:
@@ -46,8 +54,14 @@ build-shared:
 run-common: 
 	echo -e "\nRunning RAxML..."
 	rm -f ../instrumented/*.foo
+#	cd ../instrumented/ && \
+         ./raxmlHPC  -s ../data/10.phylip -m GTRGAMMA -n foo -p 9829265386
+
 	cd ../instrumented/ && \
-         ./raxmlHPC-PTHREADS -T$(THREADS) -s ../data/10.phylip -m GTRCAT -n foo -p 9829265386
+         ./raxmlHPC-PTHREADS -T$(THREADS) -s ../data/10.phylip -m GTRGAMMA -n foo -p 9829265386
+
+
+#         ./raxmlHPC-PTHREADS -T$(THREADS) -s ../data/10.phylip -m GTRCAT -n foo -p 9829265386
 
 #	./original/raxmlHPC-PTHREADS -T10 -s prefix_align.phylip -m GTRCAT -n foo -p 9829265386
 # ./original/raxmlHPC-PTHREADS -T10 -s alignment_for_ryan.phylip -m GTRCAT -n foo -p 9829265386
