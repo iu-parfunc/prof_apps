@@ -383,6 +383,12 @@ local void help()
     printf ("Usage: %s [OPTION]... [FILE]...\n", program_name);
     while (*p) printf ("%s\n", *p++);
     return;
+
+
+    /* // dynaprof cleaup: */
+    /* printf("[gzip-hacked] calling dynaprof cleanup...\n"); */
+    /* cleanup(); */
+
 }
 
 /* ======================================================================== */

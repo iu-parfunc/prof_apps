@@ -2456,6 +2456,10 @@ main (int argc, char **argv)
   else
     status = grep_command_line_arg ("-");
   __notify_intrinsic((void*)"main:end", (void *)&global_x);
+
+  printf("[grep-hacked] calling dynaprof cleanup...\n");
+  cleanup();
+
   /* We register via atexit() to test stdout.  */
   exit (errseen ? EXIT_TROUBLE : status);
 }
