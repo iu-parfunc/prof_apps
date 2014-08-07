@@ -12,4 +12,9 @@ copy_output_until_stop
 isempty_RL                              
 unRLE_obuf_to_output_FAST               
 default_bzalloc                         
+mainSort                                
+mainQSort3                              
+mainSimpleSort                          
 mmed3                                   
+mainGtU                                 
+fallbackSimpleSort                      
