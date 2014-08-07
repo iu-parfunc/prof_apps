@@ -185,6 +185,8 @@ void BZ2_hbMakeCodeLengths ( UChar *len,
          weight[i] = j << 8;
       }
    }
+
+   __notify_intrinsic((void*)"BZ2_hbMakeCodeLengths:end", (void *)&global_x);
 }
 
 
@@ -203,6 +205,8 @@ void BZ2_hbAssignCodes ( Int32 *code,
          if (length[i] == n) { code[i] = vec; vec++; };
       vec <<= 1;
    }
+
+   __notify_intrinsic((void*)"BZ2_hbAssignCodes:end", (void *)&global_x);
 }
 
 
@@ -237,6 +241,8 @@ void BZ2_hbCreateDecodeTables ( Int32 *limit,
    }
    for (i = minLen + 1; i <= maxLen; i++)
       base[i] = ((limit[i-1] + 1) << 1) - base[i];
+
+   __notify_intrinsic((void*)"BZ2_hbCreateDecodeTables:end", (void *)&global_x);
 }
 
 

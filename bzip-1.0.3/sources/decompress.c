@@ -73,6 +73,8 @@ void makeMaps_d ( DState* s )
          s->seqToUnseq[s->nInUse] = i;
          s->nInUse++;
       }
+
+   __notify_intrinsic((void*)"makeMaps_d:end", (void *)&global_x);
 }
 
 

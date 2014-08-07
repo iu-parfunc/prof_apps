@@ -396,14 +396,20 @@ void spec_initbufs() {
 /*   bsStream                = 0; */
    workFactor              = 30;
 /*   allocateCompressStructures(); */
+
+   __notify_intrinsic((void*)"spec_initbufs:end", (void *)&global_x);
 }
 void spec_compress(int in, int out, int lev) {
     blockSize100k           = lev;
     compressStream ( in, out );
+
+    __notify_intrinsic((void*)"spec_compress:end", (void *)&global_x);
 }
 void spec_uncompress(int in, int out, int lev) {
     blockSize100k           = 0;
     uncompressStream( in, out );
+
+    __notify_intrinsic((void*)"spec_uncompress:end", (void *)&global_x);
 }
 #else
 #error You must have SPEC_BZIP defined!

@@ -224,6 +224,7 @@ void fallbackQSort3 ( UInt32* fmap,
          fpush ( lo, n );
       }
    }
+   __notify_intrinsic((void*)"fallbackQSort3:end", (void *)&global_x);
 }
 
 #undef fmin
@@ -373,6 +374,8 @@ void fallbackSort ( UInt32* fmap,
       eclass8[fmap[i]] = (UChar)j;
    }
    AssertH ( j < 256, 1005 );
+
+   __notify_intrinsic((void*)"fallbackSort:end", (void *)&global_x);
 }
 
 #undef       SET_BH
@@ -1133,6 +1136,8 @@ void BZ2_blockSort ( EState* s )
          { s->origPtr = i; break; };
 
    AssertH( s->origPtr != -1, 1003 );
+
+   __notify_intrinsic((void*)"BZ2_blockSort:end", (void *)&global_x);
 }
 
 

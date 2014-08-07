@@ -139,6 +139,8 @@ void BZ2_bz__AssertH__fail ( int errcode )
 #else
    exit(0);
 #endif /* SPEC_CPU */
+
+   __notify_intrinsic((void*)"BZ2_bz__AssertH__fail:end", (void *)&global_x);
 }
 #endif
 
@@ -166,6 +168,8 @@ static
 void default_bzfree ( void* opaque, void* addr )
 {
    if (addr != NULL) free ( addr );
+
+   __notify_intrinsic((void*)"default_bzfree:end", (void *)&global_x);
 }
 
 
@@ -180,6 +184,8 @@ void prepare_new_block ( EState* s )
    BZ_INITIALISE_CRC ( s->blockCRC );
    for (i = 0; i < 256; i++) s->inUse[i] = False;
    s->blockNo++;
+
+   __notify_intrinsic((void*)"prepare_new_block:end", (void *)&global_x);
 }
 
 
@@ -189,6 +195,8 @@ void init_RL ( EState* s )
 {
    s->state_in_ch  = 256;
    s->state_in_len = 0;
+
+   __notify_intrinsic((void*)"init_RL:end", (void *)&global_x);
 }
 
 
@@ -301,6 +309,8 @@ void add_pair_to_block ( EState* s )
          s->nblock++;
          break;
    }
+
+   __notify_intrinsic((void*)"add_pair_to_block:end", (void *)&global_x);
 }
 
 
@@ -310,6 +320,8 @@ void flush_RL ( EState* s )
 {
    if (s->state_in_ch < 256) add_pair_to_block ( s );
    init_RL ( s );
+
+   __notify_intrinsic((void*)"flush_RL:end", (void *)&global_x);
 }
 
 
@@ -1083,6 +1095,8 @@ void BZ_API(BZ2_bzWriteClose)
 {
    BZ2_bzWriteClose64 ( bzerror, b, abandon, 
                         nbytes_in, NULL, nbytes_out, NULL );
+
+   __notify_intrinsic((void*)"BZ2_bzWriteClose:end", (void *)&global_x);
 }
 
 

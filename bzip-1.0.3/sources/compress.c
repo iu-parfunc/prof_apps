@@ -82,6 +82,8 @@ void BZ2_bsInitWrite ( EState* s )
 {
    s->bsLive = 0;
    s->bsBuff = 0;
+
+   __notify_intrinsic((void*)"BZ2_bsInitWrite:end", (void *)&global_x);
 }
 
 
@@ -95,6 +97,8 @@ void bsFinishWrite ( EState* s )
       s->bsBuff <<= 8;
       s->bsLive -= 8;
    }
+
+   __notify_intrinsic((void*)"bsFinishWrite:end", (void *)&global_x);
 }
 
 
@@ -119,6 +123,8 @@ void bsW ( EState* s, Int32 n, UInt32 v )
    bsNEEDW ( n );
    s->bsBuff |= (v << (32 - s->bsLive - n));
    s->bsLive += n;
+
+   __notify_intrinsic((void*)"bsW:end", (void *)&global_x);
 }
 
 
@@ -130,6 +136,8 @@ void bsPutUInt32 ( EState* s, UInt32 u )
    bsW ( s, 8, (u >> 16) & 0xffL );
    bsW ( s, 8, (u >>  8) & 0xffL );
    bsW ( s, 8,  u        & 0xffL );
+
+   __notify_intrinsic((void*)"bsPutUInt32:end", (void *)&global_x);
 }
 
 
@@ -138,6 +146,8 @@ static
 void bsPutUChar ( EState* s, UChar c )
 {
    bsW( s, 8, (UInt32)c );
+
+   __notify_intrinsic((void*)"bsPutUChar:end", (void *)&global_x);
 }
 
 
@@ -156,6 +166,8 @@ void makeMaps_e ( EState* s )
          s->unseqToSeq[i] = s->nInUse;
          s->nInUse++;
       }
+
+   __notify_intrinsic((void*)"makeMaps_e:end", (void *)&global_x);
 }
 
 
@@ -272,6 +284,8 @@ void generateMTFValues ( EState* s )
    mtfv[wr] = EOB; wr++; s->mtfFreq[EOB]++;
 
    s->nMTF = wr;
+
+   __notify_intrinsic((void*)"generateMTFValues:end", (void *)&global_x);
 }
 
 
@@ -639,6 +653,8 @@ void sendMTFValues ( EState* s )
 
    if (s->verbosity >= 3)
       VPrintf1( "codes %d\n", s->numZ-nBytes );
+
+   __notify_intrinsic((void*)"sendMTFValues:end", (void *)&global_x);
 }
 
 
@@ -708,6 +724,8 @@ void BZ2_compressBlock ( EState* s, Bool is_last_block )
          VPrintf1( "    final combined CRC = 0x%08x\n   ", s->combinedCRC );
       bsFinishWrite ( s );
    }
+
+   __notify_intrinsic((void*)"BZ2_compressBlock:end", (void *)&global_x);
 }
 
 

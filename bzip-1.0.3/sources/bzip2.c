@@ -348,6 +348,8 @@ void uInt64_from_UInt32s ( UInt64* n, UInt32 lo32, UInt32 hi32 )
    n->b[2] = (UChar)((lo32 >> 16) & 0xFF);
    n->b[1] = (UChar)((lo32 >> 8)  & 0xFF);
    n->b[0] = (UChar) (lo32        & 0xFF);
+
+   __notify_intrinsic((void*)"uInt64_from_UInt32s:end", (void *)&global_x);
 }
 
 
@@ -409,6 +411,8 @@ void uInt64_toAscii ( char* outbuf, UInt64* n )
    outbuf[nBuf] = 0;
    for (i = 0; i < nBuf; i++) 
       outbuf[i] = buf[nBuf-i-1];
+
+   __notify_intrinsic((void*)"uInt64_toAscii:end", (void *)&global_x);
 }
 
 
@@ -783,6 +787,8 @@ void setExit ( Int32 v )
 #else
    if (v > exitValue) exitValue = v;
 #endif
+
+   __notify_intrinsic((void*)"setExit:end", (void *)&global_x);
 }
 
 
@@ -798,6 +804,8 @@ void cadvise ( void )
         "You can use the `bzip2recover' program to attempt to recover\n"
         "data from undamaged sections of corrupted files.\n\n"
     );
+
+   __notify_intrinsic((void*)"cadvise:end", (void *)&global_x);
 }
 
 
@@ -811,6 +819,8 @@ void showFileNames ( void )
       "\tInput file = %s, output file = %s\n",
       inName, outName 
    );
+
+   __notify_intrinsic((void*)"showFileNames:end", (void *)&global_x);
 }
 
 
@@ -870,6 +880,8 @@ void cleanUpAndFail ( Int32 ec )
                 numFileNames, numFileNames - numFilesProcessed );
    }
 #endif /* !SPEC_CPU */
+
+   __notify_intrinsic((void*)"cleanUpAndFail:end", (void *)&global_x);
    setExit(ec);
    exit(exitValue);
 }
@@ -892,6 +904,8 @@ void panic ( Char* s )
              progName, s );
    showFileNames();
    cleanUpAndFail( 3 );
+
+   __notify_intrinsic((void*)"panic:end", (void *)&global_x);
 }
 
 
@@ -905,6 +919,8 @@ void crcError ( void )
    showFileNames();
    cadvise();
    cleanUpAndFail( 2 );
+
+   __notify_intrinsic((void*)"crcError:end", (void *)&global_x);
 }
 
 
@@ -922,6 +938,8 @@ void compressedStreamEOF ( void )
     cadvise();
   }
   cleanUpAndFail( 2 );
+
+  __notify_intrinsic((void*)"compressedStreamEOF:end", (void *)&global_x);
 }
 
 
@@ -936,6 +954,8 @@ void ioError ( void )
    perror ( progName );
    showFileNames();
    cleanUpAndFail( 1 );
+
+   __notify_intrinsic((void*)"ioError:end", (void *)&global_x);
 }
 
 
@@ -1019,6 +1039,8 @@ void outOfMemory ( void )
              progName );
    showFileNames();
    cleanUpAndFail(1);
+
+   __notify_intrinsic((void*)"outOfMemory:end", (void *)&global_x);
 }
 
 
@@ -1034,6 +1056,8 @@ void configError ( void )
              "\tand recompiling.  Bye!\n" );
    setExit(3);
    exit(exitValue);
+
+   __notify_intrinsic((void*)"configError:end", (void *)&global_x);
 }
 
 
