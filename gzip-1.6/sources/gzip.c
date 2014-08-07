@@ -1902,6 +1902,7 @@ install_signal_handlers ()
 local void do_exit(exitcode)
     int exitcode;
 {
+    printf("[gzip-hacked] calling do_exit...\n");
     static int in_exit = 0;
 
     if (in_exit) exit(exitcode);
