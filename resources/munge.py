@@ -9,7 +9,7 @@ func_overhead = dict()
 overhead_histogram = dict()
 result = dict()
 
-compensate = True
+compensate = None 
 
 # User arguments
 metric = "MIN"
@@ -87,6 +87,9 @@ def munge(raw_data, stats):
       min_stats.append(median)
       min_stats.append(int(prolog_leaf_list[min_idx]))
       min_stats.append(int(epilog_leaf_list[min_idx]))
+      min_stats.append(new_min_list)
+      min_stats.append(prolog_leaf_list)
+      min_stats.append(epilog_leaf_list)
 
     min = 0
     max = 0
@@ -141,26 +144,44 @@ def crunch(data_set_1, data_set_2):
       set_1_min_median = set_1_min_stats[3]
       set_1_prolog_leaf_count = set_1_min_stats[4]
       set_1_epilog_leaf_count = set_1_min_stats[5]
-      overhead = set_1_prolog_leaf_count * 200 + set_1_epilog_leaf_count * 450
-
-
+      set_1_min_list = set_1_min_stats[6]
+      set_1_prolog_list = set_1_min_stats[7]
+      set_1_epilog_list = set_1_min_stats[8]
+      
       set_2_value = data_set_2.get(key,0)
-      if set_2_value != 0:
-        if compensate:
-          if set_1_min_median - overhead > 0:
-            print "Compensating by %d" % overhead
-            set_1_min_median = set_1_min_median -overhead
 
+      func_overhead[key] = 0
+      if set_2_value != 0:
         set_2_min_stats = set_2_value[1]
-        set_2_min_median = set_2_min_stats[3]
-        difference = (set_1_min_median-set_2_min_median) * 100/float(set_2_min_median)
-        percentage = int(difference)
-        func_overhead[key] = percentage 
-        f1.write("%35s,%3d\n" % (key, percentage))
-        if percentage in overhead_histogram:
-          overhead_histogram[percentage] += 1 
-        else:
-          overhead_histogram[percentage] = 1 
+        set_2_min_min = set_2_min_stats[0]
+        set_2_min_max = set_2_min_stats[1]
+
+        for idx in range(len(set_1_min_list)):
+          overhead = int(set_1_prolog_list[idx]) * 50 + int(set_1_epilog_list[idx]) * 100 
+
+          if compensate:
+            if int(set_1_min_list[idx]) - overhead > 0:
+              print "Compensating by %d" % overhead
+              set_1_min_compensated = int(set_1_min_list[idx])-overhead
+          else:
+            set_1_min_compensated = int(set_1_min_list[idx])
+          
+          if set_1_min_compensated > set_2_min_min and set_1_min_compensated < set_2_min_max:
+            difference = 0
+          elif set_1_min_compensated < set_2_min_min: 
+            difference = (set_1_min_compensated - set_2_min_min) * 100/float(set_2_min_min)
+          elif set_1_min_compensated > set_2_min_max: 
+            difference = (set_1_min_compensated - set_2_min_max) * 100/float(set_2_min_max)
+          else:
+            difference = 0
+            
+          percentage = int(difference)
+          if percentage in overhead_histogram:
+            overhead_histogram[percentage] += 1 
+          else:
+            overhead_histogram[percentage] = 1 
+          func_overhead[key] += percentage 
+        # f1.write("%35s,%3d\n" % (key, int(func_overhead[key]/len(set_1_min_list)))
     elif metric == "AVG":
       set_1_avg_stats = set_1_value[2]
       set_1_avg_median = set_1_avg_stats[3]
