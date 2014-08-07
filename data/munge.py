@@ -11,7 +11,7 @@ func_overhead = dict()
 overhead_histogram = dict()
 result = dict()
 
-compensate = None 
+compensate = None
 
 # User arguments
 metric = "MIN"
@@ -141,6 +141,7 @@ def crunch(data_set_1, data_set_2):
   f = open(outputfile, "w")
   f1 = open("extended_results.txt","w")
   for key, set_1_value in data_set_1.iteritems():
+
     if metric == "MIN":
       set_1_min_stats = set_1_value[1]
       set_1_min_median = set_1_min_stats[3]
@@ -151,13 +152,18 @@ def crunch(data_set_1, data_set_2):
       set_1_epilog_list = set_1_min_stats[8]
       
       set_2_value = data_set_2.get(key,0)
-
+      
       func_overhead[key] = 0
       if set_2_value != 0:
         set_2_min_stats = set_2_value[1]
         set_2_min_min = set_2_min_stats[0]
         set_2_min_max = set_2_min_stats[1]
 
+        # This indicates BAD data
+        if set_2_min_max == 0:
+          print('Skipping function with bogus 0 cycle duration: ',key)
+          continue
+                  
         for idx in range(len(set_1_min_list)):
           overhead = int(set_1_prolog_list[idx]) * 50 + int(set_1_epilog_list[idx]) * 100 
 
@@ -203,17 +209,22 @@ def crunch(data_set_1, data_set_2):
     f.write("%3d,%3d\n" % (key, value))
 
 def main(argv):
-
+  usage = 'munge.py [-h,-c] -m <metric[MIN,AVG]> -o <outputfile>'
   try:
-    opts, args = getopt.getopt(argv,"hm:o:")
+    opts, args = getopt.getopt(argv,"chm:o:")
   except getopt.GetoptError:
-    print 'munge.py -m <metric[MIN,AVG]> -o <outputfile>'
+    print usage
     sys.exit(2)
 
   for opt, arg in opts:
+    if opt == '-c':
+      global compensate
+      print ' [munge.py] Activating compensation strategy!'
+      compensate = True
+      
     if opt == '-h':
-      print 'munge.py -m <metric[MIN,AVG]> -o <outputfile>'
-      sys.exit()
+      print usage
+      sys.exit()      
     elif opt in ("-m"):
       global metric 
       metric = arg
