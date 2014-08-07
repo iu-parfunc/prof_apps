@@ -12,14 +12,6 @@ ifeq ($(DYNAPROF_ROOT),)
   DYNAPROF_ROOT=$(shell pwd)/../../../
 endif
 
-ifeq ($(DYN_STRATEGY),)
-  DYN_STRATEGY=FIXED_BACKOFF
-endif
-ifeq ($(DYN_SAMPLE_SIZE),)
-  DYN_SAMPLE_SIZE=10
-endif
-
-
 default: build
 
 build-plain:
