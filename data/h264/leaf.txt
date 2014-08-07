@@ -9,7 +9,6 @@ TestEncoderParams
 ProfileCheck           
 LevelCheck            
 PatchInputNoFrames   
-create_context_memory
 free_context_memory 
 encode_enhancement_layer
 FmoMB2SliceGroup       
@@ -46,9 +45,7 @@ proceed2nextMacroblock
 IntraChromaPrediction4x4
 OneComponentChromaPrediction4x4
 B8Mode2Value                  
-CheckAvailabilityOfNeighbors 
 get_mb_block_pos            
-getNeighbour              
 free_frame_store       
 alloc_frame_store             
 dpb_split_field              
@@ -63,9 +60,6 @@ get_mem2Dint
 get_mem3Dint64
 free_mem2D  
 free_mem2Dint
-free_mem3Dint64 
-get_mem3Dshort
-free_mem4Dshort 
 ResetFastFullIntegerSearch  
 SetupLargerBlocks          
 InitializeFastFullIntegerSearch
