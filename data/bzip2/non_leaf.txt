@@ -1,3 +1,5 @@
+spec_compress                           
+spec_uncompress                         
 compressStream                          
 myfeof                                  
 uncompressStream                        
@@ -9,8 +11,17 @@ BZ2_bzWrite
 BZ2_bzCompress                          
 handle_compress                         
 copy_input_until_stop                   
+flush_RL                                
 BZ2_bzReadOpen                          
 BZ2_bzDecompressInit                    
 BZ2_bzRead                              
 BZ2_bzDecompress                        
+BZ2_compressBlock                       
+bsPutUChar                              
+bsPutUInt32                             
+sendMTFValues                           
+generateMTFValues                       
 BZ2_decompress                          
+BZ2_blockSort                           
+fallbackSort                            
+fallbackQSort3                          
