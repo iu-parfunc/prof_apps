@@ -1,0 +1,166 @@
+
+
+Here are the results for all benchmarks from our 100-backoff 1.0-period config:
+--------------------------------------------------------------------------------
+
+bzip 
+-----
+
+    Found good data on 60 functions.
+    Found 6 definitely multimodal functions:
+     * myfeof [0,0,91,10,1,22,0,0,0,0,0]
+     * BZ2_bzRead [0,0,0,0,6,99,0,3,0,0,0]
+     * default_bzfree [0,0,5,3,4,6,0,0,0,0,0]
+     * bsPutUChar [0,53,49,2,0,15,0,0,0,0,0]
+     * mainSimpleSort [0,16,15,40,46,2,1,0,0,0,0]
+     * fallbackQSort3 [0,0,30,20,10,38,2,0,0,0,0]
+
+  (gprof 67 functions)
+
+gzip 
+-----
+
+    Found good data on 66 functions.
+    Found 3 definitely multimodal functions:
+     * get_nondigit_option [0,0,2,0,1,0,0,0,0,0,0]
+     * grepdirent [0,0,7,8,0,45,46,0,0,0,0]
+     * print_filename [0,0,0,97,2,7,0,0,0,0,0]
+
+ (gprof 54 functions)
+
+grep
+-----
+
+    Found good data on 66 functions.
+    Found 3 definitely multimodal functions:
+     * get_nondigit_option [0,0,2,0,1,0,0,0,0,0,0]
+     * grepdirent [0,0,7,8,0,45,46,0,0,0,0]
+     * print_filename [0,0,0,97,2,7,0,0,0,0,0]
+
+  gprof 128 functions
+
+h264
+-----
+
+
+    Found good data on 317 functions.
+    Found 42 definitely multimodal functions:
+     * dct_luma [0,0,13,100,0,1,0,0,0,0,0]
+     * dct_chroma [0,0,0,111,1,2,0,0,0,0,0]
+     * intrapred_luma [0,0,71,40,0,3,0,0,0,0,0]
+     * delete_contexts_MotionInfo [0,6,0,1,0,0,0,0,0,0,0]
+     * delete_contexts_TextureInfo [0,6,0,1,0,0,0,0,0,0,0]
+     * FmoStartPicture [0,0,0,15,0,10,0,0,0,0,0]
+     * FmoGetFirstMBOfSliceGroup [0,0,94,13,0,1,0,0,0,0,0]
+     * FmoGetPreviousMBNr [0,63,38,0,10,3,0,0,0,0,0]
+     * FmoGetFirstMacroblockInSlice [0,2,68,4,0,1,0,0,0,0,0]
+     * PutBigDoubleWord [0,0,24,0,1,0,0,0,0,0,0]
+     * EdgeLoop [0,0,0,113,0,1,0,0,0,0,0]
+     * start_macroblock [0,0,0,97,3,13,0,0,0,0,0]
+     * terminate_macroblock [0,0,0,98,3,13,0,0,0,0,0]
+     * ChromaPrediction4x4 [0,0,98,2,13,0,0,0,0,0,0]
+     * writeReferenceFrame [0,70,33,4,0,6,0,0,0,0,0]
+     * writeLumaCoeff8x8 [0,0,0,97,5,11,0,0,0,0,0]
+     * get_mb_pos [0,0,102,3,4,5,0,0,0,0,0]
+     * getNonAffNeighbour [0,38,61,6,4,5,0,0,0,0,0]
+     * getNeighbour [0,0,96,8,2,8,0,0,0,0,0]
+     * getLuma4x4Neighbour [0,13,71,16,6,7,0,0,0,0,0]
+     * free_storable_picture [0,47,35,1,12,5,0,0,0,0,0]
+     * update_ltref_list [0,0,2,15,0,9,0,0,0,0,0]
+     * update_ref_list [0,0,0,31,0,10,0,0,0,0,0]
+     * is_used_for_reference [0,11,6,8,0,0,0,0,0,0,0]
+     * flush_dpb [0,0,0,1,0,0,1,0,0,0,0]
+     * unmark_for_reference [0,0,5,15,0,10,1,0,0,0,0]
+     * sliding_window_memory_management [0,0,8,2,0,14,0,0,0,0,0]
+     * free_mem2Dpel [0,0,56,33,0,10,1,0,0,0,0]
+     * get_mem3Dint [0,0,0,8,0,1,0,0,0,0,0]
+     * free_mem2D [0,0,27,23,1,0,1,0,0,0,0]
+     * free_mem2Dint [0,0,91,8,0,1,0,0,0,0,0]
+     * free_mem3Dint [0,0,0,8,0,1,0,0,0,0,0]
+     * FastFullPelBlockMotionSearch [0,0,0,102,1,1,9,0,0,0,0]
+     * SetMotionVectorPredictor [0,0,99,9,0,5,0,0,0,0,0]
+     * BlockMotionSearch [0,0,0,33,68,3,9,0,0,0,0]
+     * RDCost_for_8x8blocks [0,0,0,92,8,13,0,0,0,0,0]
+     * PutPel_14 [0,33,9,72,0,0,0,0,0,0,0]
+     * writeSyntaxElement_UVLC [0,0,51,47,4,11,0,0,0,0,0]
+     * u_v [0,0,28,19,0,7,0,0,0,0,0]
+     * writeSyntaxElement_VLC [0,29,77,6,0,1,0,0,0,0,0]
+     * writeSyntaxElement_NumCoeffTrailingOnes [0,0,96,4,6,7,0,0,0,0,0]
+     * writeSyntaxElement_Level_VLCN [0,0,81,31,0,0,1,0,0,0,0]
+
+perl
+-------
+
+  gprof found 349
+
+    Found good data on 415 functions.
+    Found 67 definitely multimodal functions:
+     * Perl_av_clear [0,19,41,8,1,3,9,5,1,1,9]
+     * Perl_av_shift [0,3,199,2,1,2,0,0,0,0,0]
+     * Perl_do_trans [0,0,76,28,58,44,0,0,0,0,0]
+     * Perl_do_kv [0,0,0,32,14,15,1,0,0,0,0]
+     * Perl_gv_fetchmeth_autoload [0,0,0,2,0,1,0,0,0,0,0]
+     * Perl_gv_fetchmethod [0,0,0,11,11,0,1,0,0,0,0]
+     * Perl_gv_fetchmethod_autoload [0,0,0,13,9,0,1,0,0,0,0]
+     * Perl_gv_handler [0,0,10,9,0,3,0,0,0,0,0]
+     * Perl_hv_store_ent [0,0,90,20,0,1,0,0,0,0,0]
+     * Perl_hv_fetch_ent [0,0,119,16,13,60,0,0,0,0,0]
+     * S_share_hek_flags [0,0,27,74,4,7,0,0,0,0,0]
+     * Perl_hv_iterkeysv [0,0,94,7,10,0,0,0,0,0,0]
+     * S_hfreeentries [0,10,20,0,0,0,0,1,0,1,10]
+     * Perl_hv_iternext [0,0,96,3,0,12,0,0,0,0,0]
+     * Perl_mg_set [0,0,3,105,47,52,0,0,0,0,0]
+     * Perl_grok_number [0,0,85,14,0,12,0,0,0,0,0]
+     * Perl_op_free [0,0,0,0,0,8,0,0,1,0,0]
+     * Perl_refkids [0,0,92,8,0,1,0,0,0,0,0]
+     * Perl_append_elem [0,27,39,34,0,0,1,0,0,0,0]
+     * Perl_prepend_elem [0,6,56,38,0,1,0,0,0,0,0]
+     * Perl_newLISTOP [0,0,52,47,0,1,1,0,0,0,0]
+     * Perl_convert [0,0,4,89,3,5,0,0,0,0,0]
+     * Perl_newSTATEOP [0,0,0,97,0,4,0,0,0,0,0]
+     * Perl_fold_constants [0,20,50,29,0,2,0,0,0,0,0]
+     * Perl_newATTRSUB [0,0,0,2,80,10,4,5,0,0,0]
+     * Perl_my [0,0,33,65,1,2,0,0,0,0,0]
+     * Perl_newLOGOP [0,0,4,94,1,2,0,0,0,0,0]
+     * Perl_newANONLIST [0,0,0,61,8,9,1,0,0,0,0]
+     * Perl_ck_open [0,0,4,1,5,0,0,0,0,0,0]
+     * Perl_peep [0,16,29,31,4,6,15,0,0,0,0]
+     * Perl_pad_undef [0,0,1,7,1,0,0,3,0,0,0]
+     * Perl_pad_alloc [0,0,67,33,0,1,0,0,0,0,0]
+     * Perl_pad_free [0,12,58,0,0,7,17,3,0,1,0]
+     * S_call_list_body [0,0,0,3,32,37,9,12,0,0,0]
+     * Perl_call_sv [0,0,0,4,37,48,9,12,0,0,0]
+     * Perl_PerlIO_flush [0,0,15,78,8,11,0,0,0,0,0]
+     * PerlIOBase_read [0,0,0,8,57,17,19,0,0,0,0]
+     * PerlIOUnix_read [0,0,0,41,28,13,19,0,0,0,0]
+     * PerlIOBuf_flush [0,0,8,82,9,3,10,0,0,0,0]
+     * PerlIOBuf_fill [0,0,0,13,52,17,19,0,0,0,0]
+     * PerlIOBuf_read [0,0,0,8,56,18,19,0,0,0,0]
+     * PerlIOBuf_get_cnt [0,92,6,0,3,0,0,0,0,0,0]
+     * PerlIO_getc [0,0,0,8,56,18,19,0,0,0,0]
+     * Perl_yyparse [0,0,0,0,1,0,18,10,2,0,0]
+     * S_dopoptosub [0,0,107,23,9,69,0,0,0,0,0]
+     * Perl_block_gimme [0,0,53,58,0,1,0,0,0,0,0]
+     * Perl_pp_return [0,0,42,69,2,95,0,0,0,0,0]
+     * Perl_pp_last [0,0,0,8,0,5,0,0,0,0,0]
+     * Perl_pp_next [0,0,94,10,9,37,0,0,0,0,0]
+     * S_doopen_pm [0,0,0,0,2,1,31,0,0,0,0]
+     * Perl_pp_entereval [0,0,0,0,1,0,1,0,0,0,0]
+     * Perl_pp_entersub [0,0,0,0,0,1,0,4,6,0,1]
+     * S_regtail [0,50,43,1,7,4,5,0,0,0,0]
+     * S_reginsert [0,64,19,0,3,11,2,2,0,0,0]
+     * Perl_regexec_flags [0,0,22,119,22,45,0,0,0,0,0]
+     * S_find_byclass [0,0,162,33,3,9,0,0,0,0,0]
+     * Perl_runops_standard [0,0,0,95,12,1,1,2,0,0,0]
+     * S_save_scalar_at [0,2,26,9,12,0,0,0,0,0,0]
+     * Perl_sv_add_arena [0,0,29,74,1,2,0,0,0,0,0]
+     * S_del_xiv [0,87,120,0,1,0,0,0,0,0,0]
+     * S_new_xpvcv [0,38,59,0,4,0,0,0,0,0,0]
+     * S_new_xiv [0,70,137,0,1,0,0,0,0,0,0]
+     * S_del_xpvcv [0,37,53,4,7,0,0,0,0,0,0]
+     * S_more_xpviv [0,0,0,2,2,0,1,0,0,0,0]
+     * S_filter_gets [0,0,4,87,3,3,4,0,0,0,0]
+     * S_force_word [0,0,8,90,2,0,1,0,0,0,0]
+     * S_force_version [0,0,82,5,6,0,0,0,0,0,0]
+
+Dynaprof found 42 gprof did not.
