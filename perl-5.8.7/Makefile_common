@@ -28,14 +28,14 @@ build-shared:
 	cd ..; ./setup.sh
 	cd ../instrumented;\
 		time make CFLAGS="$(CFLAGS)"
-	cd ../instrumented;\
-		echo -e "*** LDD OUTPUT";\
-		ldd perlbench
 
 run-common: 
 	# (cd ../instrumented && ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1 
 	cd ../instrumented;\
 	(/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1
+	cd ../instrumented;\
+		echo -e "*** LDD OUTPUT";\
+		ldd perlbench
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:
