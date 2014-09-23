@@ -28,6 +28,9 @@ build-shared:
 	cd ..; ./setup.sh
 	cd ../instrumented;\
 		time make CFLAGS="$(CFLAGS)"
+        cd ../instrumented;\ 
+                echo -e "*** LDD OUTPUT";\ 
+                ldd perlbench
 
 run-common: 
 	# (cd ../instrumented && ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1 
