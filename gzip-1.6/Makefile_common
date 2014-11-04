@@ -7,6 +7,13 @@
 default: 
 	echo "Doing nothing during 'compile' phase... procrastinating until run."
 
+# Build with finstrument
+build-finstrument:
+	cd ..;./setup.sh finstrument
+	(cd ../instrumented &&  autoreconf) 
+	(cd ../instrumented &&  ./configure CC=icc  CFLAGS='-O2 -finstrument-functions -fno-optimize-sibling-calls';) > /dev/null
+	(cd ../instrumented &&  make -j) > /dev/null
+
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building gzip with gprof enabled..."
