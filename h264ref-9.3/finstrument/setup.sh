@@ -7,7 +7,7 @@ if [ -d "../instrumented" ]; then
 fi
 
 cp -R ../original ../instrumented
-cp make ../instrumented/Makefile
+# cp make ../instrumented/Makefile
 
 
 

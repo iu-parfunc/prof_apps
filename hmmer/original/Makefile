@@ -7,7 +7,7 @@ RANLIB=ranlib
 LDFLAGS=-lm
 
 BIGFILES=-D_FILE_OFFSET_BITS=64
-CFLAGS=-Wall -Winline -O2 -g $(BIGFILES) -DSPEC_CPU 
+override CFLAGS += -Wall -Winline -O2 -g $(BIGFILES) -DSPEC_CPU 
 
 # Where you want it installed when you do 'make install'
 PREFIX=/usr/local

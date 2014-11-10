@@ -7,7 +7,7 @@ RANLIB=ranlib
 
 # LDFLAGS=-lm  
 
-override CFLAGS=-Wall -Winline -DSPEC_CPU -DPERL_CORE -DSPEC_CPU_LP64 -DSPEC_CPU_LINUX_X64 
+override CFLAGS +=-Wall -Winline -DSPEC_CPU -DPERL_CORE -DSPEC_CPU_LP64 -DSPEC_CPU_LINUX_X64 
 
 # Where you want it installed when you do 'make install'
 PREFIX=/usr/local
