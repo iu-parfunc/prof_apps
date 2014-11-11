@@ -17,6 +17,12 @@ default: build
 build-plain:
 	$(MAKE) build-shared
 
+#Build with finstrument
+build-finstrument:
+	cd ..;./setup.sh finstrument
+	cd ../instrumented; make clean;\
+	make MORECFLAGS='-O2 -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof'
+
 # Build with icc and profiling enabled:
 build-prof:
 	echo -e "Building RAxML with gprof enabled..."
