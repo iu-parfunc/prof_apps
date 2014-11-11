@@ -17,8 +17,8 @@ default: build
 build-plain:
 	$(MAKE) build-shared
 
-#Build with finstrument
-build-finstrument:
+#Build with ubiprof finstrument backend
+build-ubiprof:
 	cd ..;./setup.sh finstrument
 	cd ../instrumented; make clean;\
 	make MORECFLAGS='-O2 -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof'
@@ -54,9 +54,8 @@ run-common:
 	rm -f ../instrumented/*.foo
 #	cd ../instrumented/ && \
          ./raxmlHPC  -s ../data/10.phylip -m GTRGAMMA -n foo -p 9829265386
-
 	cd ../instrumented/ && \
-         ./raxmlHPC-PTHREADS -T$(THREADS) -s ../data/10.phylip -m GTRGAMMA -n foo -p 9829265386
+		LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) ./raxmlHPC-PTHREADS -T$(THREADS) -s ../data/10.phylip -m GTRGAMMA -n foo -p 9829265386
 
 
 #         ./raxmlHPC-PTHREADS -T$(THREADS) -s ../data/10.phylip -m GTRCAT -n foo -p 9829265386

@@ -1,5 +1,5 @@
 
-build: build-finstrument
+build: build-ubiprof
 
 include ../Makefile_common
 
