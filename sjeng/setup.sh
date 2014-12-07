@@ -7,7 +7,3 @@ if [ -d "instrumented" ]; then
 fi
 
 cp -R original instrumented
-
-
-
-
