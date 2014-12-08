@@ -58,10 +58,8 @@ extern "C" {
 static SV *
 newSVpvn(char *s, STRLEN len)
 {
-    __notify_intrinsic((void*)"newSVpvn:start", (void *)&global_x);
     register SV *sv = newSV(0);
     sv_setpvn(sv,s,len);
-    __notify_intrinsic((void*)"newSVpvn:end", (void *)&global_x);
     return sv;
 }
 #endif /* not perl5.004_05 */
@@ -134,20 +132,16 @@ newSVpvn(char *s, STRLEN len)
 static SV*
 check_handler(pTHX_ SV* h)
 {
-    __notify_intrinsic((void*)"check_handler:start", (void *)&global_x);
     if (SvROK(h)) {
 	SV* myref = SvRV(h);
 	if (SvTYPE(myref) == SVt_PVCV) {
-    __notify_intrinsic((void*)"check_handler:end", (void *)&global_x);
 	    return newSVsv(h);
   }
 	if (SvTYPE(myref) == SVt_PVAV) {
-    __notify_intrinsic((void*)"check_handler:end", (void *)&global_x);
 	    return SvREFCNT_inc(myref);
   }
 	croak("Only code or array references allowed as handler");
     }
-    __notify_intrinsic((void*)"check_handler:end", (void *)&global_x);
     return SvOK(h) ? newSVsv(h) : 0;
 }
 
@@ -155,11 +149,9 @@ check_handler(pTHX_ SV* h)
 static PSTATE*
 get_pstate_iv(pTHX_ SV* sv)
 {
-    __notify_intrinsic((void*)"get_pstate_iv:start", (void *)&global_x);
     PSTATE* p = INT2PTR(PSTATE*, SvIV(sv));
     if (p->signature != P_SIGNATURE)
 	croak("Bad signature in parser state object at %p", p);
-    __notify_intrinsic((void*)"get_pstate_iv:end", (void *)&global_x);
     return p;
 }
 
@@ -167,7 +159,6 @@ get_pstate_iv(pTHX_ SV* sv)
 static PSTATE*
 get_pstate_hv(pTHX_ SV* sv)                               /* used by XS typemap */
 {
-    __notify_intrinsic((void*)"get_pstate_hv:start", (void *)&global_x);
     HV* hv;
     SV** svp;
 
@@ -178,7 +169,6 @@ get_pstate_hv(pTHX_ SV* sv)                               /* used by XS typemap 
     svp = hv_fetch(hv, "_hparser_xs_state", 17, 0);
     if (svp) {
 	if (SvROK(*svp)) {
-    __notify_intrinsic((void*)"get_pstate_hv:end", (void *)&global_x);
 	    return get_pstate_iv(aTHX_ SvRV(*svp));
   }
 	else {
@@ -186,7 +176,6 @@ get_pstate_hv(pTHX_ SV* sv)                               /* used by XS typemap 
   }
     }
     croak("Can't find '_hparser_xs_state' element in HTML::Parser hash");
-    __notify_intrinsic((void*)"get_pstate_hv:end", (void *)&global_x);
     return 0;
 }
 
@@ -194,7 +183,6 @@ get_pstate_hv(pTHX_ SV* sv)                               /* used by XS typemap 
 static void
 free_pstate(pTHX_ PSTATE* pstate)
 {
-    __notify_intrinsic((void*)"free_pstate:start", (void *)&global_x);
     int i;
     SvREFCNT_dec(pstate->buf);
     SvREFCNT_dec(pstate->pend_text);
@@ -217,16 +205,13 @@ free_pstate(pTHX_ PSTATE* pstate)
 
     pstate->signature = 0;
     Safefree(pstate);
-    __notify_intrinsic((void*)"free_pstate:end", (void *)&global_x);
 }
 
 
 static int
 magic_free_pstate(pTHX_ SV *sv, MAGIC *mg)
 {
-    __notify_intrinsic((void*)"magic_free_pstate:start", (void *)&global_x);
     free_pstate(aTHX_ get_pstate_iv(aTHX_ sv));
-    __notify_intrinsic((void*)"magic_free_pstate:end", (void *)&global_x);
     return 0;
 }
 

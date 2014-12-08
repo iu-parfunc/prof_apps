@@ -14,29 +14,24 @@
 EXTERN SV*
 sv_lower(pTHX_ SV* sv)
 {
-   __notify_intrinsic((void*)"sv_lower:start", (void *)&global_x);
     STRLEN len;
     char *s = SvPV_force(sv, len);
     for (; len--; s++)
 	*s = toLOWER(*s);
-   __notify_intrinsic((void*)"sv_lower:end", (void *)&global_x);
     return sv;
 }
 
 EXTERN int
 strnEQx(const char* s1, const char* s2, STRLEN n, int ignore_case)
 {
-   __notify_intrinsic((void*)"strnEQx:start", (void *)&global_x);
     while (n--) {
 	if (ignore_case) {
 	    if (toLOWER(*s1) != toLOWER(*s2)) {
-   __notify_intrinsic((void*)"strnEQx:end", (void *)&global_x);
 		return 0;
       }
 	}
 	else {
 	    if (*s1 != *s2) {
-         __notify_intrinsic((void*)"strnEQx:end", (void *)&global_x);
 		     return 0;
       }
 	}
@@ -44,7 +39,6 @@ strnEQx(const char* s1, const char* s2, STRLEN n, int ignore_case)
 	s2++;
     }
     
-    __notify_intrinsic((void*)"strnEQx:end", (void *)&global_x);
     return 1;
 }
 
@@ -56,7 +50,6 @@ grow_gap(pTHX_ SV* sv, STRLEN grow, char** t, char** s, char** e)
                      ^   ^     ^
                      t   s     e
     */
-    __notify_intrinsic((void*)"grow_gap:start", (void *)&global_x);
     STRLEN t_offset = *t - SvPVX(sv);
     STRLEN s_offset = *s - SvPVX(sv);
     STRLEN e_offset = *e - SvPVX(sv);
@@ -70,13 +63,11 @@ grow_gap(pTHX_ SV* sv, STRLEN grow, char** t, char** s, char** e)
     Move(*s, *s+grow, *e - *s, char);
     *s += grow;
     *e += grow;
-    __notify_intrinsic((void*)"grow_gap:end", (void *)&global_x);
 }
 
 EXTERN SV*
 decode_entities(pTHX_ SV* sv, HV* entity2char, bool allow_unterminated)
 {
-    __notify_intrinsic((void*)"decode_entities:start", (void *)&global_x);
     STRLEN len;
     char *s = SvPV_force(sv, len);
     char *t = s;
@@ -279,7 +270,6 @@ decode_entities(pTHX_ SV* sv, HV* entity2char, bool allow_unterminated)
     *t = '\0';
     SvCUR_set(sv, t - SvPVX(sv));
 
-    __notify_intrinsic((void*)"decode_entities:end", (void *)&global_x);
     return sv;
 }
 
@@ -287,15 +277,12 @@ decode_entities(pTHX_ SV* sv, HV* entity2char, bool allow_unterminated)
 static bool
 has_hibit(char *s, char *e)
 {
-    __notify_intrinsic((void*)"has_hibit:start", (void *)&global_x);
     while (s < e) {
       U8 ch = *s++;
       if (!UTF8_IS_INVARIANT(ch)) {
-    __notify_intrinsic((void*)"has_hibit:end", (void *)&global_x);
             return 1;
         }
         }
-    __notify_intrinsic((void*)"has_hibit:end", (void *)&global_x);
     return 0;
 }
 
@@ -303,7 +290,6 @@ has_hibit(char *s, char *e)
 EXTERN bool
 probably_utf8_chunk(pTHX_ char *s, STRLEN len)
 {
-    __notify_intrinsic((void*)"probably_utf8_chunk:start", (void *)&global_x);
     char *e = s + len;
     STRLEN clen;
 
@@ -319,11 +305,9 @@ probably_utf8_chunk(pTHX_ char *s, STRLEN len)
     }
 
     if (!has_hibit(s, e)) { 
-       __notify_intrinsic((void*)"probably_utf8_chunk:start", (void *)&global_x);
 	     return 0;
     } 
 
-    __notify_intrinsic((void*)"probably_utf8_chunk:start", (void *)&global_x);
     return is_utf8_string((U8*)s, e - s);
 }
 #endif

@@ -182,7 +182,6 @@ Public API:
 STATIC SV*
 S_new_SV(pTHX)
 {
-    __notify_intrinsic((void*)"S_new_SV:start", (void *)&global_x);
     SV* sv;
 
     LOCK_SV_MUTEX;
@@ -194,7 +193,6 @@ S_new_SV(pTHX)
     SvANY(sv) = 0;
     SvREFCNT(sv) = 1;
     SvFLAGS(sv) = 0;
-    __notify_intrinsic((void*)"S_new_SV:end", (void *)&global_x);
     return sv;
 }
 #  define new_SV(p) (p)=S_new_SV(aTHX)
@@ -232,7 +230,6 @@ S_new_SV(pTHX)
 STATIC void
 S_del_sv(pTHX_ SV *p)
 {
-    __notify_intrinsic((void*)"S_del_sv:start", (void *)&global_x);
     if (DEBUG_D_TEST) {
 	SV* sva;
 	SV* sv;
@@ -249,11 +246,9 @@ S_del_sv(pTHX_ SV *p)
 	        Perl_warner(aTHX_ packWARN(WARN_INTERNAL),
 			    "Attempt to free non-arena SV: 0x%"UVxf
                             pTHX__FORMAT, PTR2UV(p) pTHX__VALUE);
-    __notify_intrinsic((void*)"S_del_sv:end", (void *)&global_x);
 	    return;
 	}
     }
-    __notify_intrinsic((void*)"S_del_sv:end", (void *)&global_x);
     plant_SV(p);
 }
 
@@ -278,7 +273,6 @@ and split it into a list of free SVs.
 void
 Perl_sv_add_arena(pTHX_ char *ptr, U32 size, U32 flags)
 {
-    __notify_intrinsic((void*)"Perl_sv_add_arena:start", (void *)&global_x);
     SV* sva = (SV*)ptr;
     register SV* sv;
     register SV* svend;
@@ -301,7 +295,6 @@ Perl_sv_add_arena(pTHX_ char *ptr, U32 size, U32 flags)
     }
     SvANY(sv) = 0;
     SvFLAGS(sv) = SVTYPEMASK;
-    __notify_intrinsic((void*)"Perl_sv_add_arena:end", (void *)&global_x);
 }
 
 /* make some more SVs by adding another arena */
@@ -310,7 +303,6 @@ Perl_sv_add_arena(pTHX_ char *ptr, U32 size, U32 flags)
 STATIC SV*
 S_more_sv(pTHX)
 {
-    __notify_intrinsic((void*)"S_more_sv:start", (void *)&global_x);
     register SV* sv;
 
     if (PL_nice_chunk) {
@@ -324,7 +316,6 @@ S_more_sv(pTHX)
 	sv_add_arena(chunk, PERL_ARENA_SIZE, 0);
     }
     uproot_SV(sv);
-    __notify_intrinsic((void*)"S_more_sv:end", (void *)&global_x);
     return sv;
 }
 
@@ -334,7 +325,6 @@ S_more_sv(pTHX)
 STATIC I32
 S_visit(pTHX_ SVFUNC_t f, U32 flags, U32 mask)
 {
-    __notify_intrinsic((void*)"S_visit:start", (void *)&global_x);
     SV* sva;
     SV* sv;
     register SV* svend;
@@ -352,7 +342,6 @@ S_visit(pTHX_ SVFUNC_t f, U32 flags, U32 mask)
 	    }
 	}
     }
-    __notify_intrinsic((void*)"S_visit:end", (void *)&global_x);
     return visited;
 }
 
@@ -363,12 +352,10 @@ S_visit(pTHX_ SVFUNC_t f, U32 flags, U32 mask)
 static void
 do_report_used(pTHX_ SV *sv)
 {
-    __notify_intrinsic((void*)"do_report_used:start", (void *)&global_x);
     if (SvTYPE(sv) != SVTYPEMASK) {
 	PerlIO_printf(Perl_debug_log, "****\n");
 	sv_dump(sv);
     }
-    __notify_intrinsic((void*)"do_report_used:end", (void *)&global_x);
 }
 #endif
 
@@ -383,11 +370,9 @@ Dump the contents of all SVs not yet freed. (Debugging aid).
 void
 Perl_sv_report_used(pTHX)
 {
-    __notify_intrinsic((void*)"Perl_sv_report_used:start", (void *)&global_x);
 #ifdef DEBUGGING
     visit(do_report_used, 0, 0);
 #endif
-    __notify_intrinsic((void*)"Perl_sv_report_used:end", (void *)&global_x);
 }
 
 /* called by sv_clean_objs() for each live SV */
@@ -395,7 +380,6 @@ Perl_sv_report_used(pTHX)
 static void
 do_clean_objs(pTHX_ SV *sv)
 {
-    __notify_intrinsic((void*)"do_clean_objs:start", (void *)&global_x);
     SV* rv;
 
     if (SvROK(sv) && SvOBJECT(rv = SvRV(sv))) {
@@ -411,7 +395,6 @@ do_clean_objs(pTHX_ SV *sv)
 	}
     }
 
-    __notify_intrinsic((void*)"do_clean_objs:end", (void *)&global_x);
     /* XXX Might want to check arrays, etc. */
 }
 
@@ -421,7 +404,6 @@ do_clean_objs(pTHX_ SV *sv)
 static void
 do_clean_named_objs(pTHX_ SV *sv)
 {
-    __notify_intrinsic((void*)"do_clean_named_objs:start", (void *)&global_x);
     if (SvTYPE(sv) == SVt_PVGV && GvGP(sv)) {
 	if ( SvOBJECT(GvSV(sv)) ||
 	     (GvAV(sv) && SvOBJECT(GvAV(sv))) ||
@@ -434,7 +416,6 @@ do_clean_named_objs(pTHX_ SV *sv)
 	    SvREFCNT_dec(sv);
 	}
     }
-    __notify_intrinsic((void*)"do_clean_named_objs:end", (void *)&global_x);
 }
 #endif
 
@@ -449,7 +430,6 @@ Attempt to destroy all objects not yet freed
 void
 Perl_sv_clean_objs(pTHX)
 {
-    __notify_intrinsic((void*)"Perl_sv_clean_objs:start", (void *)&global_x);
     PL_in_clean_objs = TRUE;
     visit(do_clean_objs, SVf_ROK, SVf_ROK);
 #ifndef DISABLE_DESTRUCTOR_KLUDGE
@@ -457,7 +437,6 @@ Perl_sv_clean_objs(pTHX)
     visit(do_clean_named_objs, SVt_PVGV, SVTYPEMASK);
 #endif
     PL_in_clean_objs = FALSE;
-    __notify_intrinsic((void*)"Perl_sv_clean_objs:end", (void *)&global_x);
 }
 
 /* called by sv_clean_all() for each live SV */
@@ -465,11 +444,9 @@ Perl_sv_clean_objs(pTHX)
 static void
 do_clean_all(pTHX_ SV *sv)
 {
-    __notify_intrinsic((void*)"do_clean_all:start", (void *)&global_x);
     DEBUG_D((PerlIO_printf(Perl_debug_log, "Cleaning loops: SV at 0x%"UVxf"\n", PTR2UV(sv)) ));
     SvFLAGS(sv) |= SVf_BREAK;
     SvREFCNT_dec(sv);
-    __notify_intrinsic((void*)"do_clean_all:end", (void *)&global_x);
 }
 
 /*
@@ -485,12 +462,10 @@ SVs which are in complex self-referential hierarchies.
 I32
 Perl_sv_clean_all(pTHX)
 {
-    __notify_intrinsic((void*)"Perl_sv_clean_all:start", (void *)&global_x);
     I32 cleaned;
     PL_in_clean_all = TRUE;
     cleaned = visit(do_clean_all, 0,0);
     PL_in_clean_all = FALSE;
-    __notify_intrinsic((void*)"Perl_sv_clean_all:end", (void *)&global_x);
     return cleaned;
 }
 
@@ -506,7 +481,6 @@ heads and bodies within the arenas must already have been freed.
 void
 Perl_sv_free_arenas(pTHX)
 {
-    __notify_intrinsic((void*)"Perl_sv_free_arenas:start", (void *)&global_x);
     SV* sva;
     SV* svanext;
     XPV *arena, *arenanext;
@@ -629,7 +603,6 @@ Perl_sv_free_arenas(pTHX)
     PL_nice_chunk_size = 0;
     PL_sv_arenaroot = 0;
     PL_sv_root = 0;
-    __notify_intrinsic((void*)"Perl_sv_free_arenas:end", (void *)&global_x);
 }
 
 /*
@@ -643,13 +616,11 @@ Print appropriate "Use of uninitialized variable" warning
 void
 Perl_report_uninit(pTHX)
 {
-    __notify_intrinsic((void*)"Perl_report_uninit:start", (void *)&global_x);
     if (PL_op)
 	Perl_warner(aTHX_ packWARN(WARN_UNINITIALIZED), PL_warn_uninit,
 		    " in ", OP_DESC(PL_op));
     else
 	Perl_warner(aTHX_ packWARN(WARN_UNINITIALIZED), PL_warn_uninit, "", "");
-    __notify_intrinsic((void*)"Perl_report_uninit:end", (void *)&global_x);
 }
 
 /* grab a new IV body from the free list, allocating more if necessary */
@@ -657,7 +628,6 @@ Perl_report_uninit(pTHX)
 STATIC XPVIV*
 S_new_xiv(pTHX)
 {
-    __notify_intrinsic((void*)"S_new_xiv:start", (void *)&global_x);
     IV* xiv;
     LOCK_SV_MUTEX;
     if (!PL_xiv_root)
@@ -668,7 +638,6 @@ S_new_xiv(pTHX)
      */
     PL_xiv_root = *(IV**)xiv;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_new_xiv:end", (void *)&global_x);
     return (XPVIV*)((char*)xiv - STRUCT_OFFSET(XPVIV, xiv_iv));
 }
 
@@ -677,13 +646,11 @@ S_new_xiv(pTHX)
 STATIC void
 S_del_xiv(pTHX_ XPVIV *p)
 {
-    __notify_intrinsic((void*)"S_del_xiv:start", (void *)&global_x);
     IV* xiv = (IV*)((char*)(p) + STRUCT_OFFSET(XPVIV, xiv_iv));
     LOCK_SV_MUTEX;
     *(IV**)xiv = PL_xiv_root;
     PL_xiv_root = xiv;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_del_xiv:end", (void *)&global_x);
 }
 
 /* allocate another arena's worth of IV bodies */
@@ -691,7 +658,6 @@ S_del_xiv(pTHX_ XPVIV *p)
 STATIC void
 S_more_xiv(pTHX)
 {
-    __notify_intrinsic((void*)"S_more_xiv:start", (void *)&global_x);
     register IV* xiv;
     register IV* xivend;
     XPV* ptr;
@@ -708,7 +674,6 @@ S_more_xiv(pTHX)
 	xiv++;
     }
     *(IV**)xiv = 0;
-    __notify_intrinsic((void*)"S_more_xiv:end", (void *)&global_x);
 }
 
 /* grab a new NV body from the free list, allocating more if necessary */
@@ -716,7 +681,6 @@ S_more_xiv(pTHX)
 STATIC XPVNV*
 S_new_xnv(pTHX)
 {
-    __notify_intrinsic((void*)"S_new_xnv:start", (void *)&global_x);
     NV* xnv;
     LOCK_SV_MUTEX;
     if (!PL_xnv_root)
@@ -724,7 +688,6 @@ S_new_xnv(pTHX)
     xnv = PL_xnv_root;
     PL_xnv_root = *(NV**)xnv;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_new_xnv:end", (void *)&global_x);
     return (XPVNV*)((char*)xnv - STRUCT_OFFSET(XPVNV, xnv_nv));
 }
 
@@ -733,13 +696,11 @@ S_new_xnv(pTHX)
 STATIC void
 S_del_xnv(pTHX_ XPVNV *p)
 {
-    __notify_intrinsic((void*)"S_del_xnv:start", (void *)&global_x);
     NV* xnv = (NV*)((char*)(p) + STRUCT_OFFSET(XPVNV, xnv_nv));
     LOCK_SV_MUTEX;
     *(NV**)xnv = PL_xnv_root;
     PL_xnv_root = xnv;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_del_xnv:end", (void *)&global_x);
 }
 
 /* allocate another arena's worth of NV bodies */
@@ -747,7 +708,6 @@ S_del_xnv(pTHX_ XPVNV *p)
 STATIC void
 S_more_xnv(pTHX)
 {
-    __notify_intrinsic((void*)"S_more_xnv:start", (void *)&global_x);
     register NV* xnv;
     register NV* xnvend;
     XPV *ptr;
@@ -764,7 +724,6 @@ S_more_xnv(pTHX)
 	xnv++;
     }
     *(NV**)xnv = 0;
-    __notify_intrinsic((void*)"S_more_xnv:end", (void *)&global_x);
 }
 
 /* grab a new struct xrv from the free list, allocating more if necessary */
@@ -772,7 +731,6 @@ S_more_xnv(pTHX)
 STATIC XRV*
 S_new_xrv(pTHX)
 {
-    __notify_intrinsic((void*)"S_new_xrv:start", (void *)&global_x);
     XRV* xrv;
     LOCK_SV_MUTEX;
     if (!PL_xrv_root)
@@ -780,7 +738,6 @@ S_new_xrv(pTHX)
     xrv = PL_xrv_root;
     PL_xrv_root = (XRV*)xrv->xrv_rv;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_new_xrv:end", (void *)&global_x);
     return xrv;
 }
 
@@ -789,12 +746,10 @@ S_new_xrv(pTHX)
 STATIC void
 S_del_xrv(pTHX_ XRV *p)
 {
-    __notify_intrinsic((void*)"S_del_xrv:start", (void *)&global_x);
     LOCK_SV_MUTEX;
     p->xrv_rv = (SV*)PL_xrv_root;
     PL_xrv_root = p;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_del_xrv:end", (void *)&global_x);
 }
 
 /* allocate another arena's worth of struct xrv */
@@ -802,7 +757,6 @@ S_del_xrv(pTHX_ XRV *p)
 STATIC void
 S_more_xrv(pTHX)
 {
-    __notify_intrinsic((void*)"S_more_xrv:start", (void *)&global_x);
     register XRV* xrv;
     register XRV* xrvend;
     XPV *ptr;
@@ -819,7 +773,6 @@ S_more_xrv(pTHX)
 	xrv++;
     }
     xrv->xrv_rv = 0;
-    __notify_intrinsic((void*)"S_more_xrv:end", (void *)&global_x);
 }
 
 /* grab a new struct xpv from the free list, allocating more if necessary */
@@ -827,7 +780,6 @@ S_more_xrv(pTHX)
 STATIC XPV*
 S_new_xpv(pTHX)
 {
-    __notify_intrinsic((void*)"S_new_xpv:start", (void *)&global_x);
     XPV* xpv;
     LOCK_SV_MUTEX;
     if (!PL_xpv_root)
@@ -835,7 +787,6 @@ S_new_xpv(pTHX)
     xpv = PL_xpv_root;
     PL_xpv_root = (XPV*)xpv->xpv_pv;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_new_xpv:end", (void *)&global_x);
     return xpv;
 }
 
@@ -844,12 +795,10 @@ S_new_xpv(pTHX)
 STATIC void
 S_del_xpv(pTHX_ XPV *p)
 {
-    __notify_intrinsic((void*)"S_del_xpv:start", (void *)&global_x);
     LOCK_SV_MUTEX;
     p->xpv_pv = (char*)PL_xpv_root;
     PL_xpv_root = p;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_del_xpv:end", (void *)&global_x);
 }
 
 /* allocate another arena's worth of struct xpv */
@@ -857,7 +806,6 @@ S_del_xpv(pTHX_ XPV *p)
 STATIC void
 S_more_xpv(pTHX)
 {
-    __notify_intrinsic((void*)"S_more_xpv:start", (void *)&global_x);
     register XPV* xpv;
     register XPV* xpvend;
     New(713, xpv, PERL_ARENA_SIZE/sizeof(XPV), XPV);
@@ -871,7 +819,6 @@ S_more_xpv(pTHX)
 	xpv++;
     }
     xpv->xpv_pv = 0;
-    __notify_intrinsic((void*)"S_more_xpv:end", (void *)&global_x);
 }
 
 /* grab a new struct xpviv from the free list, allocating more if necessary */
@@ -879,7 +826,6 @@ S_more_xpv(pTHX)
 STATIC XPVIV*
 S_new_xpviv(pTHX)
 {
-    __notify_intrinsic((void*)"S_new_xpviv:start", (void *)&global_x);
     XPVIV* xpviv;
     LOCK_SV_MUTEX;
     if (!PL_xpviv_root)
@@ -887,7 +833,6 @@ S_new_xpviv(pTHX)
     xpviv = PL_xpviv_root;
     PL_xpviv_root = (XPVIV*)xpviv->xpv_pv;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_new_xpviv:end", (void *)&global_x);
     return xpviv;
 }
 
@@ -896,13 +841,11 @@ S_new_xpviv(pTHX)
 STATIC void
 S_del_xpviv(pTHX_ XPVIV *p)
 {
-    __notify_intrinsic((void*)"S_del_xpviv:start", (void *)&global_x);
     XPVIV* xpviv;
     LOCK_SV_MUTEX;
     p->xpv_pv = (char*)PL_xpviv_root;
     PL_xpviv_root = p;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_del_xpviv:end", (void *)&global_x);
 }
 
 /* allocate another arena's worth of struct xpviv */
@@ -910,7 +853,6 @@ S_del_xpviv(pTHX_ XPVIV *p)
 STATIC void
 S_more_xpviv(pTHX)
 {
-    __notify_intrinsic((void*)"S_more_xpviv:start", (void *)&global_x);
     register XPVIV* xpviv;
     register XPVIV* xpvivend;
     New(714, xpviv, PERL_ARENA_SIZE/sizeof(XPVIV), XPVIV);
@@ -924,7 +866,6 @@ S_more_xpviv(pTHX)
 	xpviv++;
     }
     xpviv->xpv_pv = 0;
-    __notify_intrinsic((void*)"S_more_xpviv:end", (void *)&global_x);
 }
 
 /* grab a new struct xpvnv from the free list, allocating more if necessary */
@@ -932,7 +873,6 @@ S_more_xpviv(pTHX)
 STATIC XPVNV*
 S_new_xpvnv(pTHX)
 {
-    __notify_intrinsic((void*)"S_new_xpvnv:start", (void *)&global_x);
     XPVNV* xpvnv;
     LOCK_SV_MUTEX;
     if (!PL_xpvnv_root)
@@ -940,7 +880,6 @@ S_new_xpvnv(pTHX)
     xpvnv = PL_xpvnv_root;
     PL_xpvnv_root = (XPVNV*)xpvnv->xpv_pv;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_new_xpvnv:end", (void *)&global_x);
     return xpvnv;
 }
 
@@ -949,12 +888,10 @@ S_new_xpvnv(pTHX)
 STATIC void
 S_del_xpvnv(pTHX_ XPVNV *p)
 {
-    __notify_intrinsic((void*)"S_del_xpvnv:start", (void *)&global_x);
     LOCK_SV_MUTEX;
     p->xpv_pv = (char*)PL_xpvnv_root;
     PL_xpvnv_root = p;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_del_xpvnv:end", (void *)&global_x);
 }
 
 /* allocate another arena's worth of struct xpvnv */
@@ -962,7 +899,6 @@ S_del_xpvnv(pTHX_ XPVNV *p)
 STATIC void
 S_more_xpvnv(pTHX)
 {
-    __notify_intrinsic((void*)"S_more_xpvnv:start", (void *)&global_x);
     register XPVNV* xpvnv;
     register XPVNV* xpvnvend;
     New(715, xpvnv, PERL_ARENA_SIZE/sizeof(XPVNV), XPVNV);
@@ -976,7 +912,6 @@ S_more_xpvnv(pTHX)
 	xpvnv++;
     }
     xpvnv->xpv_pv = 0;
-    __notify_intrinsic((void*)"S_more_xpvnv:end", (void *)&global_x);
 }
 
 /* grab a new struct xpvcv from the free list, allocating more if necessary */
@@ -984,7 +919,6 @@ S_more_xpvnv(pTHX)
 STATIC XPVCV*
 S_new_xpvcv(pTHX)
 {
-    __notify_intrinsic((void*)"S_new_xpvcv:start", (void *)&global_x);
     XPVCV* xpvcv;
     LOCK_SV_MUTEX;
     if (!PL_xpvcv_root)
@@ -992,7 +926,6 @@ S_new_xpvcv(pTHX)
     xpvcv = PL_xpvcv_root;
     PL_xpvcv_root = (XPVCV*)xpvcv->xpv_pv;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_new_xpvcv:end", (void *)&global_x);
     return xpvcv;
 }
 
@@ -1001,12 +934,10 @@ S_new_xpvcv(pTHX)
 STATIC void
 S_del_xpvcv(pTHX_ XPVCV *p)
 {
-    __notify_intrinsic((void*)"S_del_xpvcv:start", (void *)&global_x);
     LOCK_SV_MUTEX;
     p->xpv_pv = (char*)PL_xpvcv_root;
     PL_xpvcv_root = p;
     UNLOCK_SV_MUTEX;
-    __notify_intrinsic((void*)"S_del_xpvcv:end", (void *)&global_x);
 }
 
 /* allocate another arena's worth of struct xpvcv */
@@ -1014,7 +945,6 @@ S_del_xpvcv(pTHX_ XPVCV *p)
 STATIC void
 S_more_xpvcv(pTHX)
 {
-    __notify_intrinsic((void*)"S_del_xpvcv:start", (void *)&global_x);
     register XPVCV* xpvcv;
     register XPVCV* xpvcvend;
     New(716, xpvcv, PERL_ARENA_SIZE/sizeof(XPVCV), XPVCV);
@@ -1028,7 +958,6 @@ S_more_xpvcv(pTHX)
 	xpvcv++;
     }
     xpvcv->xpv_pv = 0;
-    __notify_intrinsic((void*)"S_del_xpvcv:end", (void *)&global_x);
 }
 
 /* grab a new struct xpvav from the free list, allocating more if necessary */
