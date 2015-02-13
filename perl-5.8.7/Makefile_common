@@ -12,7 +12,7 @@ build-ubiprof:
 	cd ..;./setup.sh 
 	cd ../instrumented;\
 		make clean;\
-		make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof'
+		make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof'
 
 # Build with icc and profiling:
 build-prof:
@@ -29,12 +29,14 @@ build-dynaprof:
 		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
 
 build-plain:
-	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
+	cd ..; ./setup.sh
+	cd ../instrumented;\
+		time make CFLAGS="$(CFLAGS)" LDFLAGS='-lm'
 
 build-shared:
 	cd ..; ./setup.sh
 	cd ../instrumented;\
-		time make CFLAGS="$(CFLAGS)"
+		time make CFLAGS="$(CFLAGS)" LDFLAGS='-lm'
 
 run-common: 
 	# (cd ../instrumented && ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1 

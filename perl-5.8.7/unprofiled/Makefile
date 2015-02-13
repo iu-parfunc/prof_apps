@@ -5,12 +5,9 @@
 default: 
 	echo "Postponing to run" 
 
-build:
-	chmod u+x setup.sh
-	./setup.sh 
-	cd ../instrumented;\
-	make clean;\
-	make CFLAGS='-O2'
+build: build-plain
+
+include ../Makefile_common
 
 run: build
 	cd ../instrumented;\
