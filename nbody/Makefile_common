@@ -7,7 +7,7 @@
 default:
 	echo "THIS NEVER HAPPENS!!!" 
 
-all: 
+gen-data: 
 	echo "Generating data here!"
 	cd ../Data;\
              make
@@ -17,7 +17,7 @@ all:
 
 
 #Build with ubiprof finstrument baeckend
-build-ubiprof:
+build-ubiprof: 
 	cd ../BarnesHut; make clean;\
 	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof -lrt' 
 
