@@ -4,7 +4,10 @@
 
 .PHONY: default clean run
 
-default: 
+default:
+	echo "THIS NEVER HAPPENS!!!" 
+
+all: 
 	echo "Generating data here!"
 	cd ../Data;\
              make
