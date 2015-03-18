@@ -1,6 +1,6 @@
 TARGET   = fluidanimate
 OBJS     = pthreads.o cellpool.o parsec_barrier.o
-CXXFLAGS += -pthread -D_GNU_SOURCE -D__XOPEN_SOURCE=600 $(CFLAGS) 
+CXXFLAGS += $(CFLAGS) -pthread -D_GNU_SOURCE -D__XOPEN_SOURCE=600  
 
 # To enable visualization comment out the following lines (don't do this for benchmarking)
 #OBJS     += fluidview.o
