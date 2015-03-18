@@ -8,8 +8,8 @@ run:
 	echo "Entering run-common" 
 	$(MAKE) run-common
 	echo "Displaying profiler output" 
-	(cd ../BarnesHut; head -n50 prof.out)
-	(cd ../BarnesHut; cp prof.out ..)
+	(cd ../quickHull; head -n50 prof.out)
+	(cd ../quickHull; cp prof.out ..)
 
 clean:
 
