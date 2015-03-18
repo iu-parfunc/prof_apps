@@ -3,9 +3,9 @@ INTT = -DLONG
 endif
 
 # ifdef OPENMP
-PCC = g++
-PCFLAGS = -fopenmp -O2 -DOPENMP $(INTT) $(CFLAGS)
-PLFLAGS = -fopenmp $(LDFLAGS)
+# PCC = g++
+# PCFLAGS = -fopenmp -O2 -DOPENMP $(INTT) $(CFLAGS)
+# PLFLAGS = -fopenmp $(LDFLAGS)
 
 # else ifdef CILK
 # PCC = cilk++
@@ -18,7 +18,7 @@ PLFLAGS = -fopenmp $(LDFLAGS)
 # PLFLAGS = 
 
 # else
-# PCC = g++
-# PLFLAGS = $(LFLAGS)
-# PCFLAGS = -O2 $(INTT)
+PCC = g++
+PLFLAGS = $(LFLAGS)
+PCFLAGS = -O2 $(INTT)
 # endif
