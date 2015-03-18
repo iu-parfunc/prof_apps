@@ -26,7 +26,7 @@ build-shared:
 		time make CFLAGS="$(CFLAGS)"
 
 run-common: 
-	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./fluidanimate 8 50 in_500K.fluid) 2>&1 
+	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./fluidanimate 8 50 in_500K.fluid) 2>&1 
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:
