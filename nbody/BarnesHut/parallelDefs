@@ -19,6 +19,6 @@ endif
 
 # else
 PCC = g++
-PLFLAGS = $(LFLAGS)
-PCFLAGS = -O2 $(INTT)
+PLFLAGS = $(LFLAGS) $(LDFLAGS)
+PCFLAGS = -O2 $(INTT) $(CFLAGS)
 # endif
