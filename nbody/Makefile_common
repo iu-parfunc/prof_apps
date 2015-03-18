@@ -12,7 +12,7 @@ gen-data:
 	cd ../Data;\
              make
 	cd ../Data;\
-	     ./uniform -s -d 3 5000000 data.out
+	     ./uniform -s -d 3 1000000 data.out
 
 
 
