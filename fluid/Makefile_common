@@ -1,0 +1,32 @@
+
+# These are written from the perspective of one of the per-variant
+# subdirs of this directory.
+
+.PHONY: default clean run
+
+default:
+	echo "THIS NEVER HAPPENS!!!" 
+
+
+#Build with ubiprof finstrument baeckend
+build-ubiprof: 
+	cd ../src; make clean;\
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof -lrt' 
+
+# Build with icc and profiling:
+build-prof:
+	echo -e "Building bzip2 with gprof enabled..."
+	$(MAKE) CFLAGS='-O2 -pg' build-shared
+
+build-plain:
+	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
+
+build-shared:
+	cd ../src; make clean;\
+		time make CFLAGS="$(CFLAGS)"
+
+run-common: 
+	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./fluidanimate 8 50 in_500K.fluid) 2>&1 
+
+# We don't really need to clean, because we do a fresh "configure" on each build.
+clean:
