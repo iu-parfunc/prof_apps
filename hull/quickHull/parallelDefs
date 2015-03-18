@@ -4,9 +4,9 @@ endif
 
 #O2
 # ifdef OPENMP
-PCC = g++
-PCFLAGS = -fopenmp -DOPENMP $(INTT) $(CFLAGS)
-PLFLAGS = -fopenmp $(LDFLAGS)
+# PCC = g++
+# PCFLAGS = -fopenmp -DOPENMP $(INTT) $(CFLAGS)
+# PLFLAGS = -fopenmp $(LDFLAGS)
 
 #O2
 # else ifdef CILK
@@ -22,7 +22,7 @@ PLFLAGS = -fopenmp $(LDFLAGS)
 
 #O2
 # else
-# PCC = g++
-# PLFLAGS = $(LFLAGS) $(LDFLAGS)
-# PCFLAGS = $(INTT) $(CFLAGS)
+PCC = g++
+PLFLAGS = $(LFLAGS) $(LDFLAGS)
+PCFLAGS = $(INTT) $(CFLAGS)
 # endif
