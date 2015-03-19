@@ -25,6 +25,7 @@ build-shared:
 		time make CFLAGS="$(CFLAGS)"
 
 run-common: 
+	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi )
 	echo $(LD_LIBRARY_PATH)
 	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./blackscholes 8 data.out /dev/null) 2>&1 
 
