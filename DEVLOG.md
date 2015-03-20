@@ -20,10 +20,15 @@ work on it.
 Experiments
 
  * [ ] Aggregate number of probes vs. Overhead
-   - scatterplot should show a roughly linear relationship
-   - are different apps distinguishable
+  - scatterplot should show a roughly linear relationship
+  - are different apps distinguishable?
+
+  - [ ] plot Overhead vs epochs (Overhead time series)
+  - [ ] plot Num threads vs overhead 
+
 
  * [ ] Probe overhead breakdown / analysis
+  - [*] Measure probe overhead distribution, make histograms
   - Run these variants, to try to tease apart issues:
    * PROBE_TRUE_EMPTY_ON : nothing at all: literally consecutive getticks calls
    * (name?) : empty/call - perform no actual profiling work, but
@@ -47,6 +52,4 @@ Experiments
         that maximum memory penalty is incurred.
       
   - Any further expermients to understand outliers?
-
-
 
