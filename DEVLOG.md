@@ -1,4 +1,4 @@
 Experiments
 
-*[] Number of probes vs. Overhead
+* [ ] Number of probes vs. Overhead
  
