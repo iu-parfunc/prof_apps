@@ -12,7 +12,7 @@ build-ubiprof:
 	cd ..;./setup.sh 
 	cd ../instrumented;\
 		make clean;\
-		make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof'
+		make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof -lm'
 
 # Build with icc and profiling:
 build-prof:
