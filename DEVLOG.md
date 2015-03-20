@@ -30,17 +30,17 @@ Experiments
  * [ ] Probe overhead breakdown / analysis
   - [x] Measure probe overhead distribution, make histograms
   - Run these variants, to try to tease apart issues:
-   * PROBE_TRUE_EMPTY_ON : nothing at all: literally consecutive getticks calls
-   * (name?) : empty/call - perform no actual profiling work, but
+   - PROBE_TRUE_EMPTY_ON : nothing at all: literally consecutive getticks calls
+   - (name?) : empty/call - perform no actual profiling work, but
      still a call to epilogFunction/prologFunction
  
-   * (name?) : prolog only - the normal profiling work: statistics
+   - (name?) : prolog only - the normal profiling work: statistics
      gathering plus possible call site patching on the first call
-   * (name?) : epilog only - same for epilogue,
+   - (name?) : epilog only - same for epilogue,
 
-   * (name?) : probe [de]activation overhead, not counted in the above
+   - (name?) : probe [de]activation overhead, not counted in the above
 
-   * OTHER: Daemon thread overhead
+   - OTHER: Daemon thread overhead
 
 
   - [ ] the above variants can be run for different apps
