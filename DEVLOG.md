@@ -28,7 +28,7 @@ Experiments
 
 
  * [ ] Probe overhead breakdown / analysis
-  - [*] Measure probe overhead distribution, make histograms
+  - [x] Measure probe overhead distribution, make histograms
   - Run these variants, to try to tease apart issues:
    * PROBE_TRUE_EMPTY_ON : nothing at all: literally consecutive getticks calls
    * (name?) : empty/call - perform no actual profiling work, but
