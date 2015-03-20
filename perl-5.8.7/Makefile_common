@@ -12,7 +12,7 @@ build-ubiprof:
 	cd ..;./setup.sh 
 	cd ../instrumented;\
 		make clean;\
-		make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof'
+		make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof -lm'
 
 # Build with icc and profiling:
 build-prof:
@@ -26,7 +26,7 @@ build-dynaprof:
 	echo -e "\nBuilding gzip with instrumentation...";
 	cd ../instrumented;\
 		make clean;\
-		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
+		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread -lm' 
 
 build-plain:
 	cd ..; ./setup.sh

@@ -16,6 +16,8 @@ gen-data:
 
 
 
+DATADIR=/u/crest-team/ubiprof_data
+
 #Build with ubiprof finstrument baeckend
 build-ubiprof: 
 	cd ../quickHull; make clean;\
@@ -35,7 +37,7 @@ build-shared:
 
 run-common: 
 	(cd ../quickHull; if [ -d prof.out ]; then rm prof.out; fi )
-	(cd ../quickHull; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./hull ../Data/data.out) 2>&1 
+	(cd ../quickHull; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./hull $(DATADIR)/hull_data.input) 2>&1 
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:

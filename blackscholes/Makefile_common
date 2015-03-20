@@ -5,7 +5,10 @@
 .PHONY: default clean run
 
 default:
-	echo "THIS NEVER HAPPENS!!!" 
+	echo "THIS NEVER HAPPENS!!" 
+
+
+DATADIR=/u/crest-team/ubiprof_data
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof: 
@@ -27,7 +30,7 @@ build-shared:
 run-common: 
 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi )
 	echo $(LD_LIBRARY_PATH)
-	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./blackscholes 8 data.out /dev/null) 2>&1 
+	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./blackscholes 8 $(DATADIR)/blackscholes_data.input /dev/null) 2>&1 
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:

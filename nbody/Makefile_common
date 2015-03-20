@@ -15,6 +15,7 @@ gen-data:
 	     ./uniform -s -d 3 1000000 data.out
 
 
+DATADIR=/u/crest-team/ubiprof_data
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof: 
@@ -35,7 +36,7 @@ build-shared:
 
 run-common:
 	(cd ../BarnesHut; if [ -d prof.out ]; then rm prof.out; fi )
-	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./nbody ../Data/data.out) 2>&1 
+	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./nbody $(DATADIR)/nbody_data.input) 2>&1 
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:
