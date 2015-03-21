@@ -17,9 +17,8 @@ Experiments left to perform
 Methodology: grab one of the below, and write about it above as you
 work on it.
 
-Experiments
 
-### Aggregate number of probes vs. Overhead
+### E1: Aggregate number of probes vs. Overhead
   - [ ] scatterplot should show a roughly linear relationship
   - [ ] are different apps distinguishable?
 
@@ -27,7 +26,7 @@ Experiments
   - [ ] plot Num threads vs overhead 
 
 
-### Probe overhead breakdown / analysis
+### E2: Probe overhead breakdown / analysis
 
  * [x] Measure probe overhead distribution, make histograms
  * Run these variants, to try to tease apart issues:
