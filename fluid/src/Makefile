@@ -1,4 +1,5 @@
 TARGET   = fluidanimate
+SRCS     = pthreads.cpp cellpool.cpp parsec_barrier.cpp
 OBJS     = pthreads.o cellpool.o parsec_barrier.o
 CXXFLAGS += $(CFLAGS) -pthread -D_GNU_SOURCE -D__XOPEN_SOURCE=600  
 
@@ -16,7 +17,7 @@ endif
 all: pthreads fluidcmp
 
 pthreads: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) $(LDFLAGS) $(LIBS) -o $(TARGET)
+	$(CXX) $(CXXFLAGS) $(SRCS) $(LDFLAGS) $(LIBS) -o $(TARGET)
 
 %.o : %.cpp
 	$(CXX) $(CXXFLAGS) -c $<
