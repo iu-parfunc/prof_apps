@@ -9,3 +9,5 @@ Glossary for probe overhead results [03/15/15]
           statistics data structure) 
 - empty_full : Probe times for fully empty prolog and epilog 
 - empty_cpu_time : Probe times for fully empty prolog and epilog. But the time measured is CPU time instead of wall clock time.
+
+* adaptive.txt - Results of manual runs with several target overhead levels set 
