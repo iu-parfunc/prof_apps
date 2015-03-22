@@ -4,7 +4,7 @@ endif
 
 #O2
 # ifdef OPENMP
-PCC = g++
+PCC = g++ -Wl,--no-as-needed
 PCFLAGS = -fopenmp -DOPENMP $(INTT) $(CFLAGS)
 PLFLAGS = -fopenmp $(LDFLAGS)
 
