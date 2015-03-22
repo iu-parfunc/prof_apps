@@ -11,12 +11,12 @@ default:
 build-ubiprof:
 	cd ..;./setup.sh 
 	cd ../instrumented; make clean;\
-	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof' 
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof -lm' 
 
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building bzip2 with gprof enabled..."
-	$(MAKE) CFLAGS='-O2 -pg' build-shared
+	$(MAKE) CFLAGS='-O2 -pg -lm' build-shared
 
 build-dynaprof:
 	cd ..; ./setup.sh dynaprof 

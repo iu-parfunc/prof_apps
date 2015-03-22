@@ -7,7 +7,7 @@ build:
 	cd ..;./setup.sh 
 	cd ../instrumented;\
 	make clean;\
-	make CFLAGS='-O2'
+	make CFLAGS='-O2 -lm'
 
 run: build
 	cd ../instrumented;\
