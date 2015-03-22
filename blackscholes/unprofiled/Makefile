@@ -4,7 +4,7 @@ all: clean run
 
 build:
 	cd ../src;\
-	make 
+	make CFLAGS='-O2'
 
 DATADIR=/u/crest-team/ubiprof_data
 
