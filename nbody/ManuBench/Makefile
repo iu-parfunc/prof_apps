@@ -3,7 +3,7 @@
 
 gen-data: 
 	(cd ../Data; make) 
-	../Data/uniform -d 3 1000000  input.data
+	../Data/uniform -d 3 10000000  input.data
 
 
 run: 
