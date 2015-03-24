@@ -18,7 +18,7 @@ build-ubiprof:
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building bzip2 with gprof enabled..."
-	$(MAKE) CFLAGS='-O2 -pg' build-shared
+	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared
 
 build-plain:
 	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared

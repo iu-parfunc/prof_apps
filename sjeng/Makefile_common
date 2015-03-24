@@ -16,16 +16,16 @@ build-ubiprof:
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building sjeng with gprof enabled..."
-	$(MAKE) CFLAGS='-O2 -pg' build-shared
+	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared
 
-build-dynaprof:
-	cd ..; ./setup.sh dynaprof 
-	echo -e "\nInstrumenting sjeng..."
-	cd ..; ./instrument.sh
-	echo -e "\nBuilding sjeng with instrumentation...";
-	cd ../instrumented;\
-		make clean;\
-		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
+# build-dynaprof:
+# 	cd ..; ./setup.sh dynaprof 
+# 	echo -e "\nInstrumenting sjeng..."
+# 	cd ..; ./instrument.sh
+# 	echo -e "\nBuilding sjeng with instrumentation...";
+# 	cd ../instrumented;\
+# 		make clean;\
+# 		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
 
 build-plain:
 	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
