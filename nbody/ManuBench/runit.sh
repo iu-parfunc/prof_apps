@@ -7,7 +7,7 @@ if [ -f data_out.$RUNID ] ; then
 fi 
 
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../../build 
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../../../build 
 
 
 export PROFILER_TYPE=FIXED_BACKOFF 
