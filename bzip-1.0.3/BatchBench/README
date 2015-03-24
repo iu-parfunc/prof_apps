@@ -1,6 +1,8 @@
 
 
 BatchBench 
+==========
+
 
 Performs a sequence of bzip runs on larger and larger files 
 between 1 and 100 MB.
