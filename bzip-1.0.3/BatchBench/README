@@ -1,0 +1,19 @@
+
+
+BatchBench 
+==========
+
+
+Performs a sequence of bzip runs on larger and larger files 
+between 1 and 100 MB.
+
+
+USAGE: 
+
+If no data file exists then: 
+make gen-data 
+
+After generating data file perform a: 
+make run  
+
+

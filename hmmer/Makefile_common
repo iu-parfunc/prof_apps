@@ -11,12 +11,17 @@ default:
 build-ubiprof:
 	cd ..;./setup.sh 
 	cd ../instrumented; make clean;\
-	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof' 
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof -lm' 
+
+build-noprof:
+	cd ..;./setup.sh 
+	cd ../instrumented; make clean;\
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build/noprof -lrt -lubiprof -lm' 
 
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building hmmer with gprof enabled..."
-	$(MAKE) CFLAGS='-O2 -pg' build-shared
+	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared
 
 build-plain:
 	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
@@ -27,8 +32,11 @@ build-shared:
 		time make CFLAGS="$(CFLAGS)"
 
 run-common: 
-	# (cd ../instrumented; /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./hmmer ref/input/nph3.hmm ref/input/swiss41) 2>&1 
 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./hmmer --fixed 0 --mean 500 --num 500000 --sd 350 --seed 0 ref/input/retro.hmm) 2>&1
+
+run-noprof: 
+	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./hmmer --fixed 0 --mean 500 --num 500000 --sd 350 --seed 0 ref/input/retro.hmm) 2>&1
+
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:

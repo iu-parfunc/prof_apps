@@ -13,19 +13,25 @@ build-ubiprof:
 	cd ../instrumented; make clean;\
 	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof -Wl,--no-as-needed' 
 
+build-noprof:
+	cd ..;./setup.sh finstrument
+	cd ../instrumented; make clean;\
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build/noprof -lrt -lubiprof -Wl,--no-as-needed' 
+
+
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building sjeng with gprof enabled..."
-	$(MAKE) CFLAGS='-O2 -pg' build-shared
+	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared
 
-build-dynaprof:
-	cd ..; ./setup.sh dynaprof 
-	echo -e "\nInstrumenting sjeng..."
-	cd ..; ./instrument.sh
-	echo -e "\nBuilding sjeng with instrumentation...";
-	cd ../instrumented;\
-		make clean;\
-		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
+# build-dynaprof:
+# 	cd ..; ./setup.sh dynaprof 
+# 	echo -e "\nInstrumenting sjeng..."
+# 	cd ..; ./instrument.sh
+# 	echo -e "\nBuilding sjeng with instrumentation...";
+# 	cd ../instrumented;\
+# 		make clean;\
+# 		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
 
 build-plain:
 	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
@@ -37,6 +43,10 @@ build-shared:
 
 run-common: 
 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./sjeng test/input/test.txt) 2>&1 
+
+run-noprof: 
+	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./sjeng test/input/test.txt) 2>&1 
+
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:
