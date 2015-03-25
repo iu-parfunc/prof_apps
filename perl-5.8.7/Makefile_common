@@ -14,6 +14,13 @@ build-ubiprof:
 		make clean;\
 		make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof -lm'
 
+build-noprof:
+	cd ..;./setup.sh 
+	cd ../instrumented;\
+		make clean;\
+		make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build/noprof -lrt -lubiprof -lm'
+
+
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building gzip with gprof enabled..."
@@ -40,9 +47,14 @@ build-shared:
 		time make CFLAGS='$(CFLAGS)' LDFLAGS='-lm'
 
 run-common: 
-	# (cd ../instrumented && ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1 
 	cd ../instrumented;\
 		(LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1
+
+run-noprof: 
+	cd ../instrumented;\
+		(LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1
+
+
 #	cd ../instrumented;\
 		echo -e "*** LDD OUTPUT";\
 		ldd perlbench

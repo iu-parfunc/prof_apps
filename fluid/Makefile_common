@@ -13,6 +13,10 @@ build-ubiprof:
 	cd ../src; make clean;\
 	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof -lrt' 
 
+build-noprof: 
+	cd ../src; make clean;\
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build/noprof -lubiprof -lrt' 
+
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building bzip2 with gprof enabled..."
@@ -28,6 +32,10 @@ build-shared:
 run-common:
 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi ) 
 	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./fluidanimate 8 50 in_500K.fluid) 2>&1 
+
+run-noprof:
+	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi ) 
+	(cd ../src; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./fluidanimate 8 50 in_500K.fluid) 2>&1 
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:
