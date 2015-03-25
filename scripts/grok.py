@@ -2,14 +2,27 @@
 import re
 import fileinput
 import operator
+import os
+
+class cd:
+  "Context manager for changing the current working directory"
+  def __init__(self, newPath):
+    self.newPath = os.path.expanduser(newPath)
+
+  def __enter__(self):
+    self.savedPath = os.getcwd()
+    os.chdir(self.newPath)
+
+  def __exit__(self, etype, value, traceback):
+    os.chdir(self.savedPath)
 
 # line = "Cats are smarter than dogs"
 def compare(file1, file2):
   f1 = {}
   f2 = {}
   for line in fileinput.input(file1):
-  # line = "Function Name: ParseContent Count 102 Deactivation Count : 0 Avg time (cycles) : 7456"
-    matchObj = re.match( r'Function Name: (.*) Count ([0-9]+)', line, re.M|re.I)
+  # line = "Function name : ParseContent Count 102 Deactivation Count : 0 Avg time (cycles) : 7456"
+    matchObj = re.match( r'Function name : (.*) Count ([0-9]+)', line, re.M|re.I)
     if matchObj:
       function = matchObj.group(1)
       count = int(matchObj.group(2))
@@ -38,37 +51,55 @@ def compare(file1, file2):
   f1_sorted = []
   for i, val in enumerate(f1_bucketed):
     val[1].sort()
-    f1_sorted.append(val[1])
+    f1_sorted.extend(val[1])
 
   f2_sorted = []
   for i, val in enumerate(f2_bucketed):
     val[1].sort()
-    f2_sorted.append(val[1])
+    f2_sorted.extend(val[1])
 
-  print "<<<<>>>>"
+  # print "<<<<>>>>"
 
   diffCount = 0
   for i, val in enumerate(f1_sorted):
+    if i > 100:
+      break
     if val != f2_sorted[i]:
-      print val, f2_sorted[i]
+      # print val, f2_sorted[i]
       diffCount += 1
 
   # print "Diff count : ", file1, file2, diffCount
   return diffCount
 
 def main():
-  benches = ['h264ref-9.3', 'perl-5.8.7', 'hmmer', 'lbm', 'nbody', 'blackscholes', 'fluid', 'hull'] 
+  # benches = ['h264ref-9.3', 'perl-5.8.7', 'hmmer', 'lbm', 'nbody', 'blackscholes', 'fluid', 'hull'] 
+  benches = ['h264ref-9.3', 'perl-5.8.7', 'hmmer'] 
+  # benches = ['h264ref-9.3'] 
   overheads = ['3', '5', '10']
+  # overheads = ['3']
   rounds = ['1', '2', '3']
+  # rounds = ['1']
 
-  for bench in benches:
-    for overhead in overheads:
-      for round in rounds:
-        trace = bench + "-trace.txt"
-        sample = "prof-swarm-" + bench + round + overhead + ".out"
+  RESULTS = "/u/budkahaw/Builds/FLOOD-papers/dynamic-prof/RESULTS/overhead_series/"
+  analysis = "Benchmark Overhead Round Diff\n"
+  with cd(RESULTS):
+    for bench in benches:
+      for overhead in overheads:
+        for round in rounds:
+          trace = "prof-swarm-" + bench + "-trace.txt"
+          sample = "prof-swarm-" + bench + "-" + round + "-" + overhead + ".out"
 
-        diff = compare(trace, sample)
-        print trace, sample, diff
+          diff = compare(trace, sample)
+          analysis += bench 
+          analysis += " "
+          analysis += overhead
+          analysis += " "
+          analysis += round
+          analysis += " "
+          analysis += str(diff)
+          analysis += "\n"
+
+  print analysis
  
 if __name__ == "__main__":
       main()
