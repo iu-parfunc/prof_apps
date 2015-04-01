@@ -26,7 +26,7 @@ OBJS= spec.o       \
 all: libbz2.a bzip2 
 
 bzip2: libbz2.a bzip2.o
-	$(CC) $(CFLAGS) -L. -lbz2 $(LDFLAGS) -o bzip2 bzip2.o -L. -lbz2
+	$(CC) $(CFLAGS) -o bzip2 bzip2.o -L. -lbz2  $(LDFLAGS)
 
 bzip2recover: bzip2recover.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -o bzip2recover bzip2recover.o
