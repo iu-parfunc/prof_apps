@@ -4,3 +4,6 @@ STATS_FILE=statistics.out
 
 
 TIME=time -f "SELFTIMED %e\nUSER_TIME %U\nSYS_TIME %s\n" -o $(STATS_FILE) -a
+
+HSB_OUT=tail -n 3 $(STATS_FILE)
+

@@ -43,7 +43,9 @@ build-shared:
 run-common: 
 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi )
 	echo $(LD_LIBRARY_PATH)
-	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./blackscholes 8 $(DATADIR)/blackscholes_data.input /dev/null) 2>&1 
+	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./blackscholes 8 $(DATADIR)/blackscholes_data.input /dev/null) 2>&1
+	(cd ../src; $(HSB_OUT))
+
 
 run-noprof: 
 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi )
