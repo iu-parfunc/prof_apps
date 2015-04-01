@@ -17,7 +17,7 @@ build-ubiprof:
 	cd ../instrumented; make clean;\
 	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof -lrt' 
 
-build-noporf:
+build-noprof:
 	cd ..;./setup.sh finstrument
 	cd ../instrumented; make clean;\
 	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build/noprof -lubiprof -lrt' 
@@ -45,10 +45,18 @@ build-shared:
 		time make CFLAGS="$(CFLAGS)"
 
 run-common: 
-	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./bzip2 test/input/input.source) 2>&1 
+	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./bzip2 test/input/input.source) 2>&1 
+	(cd ../instrumented; $(HSB_OUT))
 
 run-noprof: 
-	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./bzip2 test/input/input.source) 2>&1 
+	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) $(TIME) ./bzip2 test/input/input.source) 2>&1 
+	(cd ../instrumented; $(HSB_OUT)) 
+
+# run-common: 
+# 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./bzip2 test/input/input.source) 2>&1 
+
+# run-noprof: 
+# 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./bzip2 test/input/input.source) 2>&1 
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:
