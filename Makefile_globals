@@ -1,7 +1,7 @@
 # This file contains things that are used 
 # by all the individual benchmark makefiles.
 
-STATS_FILE=statistics.out 
+STATS_FILE=time.out 
 
 
 TIME=time -f "\nSELFTIMED %e\nUSER_TIME %U\nSYS_TIME %s" -a -o $(STATS_FILE) 
