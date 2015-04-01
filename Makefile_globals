@@ -4,7 +4,7 @@
 STATS_FILE=statistics.out 
 
 
-TIME=time -f "\nSELFTIMED %e\nUSER_TIME %U\nSYS_TIME %s" -o $(STATS_FILE) -a
+TIME=time -f "\nSELFTIMED %e\nUSER_TIME %U\nSYS_TIME %s" -a -o $(STATS_FILE) 
 
 HSB_OUT=tail -n 4 $(STATS_FILE)
 
