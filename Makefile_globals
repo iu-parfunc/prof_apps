@@ -3,8 +3,8 @@
 
 STATS_FILE=statistics.out 
 
-UBIPROF_LD='-L../../../build -Wl,--as-needed -lubiprof -lrt -lm '
-NOPROF_LD='-L../../../build/noprof -Wl,--as-needed -lubiprof -lrt -lm '
+UBIPROF_LD='-L../../../build  -lubiprof -lrt -lm -Wl,--no-as-needed'
+NOPROF_LD='-L../../../build/noprof  -lubiprof -lrt -lm -Wl,--no-as-needed'
 
 
 TIME=time -f "\nSELFTIMED %e\nUSER_TIME %U\nSYS_TIME %s" -a -o $(STATS_FILE) 
