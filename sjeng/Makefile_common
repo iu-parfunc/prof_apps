@@ -13,12 +13,12 @@ default:
 build-ubiprof:
 	cd ..;./setup.sh finstrument
 	cd ../instrumented; make clean;\
-	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lrt -lubiprof -Wl,--no-as-needed' 
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='$(UBIPROF_LD) -Wl,--no-as-needed' 
 
 build-noprof:
 	cd ..;./setup.sh finstrument
 	cd ../instrumented; make clean;\
-	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build/noprof -lrt -lubiprof -Wl,--no-as-needed' 
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='$(NOPROF_LD) -Wl,--no-as-needed' 
 
 
 # Build with icc and profiling:

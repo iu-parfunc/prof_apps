@@ -3,6 +3,9 @@
 
 STATS_FILE=statistics.out 
 
+UBIPROF_LD='-L../../../build -lrt -lubiprof -lm'
+NOPROF_LD='-L../../../build/noprof -lubiprof -lrt -lm'
+
 
 TIME=time -f "\nSELFTIMED %e\nUSER_TIME %U\nSYS_TIME %s" -a -o $(STATS_FILE) 
 
