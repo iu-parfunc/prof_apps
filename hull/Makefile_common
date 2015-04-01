@@ -23,11 +23,11 @@ DATADIR=/u/crest-team/ubiprof_data
 #Build with ubiprof finstrument baeckend
 build-ubiprof: 
 	cd ../quickHull; make clean;\
-	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build -lubiprof -lrt' 
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS=$(UBIPROF_LD)
 
 build-noprof: 
 	cd ../quickHull; make clean;\
-	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS='-L../../../build/noprof -lubiprof -lrt' 
+	make CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' LDFLAGS=$(NOPROF_LD)
 
 
 
