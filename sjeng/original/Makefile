@@ -18,7 +18,7 @@ OBJS= attacks.o book.o crazy.o draw.o ecache.o epd.o eval.o leval.o \
 all: sjeng 
 
 sjeng: $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 clean: 
 	rm -f *.o *.B *.i *.I *.O *.spin sjeng
