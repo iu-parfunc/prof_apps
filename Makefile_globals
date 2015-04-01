@@ -3,7 +3,7 @@
 
 STATS_FILE=statistics.out 
 
-UBIPROF_LD='-L../../../build -lrt -lubiprof -lm'
+UBIPROF_LD='-L../../../build -lubiprof -lrt -lm'
 NOPROF_LD='-L../../../build/noprof -lubiprof -lrt -lm'
 
 
