@@ -2,7 +2,7 @@
 # These are written from the perspective of one of the per-variant
 # subdirs of this directory. 
 
-include ../Makefile_globals
+include ../../Makefile_globals
 
 .PHONY: default clean run
 
