@@ -3,6 +3,8 @@
 # subdirs of this directory.
 # 
 
+include ../../Makefile_globals
+
 .PHONY: default clean run
 
 default:
@@ -42,10 +44,19 @@ build-shared:
 
 run-common:
 	(cd ../BarnesHut; if [ -d prof.out ]; then rm prof.out; fi )
-	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./nbody $(DATADIR)/nbody_data.input) 2>&1 
+	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./nbody $(DATADIR)/nbody_data.input) 2>&1 
+	(cd ../BarnesHut; $(HSB_OUT))
 
 run-noprof:
-	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/noprof:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./nbody $(DATADIR)/nbody_data.input) 2>&1 
+	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/noprof:$(LD_LIBRARY_PATH) $(TIME) ./nbody $(DATADIR)/nbody_data.input) 2>&1 
+	(cd ../BarnesHut; $(HSB_OUT))
+
+# run-common:
+# 	(cd ../BarnesHut; if [ -d prof.out ]; then rm prof.out; fi )
+# 	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./nbody $(DATADIR)/nbody_data.input) 2>&1 
+
+# run-noprof:
+# 	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/noprof:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./nbody $(DATADIR)/nbody_data.input) 2>&1 
 
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
