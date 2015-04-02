@@ -3,6 +3,11 @@
 
 STATS_FILE=statistics.out 
 
+
+UBIPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls $(EXCLUDED_FUNCTION_LIST)'
+NOPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' 
+
+
 UBIPROF_LD='-L../../../build  -Wl,--no-as-needed -lubiprof -lrt -lm '
 NOPROF_LD='-L../../../build/noprof -Wl,--no-as-needed -lubiprof -lrt -lm '
 
