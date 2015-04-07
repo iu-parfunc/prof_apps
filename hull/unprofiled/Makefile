@@ -1,16 +1,30 @@
-.PHONY: all clean run
 
-all: clean run	
+.PHONY: default clean run
 
-build:
-	cd ../quickHull;\
-	make clean;\
-	make 
+default: 
+	echo "Postponing to run"
 
-DATADIR=/u/crest-team/ubiprof_data
+include ../Makefile_common
 
-run: build
-	cd ../quickHull;\
-  (/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./hull $(DATADIR)/hull_data.input) 2>&1 ;\
+build: build-plain
+
+run: run-common
 
 clean:
+
+# .PHONY: all clean run
+
+# all: clean run	
+
+# build:
+# 	cd ../quickHull;\
+# 	make clean;\
+# 	make 
+
+# DATADIR=/u/crest-team/ubiprof_data
+
+# run: build
+# 	cd ../quickHull;\
+#   (/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./hull $(DATADIR)/hull_data.input) 2>&1 ;\
+
+# clean:

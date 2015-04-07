@@ -1,7 +1,9 @@
 
 include ../Makefile_common
 
-run: build-prof
+build: build-prof
+
+run: 
 	$(MAKE) run-common
 	(cd ../instrumented; gprof lbm gmon.out | tee ../gprof.out)
 

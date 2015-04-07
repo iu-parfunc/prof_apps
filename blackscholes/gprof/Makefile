@@ -1,7 +1,9 @@
 
 include ../Makefile_common
 
-run: build-prof
+build: build-prof
+
+run:
 	$(MAKE) run-common
 	(cd ../src; gprof blackscholes gmon.out  | tee ../gprof.out)
 
