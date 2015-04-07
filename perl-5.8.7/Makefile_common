@@ -39,6 +39,7 @@ build-prof:
 # 		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread -lm' 
 
 build-plain:
+	echo -e "MAKEFILE_COMMON: build-plain" 
 	cd ..; ./setup.sh
 	cd ../instrumented;\
 		time make CFLAGS='$(OPTLEVEL)' LDFLAGS='-lm'
