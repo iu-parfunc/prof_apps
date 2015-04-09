@@ -10,11 +10,13 @@ ifeq ($(OPTLEVEL),)
     OPTLEVEL=-O2
 endif
 
+
 default: 
 	echo "Doing nothing during 'compile' phase... procrastinating until run."
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof:
+	echo EXCLUDED_FUNCTION_LIST=$EXCLUDED_FUNCTION_LIST
 	cd ..;./setup.sh finstrument
 	cd ../instrumented; make clean;\
 	make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD)
