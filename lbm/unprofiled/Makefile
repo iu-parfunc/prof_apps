@@ -1,17 +1,9 @@
 
-.PHONY: default clean run
-
-#all: clean run	
-default: 
-	echo "Postponing to run"
-
-include ../Makefile_common
+.PHONY: clean run
 
 build: build-plain
-#	cd ..;./setup.sh 
-#	cd ../instrumented;\
-#	make clean;\
-#	make CFLAGS='-O2 -lm'
+
+include ../Makefile_common
 
 run: run-common
 

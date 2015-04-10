@@ -1,8 +1,8 @@
 .PHONY: clean run
 
-include ../Makefile_common
-
 build: build-plain
+
+include ../Makefile_common
 
 DATADIR=/u/crest-team/ubiprof_data
 

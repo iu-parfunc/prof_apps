@@ -1,5 +1,5 @@
 
-.PHONY: default clean run
+.PHONY: clean run
 
 build: build-plain
 

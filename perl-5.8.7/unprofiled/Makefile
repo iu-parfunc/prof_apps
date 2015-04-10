@@ -1,9 +1,5 @@
 
-.PHONY: default clean run
-
-#all: clean run	
-default: 
-	echo "Postponing to run" 
+.PHONY: clean run
 
 build: build-plain
 
