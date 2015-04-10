@@ -41,7 +41,7 @@ build-dynaprof:
 		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
 
 build-plain:
-	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
+	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared 
 
 build-shared:
 	cd ..; ./setup.sh
