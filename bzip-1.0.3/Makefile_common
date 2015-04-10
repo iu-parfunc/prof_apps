@@ -16,7 +16,7 @@ default:
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof:
-	echo EXCLUDED_FUNCTION_LIST=$EXCLUDED_FUNCTION_LIST
+	echo EXCLUDED_FUNCTION_LIST=$(EXCLUDED_FUNCTION_LIST)
 	cd ..;./setup.sh finstrument
 	cd ../instrumented; make clean;\
 	make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD)

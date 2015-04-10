@@ -1,12 +1,9 @@
 
 .PHONY: default clean run
 
-default: 
-	echo "Postponing to run"
+build: build-plain
 
 include ../Makefile_common
-
-build: build-plain
 
 run: run-common
 
