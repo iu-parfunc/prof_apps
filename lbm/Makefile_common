@@ -23,7 +23,7 @@ build-noprof:
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building bzip2 with gprof enabled..."
-	$(MAKE) CFLAGS='$(OPTLEVEL) -pg -lm' build-shared
+	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' LDFLAGS='-lm' build-shared
 
 # build-dynaprof:
 # 	cd ..; ./setup.sh dynaprof 
@@ -35,12 +35,12 @@ build-prof:
 # 		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
 
 build-plain:
-	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
+	$(MAKE) CFLAGS='$(OPTLEVEL)' LDFLAGS='-lm' build-shared
 
 build-shared:
 	cd ..; ./setup.sh
 	cd ../instrumented;\
-		time make CFLAGS="$(CFLAGS)"
+		time make CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
 
 run-common: 
 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./lbm 3000 reference.dat 0 0 data/ref/input/100_100_130_ldc.of) 2>&1 	
