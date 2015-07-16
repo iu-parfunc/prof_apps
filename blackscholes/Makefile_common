@@ -10,7 +10,7 @@ default:
 	echo "THIS NEVER HAPPENS!!" 
 
 
-DATADIR=/u/crest-team/ubiprof_data
+DATADIR=/u/crest-team/Joel/ubiprof_data
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof: 
