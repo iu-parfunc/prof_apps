@@ -4,6 +4,7 @@ include ../Makefile_common
 
 run: 
 	echo "Creating functions.txt" 
+	readelf --version
 	(cd ../src; readelf -s fluidanimate |grep FUNC | awk -F '[[:space:]]+' '{print $$3 "," $$9}' > functions.txt)
 	echo "Entering run-common" 
 	$(MAKE) run-common
