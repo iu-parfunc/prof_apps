@@ -12,6 +12,9 @@ default:
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof: 
+	echo "GCC VERSION IS CURRENTLY" 
+	gcc --version 
+	g++ --version
 	cd ../src; make clean;\
 	make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD) 
 
