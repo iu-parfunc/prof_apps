@@ -2,11 +2,16 @@ ifdef LONG
 INTT = -DLONG
 endif
 
-#O2
-# ifdef OPENMP
-PCC = g++ -Wl,--no-as-needed
-PCFLAGS = -fopenmp -DOPENMP $(INTT) $(CFLAGS)
+PCC = g++ -Wl,-Map,a.map
+PCFLAGS = -fopenmp -DOPENMP $(INTT) $(CFLAGS) 
 PLFLAGS = -fopenmp $(LDFLAGS)
+
+
+#O2  USE THIS ONE! 
+# ifdef OPENMP
+#PCC = g++ -Wl,--no-as-needed
+#PCFLAGS = -fopenmp -DOPENMP $(INTT) $(CFLAGS) 
+#PLFLAGS = -fopenmp $(LDFLAGS)
 
 #O2
 # else ifdef CILK

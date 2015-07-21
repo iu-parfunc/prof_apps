@@ -3,6 +3,8 @@ build: build-ubiprof
 include ../Makefile_common
 
 run: 
+	echo "The user running this benchmark is:"
+	whoami
 	echo "Creating functions.txt" 
 	readelf --version
 	(cd ../src; readelf -s fluidanimate |grep FUNC | awk -F '[[:space:]]+' '{print $$3 "," $$9}' > functions.txt)

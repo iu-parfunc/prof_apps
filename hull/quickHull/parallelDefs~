@@ -2,23 +2,32 @@ ifdef LONG
 INTT = -DLONG
 endif
 
-ifdef OPENMP
-PCC = g++
-PCFLAGS = -fopenmp -O2 -DOPENMP $(INTT)
-PLFLAGS = -fopenmp
+PCC = g++ -Wl,-M
+PCFLAGS = -fopenmp -DOPENMP $(INTT) $(CFLAGS) 
+PLFLAGS = -fopenmp $(LDFLAGS)
 
-else ifdef CILK
-PCC = cilk++
-PCFLAGS = -O2 -DCILK -Wno-cilk-for $(INTT)
-PLFLAGS = 
 
-else ifdef MKLROOT
-PCC = icpc
-PCFLAGS = -O3 -DCILKP $(INTT)
-PLFLAGS = 
+#O2  USE THIS ONE! 
+# ifdef OPENMP
+#PCC = g++ -Wl,--no-as-needed
+#PCFLAGS = -fopenmp -DOPENMP $(INTT) $(CFLAGS) 
+#PLFLAGS = -fopenmp $(LDFLAGS)
 
-else
-PCC = g++
-PLFLAGS = $(LFLAGS)
-PCFLAGS = -O2 $(INTT)
-endif
+#O2
+# else ifdef CILK
+# PCC = cilk++
+# PCFLAGS = -DCILK -Wno-cilk-for $(INTT) $(CFLAGS)
+# PLFLAGS = $(LDFLAGS)
+
+#O3
+# else ifdef MKLROOT
+# PCC = icpc
+# PCFLAGS = -DCILKP $(INTT) $(CFLAGS)
+# PLFLAGS = $(LDFLAGS)
+
+#O2
+# else
+# PCC = g++
+# PLFLAGS = $(LFLAGS) $(LDFLAGS)
+# PCFLAGS = $(INTT) $(CFLAGS)
+# endif
