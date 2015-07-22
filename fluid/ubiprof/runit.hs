@@ -5,14 +5,17 @@ module Main where
 import System.Process
 import System.IO 
 import System.Environment
+import System.Directory
+import qualified Data.ByteString.Char8 as B
 
 main = do
 
    curEnv <- getEnvironment
+   curDir <- getCurrentDirectory
    
    (Just _hin, Just hout, Just herr, ph) <-
      createProcess (CreateProcess { cmdspec = ShellCommand "make run",
-                               cwd = Nothing,
+                               cwd = Just curDir,
                                env = Just ([ ("PROFILER_TYPE","MINIMAL_ADAPTIVE")
                                           , ("ADAPTIVE_STRATEGY","SLOW_RAMP_UP")
                                           , ("TARGET_OVERHEAD","3")] ++ curEnv),
@@ -25,9 +28,11 @@ main = do
                                delegate_ctlc = False
                                                })
 
-   out <- hGetContents hout
-   err <- hGetContents herr
+   out <- B.hGetContents hout
+   err <- B.hGetContents herr
 
-   putStrLn out
+   _ <- waitForProcess ph
 
-   putStrLn err
+   B.putStrLn out
+
+   B.putStrLn err
