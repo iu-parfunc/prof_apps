@@ -1,7 +1,7 @@
 TARGET   = fluidanimate
 SRCS     = pthreads.cpp cellpool.cpp parsec_barrier.cpp
 OBJS     = pthreads.o cellpool.o parsec_barrier.o
-CXXFLAGS += $(CFLAGS) -pthread -D_GNU_SOURCE -D__XOPEN_SOURCE=600  
+CXXFLAGS += $(CFLAGS) -pthread -D_GNU_SOURCE -D__XOPEN_SOURCE=600 -fno-inline -fno-inline-functions
 
 # To enable visualization comment out the following lines (don't do this for benchmarking)
 #OBJS     += fluidview.o

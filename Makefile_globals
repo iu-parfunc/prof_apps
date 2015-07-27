@@ -8,7 +8,7 @@ UBIPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls $
 NOPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' 
 
 
-UBIPROF_LD='-L../../../build  -Wl,--no-as-needed -lubiprof -lstdc++ -lrt -lm '
+UBIPROF_LD='-L../../../build  -Wl,--no-as-needed -lubiprof -Wl,--export-dynamic -lstdc++ -lrt -lm -ldl'
 NOPROF_LD='-L../../../build/noprof -Wl,--no-as-needed -lubiprof -lstdc++ -lrt -lm '
 
 
