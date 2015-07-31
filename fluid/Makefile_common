@@ -22,15 +22,15 @@ build-ubiprof:
 
 build-noprof: 
 	cd ../src; make clean;\
-	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS='$(NOPROF_LD) -lrt'
+	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS='$(NOPROF_LD)'
 
 # Build with icc and profiling:
 build-prof:
 	echo -e "Building bzip2 with gprof enabled..."
-	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared
+	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared LDFLAGS+='-lrt'
 
 build-plain:
-	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
+	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared LDFLAGS+='-lrt'
 
 build-shared:
 	cd ../src; make clean;\
