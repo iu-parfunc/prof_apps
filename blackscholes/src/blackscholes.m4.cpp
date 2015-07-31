@@ -70,6 +70,9 @@
 #include <math.h>
 #include <string.h>
 
+#include <time.h> 
+#include <inttypes.h>
+
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
@@ -510,6 +513,13 @@ int main (int argc, char **argv)
     __parsec_roi_begin();
 #endif
 
+    //BJS TIMING 
+    struct timespec ts1;
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts1);
+    uint64_t start = (ts1.tv_sec * 1000000000LL + ts1.tv_nsec);
+  
+
+
 #ifdef ENABLE_THREADS
 #ifdef WIN32
     HANDLE *threads;
@@ -552,6 +562,13 @@ int main (int argc, char **argv)
     }
 ;
     free(tids);
+
+    // BJS END TIMING 
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts1);
+    uint64_t end = (ts1.tv_sec * 1000000000LL + ts1.tv_nsec);
+
+    fprintf(stdout,"PARALLEL_SECTION_SECONDS: %f\n", (double)(end - start)/1000000000.0);
+
 #endif //WIN32
 #else //ENABLE_THREADS
 #ifdef ENABLE_OPENMP
