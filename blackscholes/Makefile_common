@@ -21,7 +21,7 @@ build-ubiprof:
 
 build-noprof: 
 	cd ../src; make clean;\
-	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(NOPROF_LD) 
+	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS='$(NOPROF_LD) -lrt'
 
 
 
