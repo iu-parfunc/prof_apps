@@ -25,12 +25,16 @@
 #include "fluidview.hpp"
 #endif
 
+// #define ENABLE_PARSEC_HOOKS
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
 
+// ADDED BY JS 
+#include <time.h> 
+
 //Uncomment to add code to check that Courant–Friedrichs–Lewy condition is satisfied at runtime
-//#define ENABLE_CFL_CHECK
+// #define ENABLE_CFL_CHECK
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -1237,6 +1241,10 @@ int main(int argc, char *argv[])
   InitVisualizationMode(&argc, argv, &AdvanceFrameVisualization, &numCells, &cells, &cnumPars);
 #endif
 
+  struct timespec ts1;
+  clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts1);
+  uint64_t start = (ts1.tv_sec * 1000000000LL + ts1.tv_nsec);
+
 #ifdef ENABLE_PARSEC_HOOKS
   __parsec_roi_begin();
 #endif
@@ -1262,6 +1270,12 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
   __parsec_roi_end();
 #endif
+  
+  // BJS END TIMING 
+  clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts1);
+  uint64_t end = (ts1.tv_sec * 1000000000LL + ts1.tv_nsec);
+
+  fprintf(stdout,"PARALLEL_SECTION_SECONDS: %f\n", (double)(end - start)/1000000000.0);
 
   if(argc > 4)
     SaveFile(argv[4]);

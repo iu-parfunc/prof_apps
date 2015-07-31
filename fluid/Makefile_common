@@ -9,6 +9,8 @@ include ../../Makefile_globals
 default:
 	echo "THIS NEVER HAPPENS!!!" 
 
+N_THREADS ?= 8
+N_ITERS   ?=50
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof: 
@@ -36,21 +38,15 @@ build-shared:
 
 run-common:
 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi ) 
-	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./fluidanimate 8 50 in_500K.fluid) 2>&1 
+	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./fluidanimate $(N_THREADS) $(N_ITERS) in_500K.fluid) 2>&1 
 	(cd ../src; $(HSB_OUT))
 
 run-noprof:
 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi ) 
-	(cd ../src; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) $(TIME) ./fluidanimate 8 50 in_500K.fluid) 2>&1 
+	(cd ../src; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) $(TIME) ./fluidanimate $(N_THREADS) $(N_ITERS) in_500K.fluid) 2>&1 
 	(cd ../src; $(HSB_OUT))
 
-# run-common:
-# 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi ) 
-# 	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./fluidanimate 8 50 in_500K.fluid) 2>&1 
 
-# run-noprof:
-# 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi ) 
-# 	(cd ../src; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./fluidanimate 8 50 in_500K.fluid) 2>&1 
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
 clean:
