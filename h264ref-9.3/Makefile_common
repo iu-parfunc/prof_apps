@@ -18,7 +18,7 @@ build-ubiprof:
 build-noprof:
 	  cd ..;./setup.sh 
 		cd ../instrumented; make clean;\
-		  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(NOPROD_LD)
+		  make CFLAGS='$(NOPROF_CFLAGS) LDFLAGS=$(NOPROD_LD)
 
 
 #Build with finstrument

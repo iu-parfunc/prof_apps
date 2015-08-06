@@ -4,8 +4,8 @@
 STATS_FILE=statistics.out 
 
 
-UBIPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls $(EXCLUDED_FUNCTION_LIST)'
-NOPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-optimize-sibling-calls' 
+UBIPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-inline -fno-optimize-sibling-calls $(EXCLUDED_FUNCTION_LIST)'
+NOPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-inline -fno-optimize-sibling-calls' 
 
 
 UBIPROF_LD='-L../../../build  -Wl,--no-as-needed -lubiprof -Wl,--export-dynamic -lstdc++ -lrt -lm -ldl'
