@@ -60,7 +60,7 @@ build-shared:
 	(cd ../instrumented && time make CFLAGS="$(CFLAGS)" LDFLAGS='-lm')
 
 run-common: 
-	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) 2>&1
+	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/lib:$(LD_LIBRARY_PATH) $(TIME) ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) 2>&1
 	(cd ../instrumented; $(HSB_OUT))
 
 run-noprof: 
