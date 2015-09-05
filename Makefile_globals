@@ -3,7 +3,7 @@
 
 STATS_FILE=statistics.out 
 
-
+EXCLUDED_FUNCTION_LIST='-finstrument-functions-exclude-function-list=new'
 UBIPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-inline -fno-optimize-sibling-calls $(EXCLUDED_FUNCTION_LIST)'
 NOPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-inline -fno-optimize-sibling-calls' 
 
