@@ -6,7 +6,7 @@ include ../../Makefile_globals
 
 .PHONY: default clean run
 
-default: 
+default:
 	echo "Doing nothing during 'compile' phase... procrastinating until run."
 
 #Build with ubiprof finstrument baeckend
@@ -15,10 +15,10 @@ build-ubiprof:
 	cd ../instrumented; make clean;\
 	make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD)
 
-build-noprof: 
+build-noprof:
 	cd ..;./setup.sh finstrument
 	cd ../instrumented; make clean;\
-	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(NOPROF_LD) 
+	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(NOPROF_LD)
 
 
 # Build with icc and profiling:
@@ -27,13 +27,13 @@ build-prof:
 	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared
 
 # build-dynaprof:
-# 	cd ..; ./setup.sh dynaprof 
+# 	cd ..; ./setup.sh dynaprof
 # 	echo -e "\nInstrumenting sjeng..."
 # 	cd ..; ./instrument.sh
 # 	echo -e "\nBuilding sjeng with instrumentation...";
 # 	cd ../instrumented;\
 # 		make clean;\
-# 		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread' 
+# 		make CLFAGS='-O2' LDFLAGS='libdynaprof.a libzca-toggle.a -lrt -lelf -lpthread'
 
 build-plain:
 	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
@@ -43,19 +43,19 @@ build-shared:
 	cd ../instrumented;\
 		time make CFLAGS="$(CFLAGS)"
 
-run-common: 
-	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./sjeng test/input/test.txt) 2>&1 
+run-common:
+	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/lib/:$(LD_LIBRARY_PATH) $(TIME) ./sjeng test/input/test.txt) 2>&1
 	(cd ../instrumented; $(HSB_OUT))
 
-run-noprof: 
-	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) $(TIME) ./sjeng test/input/test.txt) 2>&1 
+run-noprof:
+	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) $(TIME) ./sjeng test/input/test.txt) 2>&1
 	(cd ../instrumented; $(HSB_OUT))
 
-# run-common: 
-# 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./sjeng test/input/test.txt) 2>&1 
+# run-common:
+# 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./sjeng test/input/test.txt) 2>&1
 
-# run-noprof: 
-# 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./sjeng test/input/test.txt) 2>&1 
+# run-noprof:
+# 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./sjeng test/input/test.txt) 2>&1
 
 
 # We don't really need to clean, because we do a fresh "configure" on each build.
