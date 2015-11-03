@@ -45,7 +45,7 @@ build-shared:
 
 run-common: 
 	(cd ../quickHull; if [ -d prof.out ]; then rm prof.out; fi )
-	(cd ../quickHull; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./hull $(DATADIR)/hull_data.input) 2>&1 
+	(cd ../quickHull; $(UBIPROF_LD_PATH) $(TIME) ./hull $(DATADIR)/hull_data.input) 2>&1 
 	(cd ../quickHull; $(HSB_OUT))
 
 run-noprof: 

@@ -3,11 +3,11 @@
 
 STATS_FILE=statistics.out 
 
-EXCLUDED_FUNCTION_LIST='-finstrument-functions-exclude-function-list=new'
+EXCLUDED_FUNCTION_LIST='-finstrument-functions-exclude-function-list=\'new,operator\|\''
 UBIPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-inline -fno-optimize-sibling-calls $(EXCLUDED_FUNCTION_LIST)'
 NOPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-inline -fno-optimize-sibling-calls' 
 
-
+UBIPROF_LD_PATH=LD_LIBRARY_PATH=../../../build/lib:$(LD_LIBRARY_PATH)
 UBIPROF_LD='-L../../../build/lib  -Wl,--no-as-needed -lubiprof -Wl,--export-dynamic -lstdc++ -lrt -lm -ldl'
 NOPROF_LD='-L../../../build/noprof -Wl,--no-as-needed -lubiprof -lstdc++ -lrt -lm '
 

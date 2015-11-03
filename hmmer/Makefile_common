@@ -34,7 +34,7 @@ build-shared:
 		time make CFLAGS="$(CFLAGS)"
 
 run-common: 
-	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./hmmer --fixed 0 --mean 500 --num 500000 --sd 350 --seed 0 ref/input/retro.hmm) 2>&1
+	(cd ../instrumented; $(UBIPROF_LD_PATH) $(TIME) ./hmmer --fixed 0 --mean 500 --num 500000 --sd 350 --seed 0 ref/input/retro.hmm) 2>&1
 	(cd ../instrumented; $(HSB_OUT))
 
 run-noprof: 

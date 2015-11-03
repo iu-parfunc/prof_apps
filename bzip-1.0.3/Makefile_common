@@ -16,7 +16,7 @@ default:
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof:
-	echo EXCLUDED_FUNCTION_LIST=$(EXCLUDED_FUNCTION_LIST)
+	# echo EXCLUDED_FUNCTION_LIST=$(EXCLUDED_FUNCTION_LIST)
 	cd ..;./setup.sh finstrument
 	cd ../instrumented; make clean;\
 	make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD)
@@ -49,7 +49,7 @@ build-shared:
 		time make CFLAGS="$(CFLAGS)"
 
 run-common: 
-	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./bzip2 test/input/input.source) 2>&1 
+	(cd ../instrumented; $(UBIPROF_LD_PATH) $(TIME) ./bzip2 test/input/input.source) 2>&1 
 	(cd ../instrumented; $(HSB_OUT))
 
 run-noprof: 

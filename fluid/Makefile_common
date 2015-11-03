@@ -38,7 +38,7 @@ build-shared:
 
 run-common:
 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi ) 
-	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./fluidanimate $(N_THREADS) $(N_ITERS) in_500K.fluid) 2>&1 
+	(cd ../src; $(UBIPROF_LD_PATH) $(TIME) ./fluidanimate $(N_THREADS) $(N_ITERS) in_500K.fluid) 2>&1 
 	(cd ../src; $(HSB_OUT))
 
 run-noprof:

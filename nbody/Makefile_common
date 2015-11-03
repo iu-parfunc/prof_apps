@@ -44,7 +44,7 @@ build-shared:
 
 run-common:
 	(cd ../BarnesHut; if [ -d prof.out ]; then rm prof.out; fi )
-	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/lib:$(LD_LIBRARY_PATH) $(TIME) ./nbody $(DATADIR)/data.out) 2>&1 
+	(cd ../BarnesHut; $(UBIPROF_LD_PATH) $(TIME) ./nbody $(DATADIR)/data.out) 2>&1 
 	(cd ../BarnesHut; $(HSB_OUT))
 
 run-noprof:

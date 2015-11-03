@@ -43,7 +43,7 @@ build-shared:
 		time make CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
 
 run-common: 
-	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./lbm 3000 reference.dat 0 0 data/ref/input/100_100_130_ldc.of) 2>&1 	
+	(cd ../instrumented; $(UBIPROF_LD_PATH) $(TIME) ./lbm 3000 reference.dat 0 0 data/ref/input/100_100_130_ldc.of) 2>&1 	
 	(cd ../instrumented; $(HSB_OUT))
 
 run-noprof: 

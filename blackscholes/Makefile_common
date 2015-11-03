@@ -40,7 +40,7 @@ build-shared:
 run-common: 
 	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi )
 	echo $(LD_LIBRARY_PATH)
-	(cd ../src; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) $(TIME) ./blackscholes $(N_THREADS) $(DATADIR)/blackscholes_data.input /dev/null) 2>&1
+	(cd ../src; $(UBIPROF_LD_PATH) $(TIME) ./blackscholes $(N_THREADS) $(DATADIR)/blackscholes_data.input /dev/null) 2>&1
 	(cd ../src; $(HSB_OUT))
 
 
