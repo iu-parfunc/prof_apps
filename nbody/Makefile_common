@@ -18,7 +18,7 @@ gen-data:
 	     ./uniform -s -d 3 1000000 data.out
 
 
-DATADIR=../Data
+DATADIR=/u/crest-team/Joel/ubiprof_data
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof: 
@@ -44,7 +44,7 @@ build-shared:
 
 run-common:
 	(cd ../BarnesHut; if [ -d prof.out ]; then rm prof.out; fi )
-	(cd ../BarnesHut; $(UBIPROF_LD_PATH) $(TIME) ./nbody $(DATADIR)/data.out) 2>&1 
+	(cd ../BarnesHut; $(UBIPROF_LD_PATH) $(TIME) ./nbody $(DATADIR)/nbody_data.input) 2>&1 
 	(cd ../BarnesHut; $(HSB_OUT))
 
 run-noprof:
