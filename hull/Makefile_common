@@ -40,7 +40,7 @@ build-plain:
 	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
 
 build-shared:
-	cd ../quickhull; make clean;\
+	cd ../quickHull; make clean;\
 		time make CFLAGS="$(CFLAGS)"
 
 run-common: 
