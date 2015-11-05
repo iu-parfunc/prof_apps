@@ -13,4 +13,4 @@ gen-data:
 
 
 clean:
-	rm blackscholes
+	if [ -d blackscholes ]; then rm blackscholes; fi
