@@ -10,7 +10,7 @@ default:
 	echo "THIS NEVER HAPPENS!!" 
 
 
-N_THREADS ?= 8 
+N_THREADS = 16 
 
 DATADIR=/u/crest-team/Joel/ubiprof_data
 
