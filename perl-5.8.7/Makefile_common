@@ -16,11 +16,15 @@ build-ubiprof:
 		make clean;\
 		make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD)
 
-build-noprof:
-	cd ..;./setup.sh 
-	cd ../instrumented;\
-		make clean;\
-		make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(NOPROF_LD)
+build-emptyprof:
+	  cd ..;./setup.sh 
+		cd ../instrumented; make clean;\
+		  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(EMPTYPROF_LD)
+
+build-pointpatched:
+	  cd ..;./setup.sh 
+		cd ../instrumented; make clean;\
+		  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(POINTPATCHED_LD)
 
 
 # Build with icc and profiling:

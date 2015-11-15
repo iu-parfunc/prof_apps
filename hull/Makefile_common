@@ -29,6 +29,14 @@ build-noprof:
 	cd ../quickHull; make clean;\
 	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(NOPROF_LD)
 
+build-emptyprof:
+	  cd ../quickHull; make clean;\
+	  make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(EMPTYPROF_LD)
+
+build-pointpatched:
+	  cd ../quickHull; make clean;\
+		make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(POINTPATCHED_LD)
+
 
 
 # Build with icc and profiling:

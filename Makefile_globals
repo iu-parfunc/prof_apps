@@ -9,7 +9,8 @@ NOPROF_CFLAGS='$(OPTLEVEL) -finstrument-functions -fno-inline -fno-optimize-sibl
 
 UBIPROF_LD_PATH=LD_LIBRARY_PATH=../../../build/lib:$(LD_LIBRARY_PATH)
 UBIPROF_LD='-L../../../build/lib  -Wl,--no-as-needed -lubiprof -Wl,--export-dynamic -lstdc++ -lrt -lm -ldl'
-NOPROF_LD='-L../../../build/noprof -Wl,--no-as-needed -lubiprof -lstdc++ -lrt -lm '
+EMPTYPROF_LD='-L../../../build/lib -Wl,--no-as-needed -lempty -lstdc++ -lrt -lm '
+POINTPATCHED_LD='-L../../../build/lib -Wl,--no-as-needed -lpointpatched -lstdc++ -lrt -lm '
 
 
 TIME=time -f "\nSELFTIMED %e\nUSER_TIME %U\nSYS_TIME %s" -a -o $(STATS_FILE) 

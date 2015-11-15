@@ -23,6 +23,14 @@ build-noprof:
 	cd ../src; make clean;\
 	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS='$(NOPROF_LD)'
 
+build-emptyprof:
+	cd ../src; make clean;\
+	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(EMPTYPROF_LD)
+
+build-pointpatched:
+	cd ../src; make clean;\
+  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(POINTPATCHED_LD)
+
 
 
 # Build with icc and profiling:

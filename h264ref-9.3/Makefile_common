@@ -15,10 +15,15 @@ build-ubiprof:
 		cd ../instrumented; make clean;\
 		  make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD)
 
-build-noprof:
+build-emptyprof:
 	  cd ..;./setup.sh 
 		cd ../instrumented; make clean;\
-		  make CFLAGS='$(NOPROF_CFLAGS) LDFLAGS=$(NOPROD_LD)
+		  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(EMPTYPROF_LD)
+
+build-pointpatched:
+	  cd ..;./setup.sh 
+		cd ../instrumented; make clean;\
+		  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(POINTPATCHED_LD)
 
 
 #Build with finstrument
@@ -62,10 +67,6 @@ build-shared:
 run-common: 
 	(cd ../instrumented; $(UBIPROF_LD_PATH) $(TIME) ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) 2>&1
 	(cd ../instrumented; $(HSB_OUT))
-
-run-noprof: 
-	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) $(TIME) ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) 2>&1
-	(cd ../instrumented; $(HSB_OUT)) 
 
 # run-common: 
 # 	(cd ../instrumented; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) 2>&1

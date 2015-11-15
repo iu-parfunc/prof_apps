@@ -9,8 +9,8 @@ include ../../Makefile_globals
 default:
 	echo "THIS NEVER HAPPENS!!!" 
 
-N_THREADS ?= 8
-N_ITERS   ?=50
+N_THREADS = 16
+N_ITERS   =50
 
 #Build with ubiprof finstrument baeckend
 build-ubiprof: 
@@ -23,6 +23,15 @@ build-ubiprof:
 build-noprof: 
 	cd ../src; make clean;\
 	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS='$(NOPROF_LD)'
+
+build-emptyprof:
+		cd ../src; make clean;\
+		  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(EMPTYPROF_LD)
+
+build-pointpatched:
+		cd ../src; make clean;\
+		  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(POINTPATCHED_LD)
+
 
 # Build with icc and profiling:
 build-prof:
