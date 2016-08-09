@@ -1,11 +1,13 @@
 #!/bin/bash
 
-set -e
+set -e 
 
-BENCH_HOME=`pwd`
-
-if [ -d "instrumented" ]; then
+if [[ -d "instrumented" ]]; then
   rm -rf instrumented
 fi
 
 cp -R original instrumented
+
+if [[ $1 == "liteprof" ]]; then
+  cp liteprof/perlmain.c instrumented/perlmain.c
+fi
