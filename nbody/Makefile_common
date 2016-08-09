@@ -3,9 +3,15 @@
 # subdirs of this directory.
 # 
 
-include ../../Makefile_globals
 
 .PHONY: default clean run
+
+DATADIR=/u/crest-team/Joel/ubiprof_data
+
+APPCMD=./nbody $(DATADIR)/nbody_data.input
+SRCS=../BarnesHut
+
+include ../../Makefile_root
 
 default:
 	echo "THIS NEVER HAPPENS!!!" 
@@ -16,48 +22,3 @@ gen-data:
              make
 	cd ../Data;\
 	     ./uniform -s -d 3 1000000 data.out
-
-
-DATADIR=/u/crest-team/Joel/ubiprof_data
-
-#Build with ubiprof finstrument baeckend
-build-ubiprof: 
-	cd ../BarnesHut; make clean;\
-	make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD)
-
-build-noprof: 
-	cd ../BarnesHut; make clean;\
-	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(NOPROF_LD) 
-
-
-# Build with icc and profiling:
-build-prof:
-	echo -e "Building bzip2 with gprof enabled..."
-	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared
-
-build-plain:
-	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared
-
-build-shared:
-	cd ../BarnesHut; make clean;\
-		time make CFLAGS="$(CFLAGS)"
-
-run-common:
-	(cd ../BarnesHut; if [ -d prof.out ]; then rm prof.out; fi )
-	(cd ../BarnesHut; $(UBIPROF_LD_PATH) $(TIME) ./nbody $(DATADIR)/nbody_data.input) 2>&1 
-	(cd ../BarnesHut; $(HSB_OUT))
-
-run-noprof:
-	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/noprof:$(LD_LIBRARY_PATH) $(TIME) ./nbody $(DATADIR)/nbody_data.input) 2>&1 
-	(cd ../BarnesHut; $(HSB_OUT))
-
-# run-common:
-# 	(cd ../BarnesHut; if [ -d prof.out ]; then rm prof.out; fi )
-# 	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./nbody $(DATADIR)/nbody_data.input) 2>&1 
-
-# run-noprof:
-# 	(cd ../BarnesHut; LD_LIBRARY_PATH=../../../build/noprof:$(LD_LIBRARY_PATH) /usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./nbody $(DATADIR)/nbody_data.input) 2>&1 
-
-
-# We don't really need to clean, because we do a fresh "configure" on each build.
-clean:
