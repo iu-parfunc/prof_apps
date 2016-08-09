@@ -2,60 +2,12 @@
 # These are written from the perspective of one of the per-variant
 # subdirs of this directory.
 
-include ../../Makefile_globals
-
 .PHONY: default clean run
-
-default:
-	echo "THIS NEVER HAPPENS!!!" 
 
 N_THREADS = 16
 N_ITERS   =50
 
-#Build with ubiprof finstrument baeckend
-build-ubiprof: 
-	echo "GCC VERSION IS CURRENTLY" 
-	gcc --version 
-	g++ --version
-	cd ../src; make clean;\
-	make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD) 
+APPCMD=./fluidanimate $(N_THREADS) $(N_ITERS) in_500K.fluid
+SRCS=../src
 
-build-noprof: 
-	cd ../src; make clean;\
-	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS='$(NOPROF_LD)'
-
-build-emptyprof:
-		cd ../src; make clean;\
-		  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(EMPTYPROF_LD)
-
-build-pointpatched:
-		cd ../src; make clean;\
-		  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(POINTPATCHED_LD)
-
-
-# Build with icc and profiling:
-build-prof:
-	echo -e "Building bzip2 with gprof enabled..."
-	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared LDFLAGS+='-lrt'
-
-build-plain:
-	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared LDFLAGS+='-lrt'
-
-build-shared:
-	cd ../src; make clean;\
-		time make CFLAGS="$(CFLAGS)"
-
-run-common:
-	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi ) 
-	(cd ../src; $(UBIPROF_LD_PATH) $(TIME) ./fluidanimate $(N_THREADS) $(N_ITERS) in_500K.fluid) 2>&1 
-	(cd ../src; $(HSB_OUT))
-
-run-noprof:
-	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi ) 
-	(cd ../src; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) $(TIME) ./fluidanimate $(N_THREADS) $(N_ITERS) in_500K.fluid) 2>&1 
-	(cd ../src; $(HSB_OUT))
-
-
-
-# We don't really need to clean, because we do a fresh "configure" on each build.
-clean:
+include ../../Makefile_root

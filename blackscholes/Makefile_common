@@ -2,61 +2,16 @@
 # These are written from the perspective of one of the per-variant
 # subdirs of this directory. 
 
-include ../../Makefile_globals
+include ../../Makefile_root
+
+N_THREADS = 16 
+DATADIR=/u/crest-team/Joel/ubiprof_data
+
+APPCMD=./blackscholes $(N_THREADS) $(DATADIR)/blackscholes_data.input /dev/null
+SRCS=../src
+
 
 .PHONY: default clean run
 
 default:
 	echo "THIS NEVER HAPPENS!!" 
-
-
-N_THREADS = 16 
-
-DATADIR=/u/crest-team/Joel/ubiprof_data
-
-#Build with ubiprof finstrument baeckend
-build-ubiprof: 
-	cd ../src; make clean;\
-	make CFLAGS=$(UBIPROF_CFLAGS) LDFLAGS=$(UBIPROF_LD) 
-
-build-noprof: 
-	cd ../src; make clean;\
-	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS='$(NOPROF_LD)'
-
-build-emptyprof:
-	cd ../src; make clean;\
-	make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(EMPTYPROF_LD)
-
-build-pointpatched:
-	cd ../src; make clean;\
-  make CFLAGS=$(NOPROF_CFLAGS) LDFLAGS=$(POINTPATCHED_LD)
-
-
-
-# Build with icc and profiling:
-build-prof:
-	echo -e "Building bzip2 with gprof enabled..."
-	$(MAKE) CFLAGS='$(OPTLEVEL) -pg' build-shared LDFLAGS+='-lrt'
-
-build-plain:
-	$(MAKE) CFLAGS='$(OPTLEVEL)' build-shared LDFLAGS+='-lrt'
-
-build-shared:
-	cd ../src; make clean;\
-		time make CFLAGS="$(CFLAGS)"
-
-run-common: 
-	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi )
-	echo $(LD_LIBRARY_PATH)
-	(cd ../src; $(UBIPROF_LD_PATH) $(TIME) ./blackscholes $(N_THREADS) $(DATADIR)/blackscholes_data.input /dev/null) 2>&1
-	(cd ../src; $(HSB_OUT))
-
-
-run-noprof: 
-	(cd ../src; if [ -d prof.out ]; then rm prof.out; fi )
-	echo $(LD_LIBRARY_PATH)
-	(cd ../src; LD_LIBRARY_PATH=../../../build/noprof/:$(LD_LIBRARY_PATH) $(TIME) ./blackscholes $(N_THREADS) $(DATADIR)/blackscholes_data.input /dev/null) 2>&1 
-	(cd ../src; $(HSB_OUT))
-
-# We don't really need to clean, because we do a fresh "configure" on each build.
-clean:
