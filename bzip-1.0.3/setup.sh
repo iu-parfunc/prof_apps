@@ -17,8 +17,6 @@ fi
 cd $BENCH_HOME
 cp -R original instrumented
 
-if [ "$1" = "dynaprof" ]; then
-  cd ..
-  ./install.sh bzip2 
-  echo -e "\nInstalled dynaprof..."
+if [[ $1 == "liteprof" ]]; then
+  cp liteprof/spec.c instrumented/spec.c
 fi
