@@ -17,8 +17,6 @@ fi
 cd $BENCH_HOME
 cp -R original instrumented
 
-if [ "$1" = "dynaprof" ]; then
-  cd ..
-  ./install.sh h264 
-  echo -e "\nInstalled dynaprof..."
+if [[ $1 == "liteprof" ]]; then
+  cp liteprof/lencod.c instrumented/lencod.c
 fi
