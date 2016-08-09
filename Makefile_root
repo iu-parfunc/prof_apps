@@ -12,20 +12,46 @@ build-seq-apps-plain:
 	cd ../instrumented;\
 		make CFLAGS="$(CFLAGS)" LDFLAGS=$(LDFLAGS)
 
+build-par-apps-liteprof:
+	cd $(SRCS); make clean;\
+		make CFLAGS="$(LITEPROF_CFLAGS)" LDFLAGS=$(LITEPROF_LD)
+
+build-par-apps-plain:
+	cd $(SRCS); make clean;\
+		make CFLAGS="$(CFLAGS)" LDFLAGS=$(LDFLAGS)
+
 run-seq-plain:
 	(cd ../instrumented;\
-	 	/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
 
 run-seq-liteprof:
 	(cd ../instrumented;\
-	 	export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
-	 	/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
 
 run-seq-perf-plain:
 	(cd ../instrumented;\
-	 	perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
+		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
 
 run-seq-perf-liteprof:
 	(cd ../instrumented;\
-	 	export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
-	 	perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
+		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
+
+run-par-plain:
+	(cd $(SRCS);\
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+
+run-par-liteprof:
+	(cd $(SRCS);\
+		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+
+run-par-perf-plain:
+	(cd $(SRCS);\
+		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
+
+run-par-perf-liteprof:
+	(cd $(SRCS);\
+		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
