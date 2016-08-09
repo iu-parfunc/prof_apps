@@ -1,0 +1,31 @@
+
+include ../../Makefile_globals
+
+# Build sequential apps with liteprof
+build-seq-apps-liteprof:
+	cd ..;./setup.sh liteprof
+	cd ../instrumented; make clean;\
+		make CFLAGS="$(LITEPROF_CFLAGS)" LDFLAGS=$(LITEPROF_LD)
+
+build-seq-apps-plain:
+	cd ..; ./setup.sh
+	cd ../instrumented;\
+		make CFLAGS="$(CFLAGS)" LDFLAGS=$(LDFLAGS)
+
+run-seq-plain:
+	(cd ../instrumented;\
+	 	/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+
+run-seq-liteprof:
+	(cd ../instrumented;\
+	 	export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+	 	/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+
+run-seq-perf-plain:
+	(cd ../instrumented;\
+	 	perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
+
+run-seq-perf-liteprof:
+	(cd ../instrumented;\
+	 	export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+	 	perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
