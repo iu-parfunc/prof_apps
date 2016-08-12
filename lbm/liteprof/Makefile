@@ -1,13 +1,13 @@
 
-build: build-seq-apps-plain
+build: build-seq-apps-liteprof
 
 include ../Makefile_common
 
 run: build 
 	if [ -z $(PERF) ]; then \
-		make run-seq-plain; \
+		make run-seq-liteprof; \
 	else \
-		make run-seq-perf-plain; \
+		make run-seq-perf-liteprof; \
 	fi	
 	
 clean:

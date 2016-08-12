@@ -1,13 +1,13 @@
 
-.PHONY: clean run
-
-build: build-plain
+build: build-seq-apps-plain
 
 include ../Makefile_common
 
-run: run-common
-
-  # 	cd ../instrumented;\
-  # (/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./perlbench -Ilib test/input/diffmail.pl 4 800 10 17 19 300) 2>&1 ;\
-
+run: build 
+	if [ -z $(PERF) ]; then \
+		make run-seq-plain; \
+	else \
+		make run-seq-perf-plain; \
+	fi	
+	
 clean:

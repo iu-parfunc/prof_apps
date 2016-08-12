@@ -1,14 +1,13 @@
 
-.PHONY: clean run
-
-build: build-plain
+build: build-seq-apps-plain
 
 include ../Makefile_common
 
-run: run-common
-
-# run: build
-# 	cd ../instrumented;\
-#   (/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" ./h264ref -d test/input/foreman_test_encoder_baseline.cfg) 2>&1 ;\
-
+run: build 
+	if [ -z $(PERF) ]; then \
+		make run-seq-plain; \
+	else \
+		make run-seq-perf-plain; \
+	fi	
+	
 clean:

@@ -13,6 +13,7 @@ build-seq-apps-plain:
 		make CFLAGS="$(CFLAGS)" LDFLAGS=$(LDFLAGS)
 
 build-par-apps-liteprof:
+	cd ..; ./setup.sh
 	cd $(SRCS); make clean;\
 		make CFLAGS="$(LITEPROF_CFLAGS)" LDFLAGS=$(LITEPROF_LD)
 
