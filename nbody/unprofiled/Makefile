@@ -1,7 +1,7 @@
 
-include ../Makefile_common
-
 build: build-par-apps-plain
+
+include ../Makefile_common
 
 run: 
 	if [ -z $(PERF) ]; then \
