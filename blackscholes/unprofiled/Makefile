@@ -1,7 +1,8 @@
 
-include ../Makefile_common
-
+#making this rule the default 
 build: build-par-apps-plain
+
+include ../Makefile_common
 
 run: 
 	if [ -z $(PERF) ]; then \

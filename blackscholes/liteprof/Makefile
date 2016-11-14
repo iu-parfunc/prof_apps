@@ -1,4 +1,8 @@
 
+#a rule before all others.. 
+
+rule0: build-par-apps-liteprof
+
 include ../Makefile_common
 
 build: build-par-apps-liteprof
