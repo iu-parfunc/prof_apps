@@ -7,16 +7,8 @@ CXX = g++
 
 STATS_FILE=statistics.out 
 
-OPTLEVEL=-O0
+OPTLEVEL=-O3
 CURDIR=$(shell pwd)
-
-ifeq ($(VARIANT),sampling)
- PROFMODE=-Dsampling
-else ifeq ($(VARIANT),noprof)
- PROFMODE=-Dnoprof
-else
- PROFMODE=
-endif 
 
 CFLAGS+=-g $(OPTLEVEL)
 LDFLAGS='-lm -pthread'

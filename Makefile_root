@@ -1,6 +1,11 @@
 
 include ../../Makefile_globals
 
+SED_CACHE_MISSES=sed -r 's/^\s*([0-9,]+).*cache-misses/CACHE_MISSES: \1/'
+SED_ICACHE_MISSES=sed -r 's/^\s*([0-9,]+).*L1-icache-load-misses/L1_ICACHE_MISSES: \1/'
+SED_DTLB_MISSES=sed -r 's/^\s*([0-9,]+).*dTLB-load-misses/DTLB_MISSES: \1/'
+SED_ITLB_MISSES=sed -r 's/^\s*([0-9,]+).*iTLB-load-misses/ITLB_MISSES: \1/'
+
 # Build sequential apps with liteprof
 build-seq-apps-liteprof:
 	cd ..;./setup.sh liteprof
@@ -23,36 +28,52 @@ build-par-apps-plain:
 
 run-seq-plain:
 	(cd ../instrumented;\
-		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
 
 run-seq-liteprof:
 	(cd ../instrumented;\
 		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
-		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
 
 run-seq-perf-plain:
 	(cd ../instrumented;\
-		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
+		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,cache-misses,faults $(APPCMD) 2>&1 | \
+		$(SED_CACHE_MISSES) | \
+		$(SED_ICACHE_MISSES) | \
+		$(SED_DTLB_MISSES) | \
+		$(SED_ITLB_MISSES))
 
 run-seq-perf-liteprof:
 	(cd ../instrumented;\
 		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
-		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
+		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,cache-misses,faults $(APPCMD) 2>&1 | \
+		$(SED_CACHE_MISSES) | \
+		$(SED_ICACHE_MISSES) | \
+		$(SED_DTLB_MISSES) | \
+		$(SED_ITLB_MISSES))
 
 run-par-plain:
 	(cd $(SRCS);\
-		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
 
 run-par-liteprof:
 	(cd $(SRCS);\
 		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
-		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\n" $(APPCMD))
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
 
 run-par-perf-plain:
 	(cd $(SRCS);\
-		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
+		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,cache-misses,faults $(APPCMD) 2>&1 | \
+		$(SED_CACHE_MISSES) | \
+		$(SED_ICACHE_MISSES) | \
+		$(SED_DTLB_MISSES) | \
+		$(SED_ITLB_MISSES))
 
 run-par-perf-liteprof:
 	(cd $(SRCS);\
 		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
-		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,faults $(APPCMD))
+		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,cache-misses,faults $(APPCMD) 2>&1 | \
+		$(SED_CACHE_MISSES) | \
+		$(SED_ICACHE_MISSES) | \
+		$(SED_DTLB_MISSES) | \
+		$(SED_ITLB_MISSES))
