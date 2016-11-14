@@ -6,7 +6,7 @@ AR=ar
 RANLIB=ranlib
 LDFLAGS=
 
-CFLAGS=-Wall -Winline -O2 -g $(BIGFILES) -DSPEC_CPU
+CFLAGS=-Wall -Winline $(BIGFILES) -DSPEC_CPU
 
 # Where you want it installed when you do 'make install'
 PREFIX=/usr/local
