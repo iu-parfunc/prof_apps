@@ -1,1 +1,0 @@
-../original/sharednseqs.h

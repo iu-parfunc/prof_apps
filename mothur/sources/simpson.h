@@ -1,1 +1,0 @@
-../original/simpson.h

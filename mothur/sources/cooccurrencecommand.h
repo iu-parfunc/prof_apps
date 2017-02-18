@@ -1,1 +1,0 @@
-../original/cooccurrencecommand.h

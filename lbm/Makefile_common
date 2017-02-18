@@ -1,4 +1,0 @@
-
-include ../../Makefile_root
-
-APPCMD=./lbm 3000 reference.dat 0 0 data/ref/input/100_100_130_ldc.of

@@ -1,1 +1,0 @@
-../original/sharedkulczynskicody.cpp

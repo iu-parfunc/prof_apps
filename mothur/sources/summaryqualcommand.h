@@ -1,1 +1,0 @@
-../original/summaryqualcommand.h

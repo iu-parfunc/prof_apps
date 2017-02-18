@@ -1,1 +1,0 @@
-../original/sensspeccommand.h

@@ -1,1 +1,0 @@
-../original/smithwilson.cpp

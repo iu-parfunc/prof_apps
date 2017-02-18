@@ -1,1 +1,0 @@
-../original/getmetacommunitycommand.cpp

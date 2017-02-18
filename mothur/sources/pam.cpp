@@ -1,1 +1,0 @@
-../original/pam.cpp

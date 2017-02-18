@@ -1,1 +1,0 @@
-../original/whittaker.cpp

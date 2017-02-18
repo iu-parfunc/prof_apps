@@ -1,1 +1,0 @@
-../original/coverage.cpp

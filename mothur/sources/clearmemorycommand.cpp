@@ -1,1 +1,0 @@
-../original/clearmemorycommand.cpp

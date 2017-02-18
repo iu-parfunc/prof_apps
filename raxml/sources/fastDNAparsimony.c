@@ -1,1 +1,0 @@
-../original/fastDNAparsimony.c

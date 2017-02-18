@@ -1,1 +1,0 @@
-../original/chimerabellerophoncommand.h
