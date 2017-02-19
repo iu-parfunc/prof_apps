@@ -13,9 +13,9 @@ CURDIR=$(shell pwd)
 CFLAGS+=-g $(OPTLEVEL)
 LDFLAGS='-lm -pthread'
 LITEPROF_CFLAGS=$(CFLAGS) $(PROFMODE)
-LITEPROF_LD='-lm -pthread -L../../../build/lib -lliteprof'
+LITEPROF_LD='-lm -pthread -L../../../../build/lib -lliteprof'
 
-LITEPROF_LD_PATH=LD_LIBRARY_PATH=../../../build/lib/:$(LD_LIBRARY_PATH)
+LITEPROF_LD_PATH=LD_LIBRARY_PATH=../../../../build/lib/:$(LD_LIBRARY_PATH)
 
 TIME=time -f "\nSELFTIMED %e\nUSER_TIME %U\nSYS_TIME %s" -a -o $(STATS_FILE) 
 

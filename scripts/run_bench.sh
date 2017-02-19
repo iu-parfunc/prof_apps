@@ -39,7 +39,7 @@ function run {
 function collect {
   pwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   bench_root=$pwd/..
-  toplvl=$bench_root/..
+  toplvl=$bench_root/../..
 
   for exp in "${EXPERIMENTS[@]}"
   do
@@ -54,7 +54,7 @@ function collect {
 function init {
   pwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   bench_root=$pwd/..
-  toplvl=$bench_root/..
+  toplvl=$bench_root/../..
 
   mkdir -p $toplvl/results
 
@@ -81,5 +81,5 @@ do
 done
 
 init
-# (export PROF_TYPE="NOPROF" ; run)
+(export PROF_TYPE="NOPROF" ; run)
 collect

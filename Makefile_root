@@ -32,7 +32,7 @@ run-seq-plain:
 
 run-seq-liteprof:
 	(cd ../instrumented;\
-		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+		export LD_LIBRARY_PATH=$(CURDIR)/../../../../build/lib/:$(LD_LIBRARY_PATH);\
 		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
 
 run-seq-perf-plain:
@@ -45,7 +45,7 @@ run-seq-perf-plain:
 
 run-seq-perf-liteprof:
 	(cd ../instrumented;\
-		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+		export LD_LIBRARY_PATH=$(CURDIR)/../../../../build/lib/:$(LD_LIBRARY_PATH);\
 		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,cache-misses,faults $(APPCMD) 2>&1 | \
 		$(SED_CACHE_MISSES) | \
 		$(SED_ICACHE_MISSES) | \
@@ -58,7 +58,7 @@ run-par-plain:
 
 run-par-liteprof:
 	(cd $(SRCS);\
-		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+		export LD_LIBRARY_PATH=$(CURDIR)/../../../../build/lib/:$(LD_LIBRARY_PATH);\
 		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
 
 run-par-perf-plain:
@@ -71,7 +71,7 @@ run-par-perf-plain:
 
 run-par-perf-liteprof:
 	(cd $(SRCS);\
-		export LD_LIBRARY_PATH=$(CURDIR)/../../../build/lib/:$(LD_LIBRARY_PATH);\
+		export LD_LIBRARY_PATH=$(CURDIR)/../../../../build/lib/:$(LD_LIBRARY_PATH);\
 		perf stat -e r4C3,L1-icache-load-misses,dTLB-load-misses,iTLB-load-misses,cache-misses,faults $(APPCMD) 2>&1 | \
 		$(SED_CACHE_MISSES) | \
 		$(SED_ICACHE_MISSES) | \
