@@ -7,7 +7,7 @@ CXX = g++
 
 STATS_FILE=statistics.out 
 
-OPTLEVEL=-O3
+OPTLEVEL=
 CURDIR=$(shell pwd)
 
 CFLAGS+=-g $(OPTLEVEL)
