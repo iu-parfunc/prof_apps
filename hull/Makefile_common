@@ -4,7 +4,7 @@
 
 include ../../Makefile_root
 
-DATADIR=/u/crest-team/Joel/ubiprof_data
+DATADIR=../../bench-data
 
 APPCMD=./hull $(DATADIR)/hull_data.input
 SRCS=../quickHull

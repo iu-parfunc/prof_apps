@@ -1,9 +1,9 @@
 #!/bin/bash
 
 SEQ_BENCHES=( "bzip-1.0.3" "h264ref-9.3" "hmmer" "perl-5.8.7" "sjeng" )
-PAR_BENCHES=( "blackscholes" "fluid" "hull" "nbody" ) 
 
-EXPERIMENTS=( "Layout_Distribution-Table2" "Init_Costs-Table6" )
+declare -A PAR_BENCHES=( ["blackscholes"]="src" ["fluid"]="src" ["hull"]="quickHull" ["nbody"]="BarnesHut" )
+declare -A EXPERIMENTS=( ["Layout_Distribution-Table2"]="layouts.out" ["Init_Costs-Table6"]="stats.out" )
 
 mode="seq"
 
@@ -27,7 +27,7 @@ function run {
  	   echo -e " Running Parallel Application Benchmarks "
      echo -e "--------------------------------------------\n"
 
-     for bench in "${PAR_BENCHES[@]}"
+     for bench in "${!PAR_BENCHES[@]}"
      do
        echo -e "----------- Running $bench ------------\n"
        (cd $root/$bench/liteprof;make run)
@@ -41,12 +41,15 @@ function collect {
   bench_root=$pwd/..
   toplvl=$bench_root/../..
 
-  for exp in "${EXPERIMENTS[@]}"
+  for exp in "${!EXPERIMENTS[@]}"
   do
     for bench in "${SEQ_BENCHES[@]}"
     do
-      yes | cp -f $bench_root/$bench/instrumented/layouts.out $toplvl/results/$exp/raw/$bench
-      echo -e "\n"
+      yes | cp -f $bench_root/$bench/instrumented/${EXPERIMENTS[$exp]} $toplvl/results/$exp/raw/$bench
+    done
+    for bench in "${!PAR_BENCHES[@]}"
+    do
+      yes | cp -f $bench_root/$bench/${PAR_BENCHES[$bench]}/${EXPERIMENTS[$exp]} $toplvl/results/$exp/raw/$bench
     done
   done
 }
@@ -58,7 +61,7 @@ function init {
 
   mkdir -p $toplvl/results
 
-  for exp in "${EXPERIMENTS[@]}"
+  for exp in "${!EXPERIMENTS[@]}"
   do
     mkdir -p $toplvl/results/$exp
     mkdir -p $toplvl/results/$exp/raw/

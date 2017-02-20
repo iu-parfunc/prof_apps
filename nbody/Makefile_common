@@ -6,7 +6,7 @@
 
 .PHONY: default clean run
 
-DATADIR=/u/crest-team/Joel/ubiprof_data
+DATADIR=../../bench-data
 
 APPCMD=./nbody $(DATADIR)/nbody_data.input
 SRCS=../BarnesHut

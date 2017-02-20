@@ -5,7 +5,7 @@
 include ../../Makefile_root
 
 N_THREADS = 16 
-DATADIR=/u/crest-team/Joel/ubiprof_data
+DATADIR=../../bench-data
 
 APPCMD=./blackscholes $(N_THREADS) $(DATADIR)/blackscholes_data.input /dev/null
 SRCS=../src

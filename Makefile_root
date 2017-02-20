@@ -8,9 +8,9 @@ SED_ITLB_MISSES=sed -r 's/^\s*([0-9,]+).*iTLB-load-misses/ITLB_MISSES: \1/'
 
 # Build sequential apps with liteprof
 build-seq-apps-liteprof:
-	cd ..;./setup.sh liteprof
 	cd ../instrumented; make clean;\
 		make CFLAGS="$(LITEPROF_CFLAGS)" LDFLAGS=$(LITEPROF_LD)
+#	cd ..;./setup.sh liteprof
 
 build-seq-apps-plain:
 	cd ..; ./setup.sh
@@ -18,9 +18,9 @@ build-seq-apps-plain:
 		make CFLAGS="$(CFLAGS)" LDFLAGS=$(LDFLAGS)
 
 build-par-apps-liteprof:
-	cd ..; ./setup.sh
 	cd $(SRCS); make clean;\
 		make CFLAGS="$(LITEPROF_CFLAGS)" LDFLAGS=$(LITEPROF_LD)
+#	cd ..; ./setup.sh
 
 build-par-apps-plain:
 	cd $(SRCS); make clean;\
