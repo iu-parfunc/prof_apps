@@ -1200,8 +1200,12 @@ void AdvanceFrameVisualization()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+extern "C" void liteprobes_dummy();
+
 int main(int argc, char *argv[])
 {
+
+  liteprobes_dummy();
 #ifdef PARSEC_VERSION
 #define __PARSEC_STRING(x) #x
 #define __PARSEC_XSTRING(x) __PARSEC_STRING(x)
