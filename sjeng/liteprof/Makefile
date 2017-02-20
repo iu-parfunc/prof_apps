@@ -3,7 +3,7 @@ build: build-seq-apps-liteprof
 
 include ../Makefile_common
 
-run: build 
+run: 
 	if [ -z $(PERF) ]; then \
 		make run-seq-liteprof; \
 	else \

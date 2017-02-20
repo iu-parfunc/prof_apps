@@ -3,7 +3,7 @@
 SEQ_BENCHES=( "bzip-1.0.3" "h264ref-9.3" "hmmer" "perl-5.8.7" "sjeng" )
 
 declare -A PAR_BENCHES=( ["blackscholes"]="src" ["fluid"]="src" ["hull"]="quickHull" ["nbody"]="BarnesHut" )
-declare -A EXPERIMENTS=( ["Layout_Distribution-Table2"]="layouts.out" ["Init_Costs-Table6"]="stats.out" )
+declare -A EXPERIMENTS=( ["Layout_Distribution-Table2"]="layouts.out" ["Init_Costs-Table6"]="stats.out" ["Mem_Util-Table5"]="stats.out" )
 
 mode="seq"
 
@@ -46,10 +46,14 @@ function collect {
     for bench in "${SEQ_BENCHES[@]}"
     do
       yes | cp -f $bench_root/$bench/instrumented/${EXPERIMENTS[$exp]} $toplvl/results/$exp/raw/$bench
+      if [ "$exp" == "Init_Costs-Table6" ] || [ "$exp" == "Mem_Util-Table5" ] ; then
+        yes | cp -f $bench_root/$bench/instrumented/res.out $toplvl/results/$exp/raw/$bench"_time"
+      fi
     done
     for bench in "${!PAR_BENCHES[@]}"
     do
       yes | cp -f $bench_root/$bench/${PAR_BENCHES[$bench]}/${EXPERIMENTS[$exp]} $toplvl/results/$exp/raw/$bench
+      yes | cp -f $bench_root/$bench/${PAR_BENCHES[$bench]}/res.out $toplvl/results/$exp/raw/$bench"_time"
     done
   done
 }
@@ -84,5 +88,5 @@ do
 done
 
 init
-(export PROF_TYPE="NOPROF" ; run)
+# (export PROF_TYPE="NOPROF" ; run)
 collect

@@ -28,12 +28,12 @@ build-par-apps-plain:
 
 run-seq-plain:
 	(cd ../instrumented;\
-		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" -o res.out $(APPCMD))
 
 run-seq-liteprof:
 	(cd ../instrumented;\
 		export LD_LIBRARY_PATH=$(CURDIR)/../../../../build/lib/:$(LD_LIBRARY_PATH);\
-		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" -o res.out $(APPCMD))
 
 run-seq-perf-plain:
 	(cd ../instrumented;\
@@ -54,12 +54,12 @@ run-seq-perf-liteprof:
 
 run-par-plain:
 	(cd $(SRCS);\
-		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" -o res.out $(APPCMD))
 
 run-par-liteprof:
 	(cd $(SRCS);\
 		export LD_LIBRARY_PATH=$(CURDIR)/../../../../build/lib/:$(LD_LIBRARY_PATH);\
-		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" $(APPCMD))
+		/usr/bin/time -f "SELFTIMED %e\nuser %U\nsys %S\nRES_SIZE: %M\n" -o res.out $(APPCMD))
 
 run-par-perf-plain:
 	(cd $(SRCS);\
