@@ -1,1 +1,0 @@
-../common/instrument.sh
