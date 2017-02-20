@@ -89,5 +89,5 @@ do
 done
 
 init
-# (export PROF_TYPE="NOPROF" ; run)
+(export PROF_TYPE="NOPROF" ; run)
 collect
