@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -A SEQ_BENCHES=( ["bzip-1.0.3"]="bzip" ["h264ref-9.3"]="h264" ["hmmer"]="hmmer" ["perl-5.8.7"]="perlbench" ["sjeng"]="sjeng" )
+declare -A SEQ_BENCHES=( ["bzip-1.0.3"]="bzip" ["h264ref-9.3"]="h264" ["perl-5.8.7"]="perlbench" ["sjeng"]="sjeng" )
 declare -A PAR_BENCHES=( ["blackscholes"]="src" ["fluid"]="src" ["hull"]="quickHull" ["nbody"]="BarnesHut" )
 declare -A EXPERIMENTS=( ["Layout_Distribution-Table2"]="layouts.out" ["Init_Costs-Table6"]="stats.out" ["Mem_Util-Table5"]="stats.out" )
 
